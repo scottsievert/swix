@@ -18,6 +18,7 @@ use this project I'd love to hear about it.
 
 Currently, this library gives you
 
+* linear regression and quadratic (polynomial) regression
 * operators and various functions (sin, etc) that operate on entire arrays
 * helper function (reshape, reverse, delete, repeat, etc)
 * easy initializers for 1D and 2D arrays
