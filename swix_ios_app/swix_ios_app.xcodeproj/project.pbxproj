@@ -36,8 +36,6 @@
 		D259E2B41BA53DCE0096A116 /* m-initing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E2881BA53DCE0096A116 /* m-initing.swift */; };
 		D259E2B51BA53DCE0096A116 /* m-initing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E2881BA53DCE0096A116 /* m-initing.swift */; };
 		D259E2B61BA53DCE0096A116 /* m-matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E2891BA53DCE0096A116 /* m-matrix.swift */; };
-		D259E2B71BA53DCE0096A116 /* m-matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E2891BA53DCE0096A116 /* m-matrix.swift */; };
-		D259E2B81BA53DCE0096A116 /* m-matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E2891BA53DCE0096A116 /* m-matrix.swift */; };
 		D259E2B91BA53DCE0096A116 /* m-operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E28A1BA53DCE0096A116 /* m-operators.swift */; };
 		D259E2BA1BA53DCE0096A116 /* m-operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E28A1BA53DCE0096A116 /* m-operators.swift */; };
 		D259E2BB1BA53DCE0096A116 /* m-operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E28A1BA53DCE0096A116 /* m-operators.swift */; };
@@ -506,7 +504,6 @@
 				D259E2BA1BA53DCE0096A116 /* m-operators.swift in Sources */,
 				D259E2E41BA53DCE0096A116 /* operations-and-indexing.m in Sources */,
 				D259E2C01BA53DCE0096A116 /* complex-math.swift in Sources */,
-				D259E2B71BA53DCE0096A116 /* m-matrix.swift in Sources */,
 				D259E2D21BA53DCE0096A116 /* numbers.swift in Sources */,
 				D259E2E71BA53DCE0096A116 /* ScalarArithmetic-bleed.swift in Sources */,
 				D259E2C31BA53DCE0096A116 /* helper-functions.swift in Sources */,
@@ -539,7 +536,6 @@
 				D259E2BB1BA53DCE0096A116 /* m-operators.swift in Sources */,
 				D259E2E51BA53DCE0096A116 /* operations-and-indexing.m in Sources */,
 				D259E2C11BA53DCE0096A116 /* complex-math.swift in Sources */,
-				D259E2B81BA53DCE0096A116 /* m-matrix.swift in Sources */,
 				D259E2D31BA53DCE0096A116 /* numbers.swift in Sources */,
 				D259E2E81BA53DCE0096A116 /* ScalarArithmetic-bleed.swift in Sources */,
 				D259E2C41BA53DCE0096A116 /* helper-functions.swift in Sources */,
