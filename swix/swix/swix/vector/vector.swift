@@ -20,9 +20,9 @@ struct vector {
     init(n: Int) {
         self.n = n
         self.count = n
-        grid = Array(count: n, repeatedValue: 0.0)
+        grid = Array(repeating: 0.0, count: n)
     }
-    func reshape(shape: (Int,Int)) -> matrix{
+    func reshape(_ shape: (Int,Int)) -> matrix{
         // reshape to a matrix of size.
         var (mm, nn) = shape
         if mm == -1 {mm = n / nn}
@@ -42,7 +42,7 @@ struct vector {
         // sort this array *in place*
         vDSP_vsortD(!self, self.n.length, 1.cint)
     }
-    func indexIsValidForRow(index: Int) -> Bool {
+    func indexIsValidForRow(_ index: Int) -> Bool {
         // making sure this index is valid
         return index >= 0 && index < n
     }

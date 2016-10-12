@@ -9,7 +9,7 @@
 import Foundation
 
 // NORM
-func norm(x: vector, ord:Double=2) -> Double{
+func norm(_ x: vector, ord:Double=2) -> Double{
     // takes the norm of an array
     if ord==2      { return sqrt(sum(pow(x, power: 2)))}
     else if ord==1 { return sum(abs(x))}
@@ -21,32 +21,32 @@ func norm(x: vector, ord:Double=2) -> Double{
     else if ord.double == -inf {return min(abs(x))}
     assert(false, "type of norm unrecongnized")
     return -1.0}
-func count_nonzero(x:vector)->Double{
+func count_nonzero(_ x:vector)->Double{
     return sum(abs(x) > S2_THRESHOLD)
 }
 
 // modifying elements of the array
-func clip(a:vector, a_min:Double, a_max:Double)->vector{
+func clip(_ a:vector, a_min:Double, a_max:Double)->vector{
     // clip the matrix
     var y = a.copy()
     y[argwhere(a < a_min)] <- a_min
     y[argwhere(a > a_max)] <- a_max
     return y
 }
-func reverse(x:vector) -> vector{
+func reverse(_ x:vector) -> vector{
     // reverse the array
     let y = x.copy()
     vDSP_vrvrsD(!y, 1.stride, y.n.length)
     return y
 }
-func delete(x:vector, idx:vector) -> vector{
+func delete(_ x:vector, idx:vector) -> vector{
     // delete select elements
     var i = ones(x.n)
     i[idx] *= 0
     let y = x[argwhere(i)]
     return y
 }
-func `repeat`(x: vector, N:Int, axis:Int=0) -> vector{
+func `repeat`(_ x: vector, N:Int, axis:Int=0) -> vector{
     // repeat the array element wise or as a whole array
     var y = zeros((N, x.n))
     
@@ -59,13 +59,13 @@ func `repeat`(x: vector, N:Int, axis:Int=0) -> vector{
 }
 
 // SORTING and the like
-func sort(x:vector)->vector{
+func sort(_ x:vector)->vector{
     // sort the array and return a new array
     let y = x.copy()
     y.sort()
     return y
 }
-func unique(x:vector)->vector{
+func unique(_ x:vector)->vector{
     var y = sort(x)
     var z = concat(zeros(1), y: y)
     let diff = abs(z[1..<z.n] - z[0..<z.n-1]) > S2_THRESHOLD
@@ -77,7 +77,7 @@ func unique(x:vector)->vector{
         return un
     }
 }
-func shuffle(x:vector)->vector{
+func shuffle(_ x:vector)->vector{
     // randomly shuffle the array
     let y = x.copy()
     CVWrapper.shuffle(!y, n:y.n.cint)
@@ -85,13 +85,13 @@ func shuffle(x:vector)->vector{
 }
 
 // SETS
-func intersection(x: vector, y:vector)->vector{
+func intersection(_ x: vector, y:vector)->vector{
     return unique(x[argwhere(in1d(x, y: y))])
 }
-func union(x:vector, y:vector)->vector{
+func union(_ x:vector, y:vector)->vector{
     return unique(concat(x, y: y))
 }
-func in1d(x: vector, y:vector)->vector{
+func in1d(_ x: vector, y:vector)->vector{
     if (x.n > 0 && y.n > 0){
         let (xx, yy) = meshgrid(x, y: y)
         let i = abs(xx-yy) < S2_THRESHOLD
@@ -100,7 +100,7 @@ func in1d(x: vector, y:vector)->vector{
     }
     return array()
 }
-func concat(x:vector, y:vector)->vector{
+func concat(_ x:vector, y:vector)->vector{
     // concatenate two matrices
     var z = zeros(x.n + y.n)
     z[0..<x.n] = x
@@ -109,23 +109,23 @@ func concat(x:vector, y:vector)->vector{
 }
 
 // ARG
-func argmax(x:vector)->Int{
+func argmax(_ x:vector)->Int{
     // find the location of the max
     var m:CInt = 0
     CVWrapper.argmax(!x, n: x.n.cint, max: &m)
     return Int(m)
 }
-func argmin(x:vector)->Int{
+func argmin(_ x:vector)->Int{
     // find the location of the min
     var m:CInt = 0
     CVWrapper.argmin(!x, n: x.n.cint, min: &m)
     return Int(m)
 }
-func argsort(x:vector)->vector{
+func argsort(_ x:vector)->vector{
     // sort the array but use integers
     
     // the array of integers that OpenCV needs
-    var y:[CInt] = Array(count:x.n, repeatedValue:0)
+    var y:[CInt] = Array(repeating: 0, count: x.n)
     // calling opencv's sortidx
     CVWrapper.argsort(!x, n: x.n.cint, into:&y)
     // the integer-->double conversion
@@ -133,7 +133,7 @@ func argsort(x:vector)->vector{
     vDSP_vflt32D(&y, 1.stride, !z, 1.stride, x.n.length)
     return z
 }
-func argwhere(idx: vector) -> vector{
+func argwhere(_ idx: vector) -> vector{
     // counts non-zero elements, return array of doubles (which can be indexed!).
     let i = arange(idx.n)
     let args = zeros(sum(idx).int)
@@ -143,26 +143,26 @@ func argwhere(idx: vector) -> vector{
 
 
 // LOGICAL
-func logical_and(x:vector, y:vector)->vector{
+func logical_and(_ x:vector, y:vector)->vector{
     return x * y
 }
-func logical_or(x:vector, y:vector)->vector{
+func logical_or(_ x:vector, y:vector)->vector{
     var i = x + y
     let j = argwhere(i > 0.5)
     i[j] <- 1.0
     return i
 }
-func logical_not(x:vector)->vector{
+func logical_not(_ x:vector)->vector{
     return 1-x
 }
-func logical_xor(x:vector, y:vector)->vector{
+func logical_xor(_ x:vector, y:vector)->vector{
     let i = x + y
     let j = (i < 1.5) && (i > 0.5)
     return j
 }
 
 // PRINTING
-func println(x: vector, prefix:String="array([", postfix:String="])", newline:String="\n", format:String="%.3f", seperator:String=", ", printAllElements:Bool=false){
+func println(_ x: vector, prefix:String="array([", postfix:String="])", newline:String="\n", format:String="%.3f", seperator:String=", ", printAllElements:Bool=false){
     // print the matrix
     print(prefix, terminator: "")
     var suffix = seperator
@@ -171,7 +171,7 @@ func println(x: vector, prefix:String="array([", postfix:String="])", newline:St
     for i in 0..<x.n{
         if i==x.n-1 { suffix = "" }
         if printAllElements || (x.n)<16 || i<3 || i>(x.n-4){
-            string = NSString(format: format+suffix, x[i])
+            string = NSString(format: (format+suffix) as NSString, x[i])
             print(String(string), terminator:"")
         }
         else if printed == false{
@@ -182,7 +182,7 @@ func println(x: vector, prefix:String="array([", postfix:String="])", newline:St
     print(postfix, terminator: "")
     print(newline, terminator: "")
 }
-func print(x: vector, prefix:String="vector([", postfix:String="])", format:String="%.3f", printWholeMatrix:Bool=false){
+func print(_ x: vector, prefix:String="vector([", postfix:String="])", format:String="%.3f", printWholeMatrix:Bool=false){
     println(x, prefix:prefix, postfix:postfix, newline:"\n", format:format, printAllElements:printWholeMatrix)
 }
 

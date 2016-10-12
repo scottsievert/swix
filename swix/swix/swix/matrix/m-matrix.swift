@@ -48,10 +48,10 @@ struct matrix {
             self[j + j/n.double] = newValue
         }
     }
-    func indexIsValidForRow(r: Int, c: Int) -> Bool {
+    func indexIsValidForRow(_ r: Int, c: Int) -> Bool {
         return r >= 0 && r < rows && c>=0 && c < columns
     }
-    func dot(y: matrix) -> matrix{
+    func dot(_ y: matrix) -> matrix{
         let (Mx, Nx) = self.shape
         let (My, Ny) = y.shape
         assert(Nx == My, "Matrix sizes not compatible for dot product")
@@ -63,13 +63,13 @@ struct matrix {
             !z, Ny.cint)
         return z
     }
-    func dot(x: vector) -> vector{
+    func dot(_ x: vector) -> vector{
         var y = zeros((x.n, 1))
         y.flat = x
         let z = self.dot(y)
         return z.flat
     }
-    func min(axis:Int = -1) -> Double{
+    func min(_ axis:Int = -1) -> Double{
         if axis == -1{
             return self.flat.min()
         }
@@ -77,7 +77,7 @@ struct matrix {
         assert(false, "max(x, axis:Int) for maximum of each row is not implemented yet. Use max(A.flat) or A.flat.max() to get the global maximum")
 
     }
-    func max(axis:Int = -1) -> Double{
+    func max(_ axis:Int = -1) -> Double{
         if axis == -1 {
             return self.flat.max()
         }

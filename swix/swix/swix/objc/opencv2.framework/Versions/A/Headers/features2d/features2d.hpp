@@ -415,7 +415,7 @@ public:
          * @param orientationNormalized enable orientation normalization
          * @param scaleNormalized enable scale normalization
          * @param patternScale scaling of the description pattern
-         * @param nbOctave number of octaves covered by the detected keypoints
+         * @param nOctaves number of octaves covered by the detected keypoints
          * @param selectedPairs (optional) user defined selected pairs
     */
     explicit FREAK( bool orientationNormalized = true,

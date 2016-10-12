@@ -541,7 +541,7 @@ public:
     template<int l> Matx(const Matx<_Tp, m, l>& a, const Matx<_Tp, l, n>& b, Matx_MatMulOp);
     Matx(const Matx<_Tp, n, m>& a, Matx_TOp);
 
-    _Tp val[m*n]; //< matrix elements
+    _Tp val[m*n]; ///< matrix elements
 };
 
 
@@ -711,7 +711,7 @@ public:
     //! conversion to std::complex
     operator std::complex<_Tp>() const;
 
-    _Tp re, im; //< the real and the imaginary parts
+    _Tp re, im; ///< the real and the imaginary parts
 };
 
 
@@ -763,7 +763,7 @@ public:
     //! checks whether the point is inside the specified rectangle
     bool inside(const Rect_<_Tp>& r) const;
 
-    _Tp x, y; //< the point coordinates
+    _Tp x, y; ///< the point coordinates
 };
 
 /*!
@@ -802,7 +802,7 @@ public:
     //! cross product of the 2 3D points
     Point3_ cross(const Point3_& pt) const;
 
-    _Tp x, y, z; //< the point coordinates
+    _Tp x, y, z; ///< the point coordinates
 };
 
 //////////////////////////////// Size_ ////////////////////////////////
@@ -880,7 +880,7 @@ public:
     //! checks whether the rectangle contains the point
     bool contains(const Point_<_Tp>& pt) const;
 
-    _Tp x, y, width, height; //< the top-left corner, as well as width and height of the rectangle
+    _Tp x, y, width, height; ///< the top-left corner, as well as width and height of the rectangle
 };
 
 
@@ -925,9 +925,9 @@ public:
     //! conversion to the old-style CvBox2D structure
     operator CvBox2D() const;
 
-    Point2f center; //< the rectangle mass center
-    Size2f size;    //< width and height of the rectangle
-    float angle;    //< the rotation angle. When the angle is 0, 90, 180, 270 etc., the rectangle becomes an up-right rectangle.
+    Point2f center; ///< the rectangle mass center
+    Size2f size;    ///< width and height of the rectangle
+    float angle;    ///< the rotation angle. When the angle is 0, 90, 180, 270 etc., the rectangle becomes an up-right rectangle.
 };
 
 //////////////////////////////// Scalar_ ///////////////////////////////
@@ -1299,8 +1299,8 @@ public:
     operator _Tp* ();
     operator const _Tp*() const;
 
-    _Tp* obj; //< the object pointer.
-    int* refcount; //< the associated reference counter
+    _Tp* obj; ///< the object pointer.
+    int* refcount; ///< the associated reference counter
 };
 
 
