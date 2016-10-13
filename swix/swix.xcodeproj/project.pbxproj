@@ -8,10 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		A77514C11DAD407F00319238 /* Swix.h in Headers */ = {isa = PBXBuildFile; fileRef = A77514BF1DAD407F00319238 /* Swix.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A77514C51DAD410900319238 /* opencv.mm in Sources */ = {isa = PBXBuildFile; fileRef = D2D216531B629E8E00489EB9 /* opencv.mm */; };
 		A77514C71DAD437300319238 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B481B1196F20EB00DAEDFF /* Accelerate.framework */; };
 		A77514C81DAD438D00319238 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B481AF196F20E400DAEDFF /* Foundation.framework */; };
 		A77514CC1DAD43E600319238 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D24D7132199272E600D4B9D8 /* opencv2.framework */; };
+		A7F673BD1DAF7CAF009B842F /* opencv.mm in Sources */ = {isa = PBXBuildFile; fileRef = D2D216531B629E8E00489EB9 /* opencv.mm */; };
+		A7F673BE1DAF7D99009B842F /* OpenCV.h in Headers */ = {isa = PBXBuildFile; fileRef = D2D216521B629E8E00489EB9 /* OpenCV.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7F673C01DAF7E20009B842F /* operations-and-indexing.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D216551B629E8E00489EB9 /* operations-and-indexing.m */; };
+		A7F673C11DAF7E2B009B842F /* math.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D216511B629E8E00489EB9 /* math.m */; };
+		A7F673C21DAF7E34009B842F /* machine_learning.mm in Sources */ = {isa = PBXBuildFile; fileRef = D2D216501B629E8E00489EB9 /* machine_learning.mm */; };
+		A7F673C41DAF7EB7009B842F /* ScalarArithmetic-bleed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D216571B629E8E00489EB9 /* ScalarArithmetic-bleed.swift */; };
+		A7F673C61DAF7F00009B842F /* initing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D88FC61D00BB9C0062B7DC /* initing.swift */; };
+		A7F673C71DAF7F22009B842F /* complex-math.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D88FC41D00BB9C0062B7DC /* complex-math.swift */; };
+		A7F673C81DAF7F22009B842F /* helper-functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D88FC51D00BB9C0062B7DC /* helper-functions.swift */; };
+		A7F673C91DAF7F22009B842F /* operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D88FC71D00BB9C0062B7DC /* operators.swift */; };
+		A7F673CA1DAF7F22009B842F /* simple-math.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D88FC81D00BB9C0062B7DC /* simple-math.swift */; };
+		A7F673CB1DAF7F22009B842F /* vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D88FC91D00BB9C0062B7DC /* vector.swift */; };
+		A7F673CC1DAF7F7C009B842F /* io.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D2163B1B629E8E00489EB9 /* io.swift */; };
+		A7F673CD1DAF7F7C009B842F /* numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D2164D1B629E8E00489EB9 /* numbers.swift */; };
+		A7F673CE1DAF7F80009B842F /* machine_learning.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D2163D1B629E8E00489EB9 /* machine_learning.swift */; };
+		A7F673CF1DAF7F86009B842F /* m-complex-math.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D2163F1B629E8E00489EB9 /* m-complex-math.swift */; };
+		A7F673D01DAF7F86009B842F /* m-helper-functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D216401B629E8E00489EB9 /* m-helper-functions.swift */; };
+		A7F673D11DAF7F86009B842F /* m-image.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D216411B629E8E00489EB9 /* m-image.swift */; };
+		A7F673D21DAF7F86009B842F /* m-initing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D216421B629E8E00489EB9 /* m-initing.swift */; };
+		A7F673D31DAF7F86009B842F /* m-matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D216431B629E8E00489EB9 /* m-matrix.swift */; };
+		A7F673D41DAF7F86009B842F /* m-operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D216441B629E8E00489EB9 /* m-operators.swift */; };
+		A7F673D51DAF7F86009B842F /* m-simple-math.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D216451B629E8E00489EB9 /* m-simple-math.swift */; };
+		A7F673D61DAF8003009B842F /* conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D2164F1B629E8E00489EB9 /* conversion.swift */; };
+		A7F673D71DAF80D8009B842F /* swix-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D2D216561B629E8E00489EB9 /* swix-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -193,6 +216,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A77514C11DAD407F00319238 /* Swix.h in Headers */,
+				A7F673BE1DAF7D99009B842F /* OpenCV.h in Headers */,
+				A7F673D71DAF80D8009B842F /* swix-Bridging-Header.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +256,7 @@
 					A77514BC1DAD407F00319238 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = BBEN69ME29;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -267,7 +293,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A77514C51DAD410900319238 /* opencv.mm in Sources */,
+				A7F673D31DAF7F86009B842F /* m-matrix.swift in Sources */,
+				A7F673CB1DAF7F22009B842F /* vector.swift in Sources */,
+				A7F673C61DAF7F00009B842F /* initing.swift in Sources */,
+				A7F673D11DAF7F86009B842F /* m-image.swift in Sources */,
+				A7F673C11DAF7E2B009B842F /* math.m in Sources */,
+				A7F673D41DAF7F86009B842F /* m-operators.swift in Sources */,
+				A7F673D01DAF7F86009B842F /* m-helper-functions.swift in Sources */,
+				A7F673D61DAF8003009B842F /* conversion.swift in Sources */,
+				A7F673C91DAF7F22009B842F /* operators.swift in Sources */,
+				A7F673C41DAF7EB7009B842F /* ScalarArithmetic-bleed.swift in Sources */,
+				A7F673BD1DAF7CAF009B842F /* opencv.mm in Sources */,
+				A7F673C01DAF7E20009B842F /* operations-and-indexing.m in Sources */,
+				A7F673CE1DAF7F80009B842F /* machine_learning.swift in Sources */,
+				A7F673CC1DAF7F7C009B842F /* io.swift in Sources */,
+				A7F673CF1DAF7F86009B842F /* m-complex-math.swift in Sources */,
+				A7F673C21DAF7E34009B842F /* machine_learning.mm in Sources */,
+				A7F673C71DAF7F22009B842F /* complex-math.swift in Sources */,
+				A7F673C81DAF7F22009B842F /* helper-functions.swift in Sources */,
+				A7F673CD1DAF7F7C009B842F /* numbers.swift in Sources */,
+				A7F673D51DAF7F86009B842F /* m-simple-math.swift in Sources */,
+				A7F673D21DAF7F86009B842F /* m-initing.swift in Sources */,
+				A7F673CA1DAF7F22009B842F /* simple-math.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +350,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = biz.liquit.Swix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -337,6 +385,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = biz.liquit.Swix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -429,6 +478,7 @@
 				A77514C31DAD407F00319238 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D24A854C196D7D73009C18AC /* Build configuration list for PBXProject "swix" */ = {
 			isa = XCConfigurationList;

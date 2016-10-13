@@ -6,14 +6,12 @@
 //  Copyright (c) 2014 com.scott. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <Accelerate/Accelerate.h>
-
+#import "OpenCV.h"
+#import <opencv2/opencv.hpp>
 #import <opencv2/core/core.hpp>
 #import <opencv2/highgui/highgui.hpp>
 #import <opencv2/ml/ml.hpp>
 
-#import "OpenCV.h"
 using namespace cv;
 
 void copy(Mat x, double * y, int N);

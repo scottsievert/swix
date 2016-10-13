@@ -18,3 +18,4 @@ FOUNDATION_EXPORT const unsigned char SwixVersionString[];
 
 
 #import "OpenCV.h"
+#import "swix-Bridging-Header.h"
