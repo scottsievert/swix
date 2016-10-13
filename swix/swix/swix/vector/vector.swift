@@ -13,7 +13,7 @@ import Accelerate
 
 // SLOW PARTS: x[vector, vector] set
 
-struct vector {
+public struct vector {
     let n: Int // the number of elements
     var count: Int // ditto
     var grid: [Double] // the raw values
