@@ -9,7 +9,7 @@
 import Foundation
 
 // NORM
-func norm(_ x: vector, ord:Double=2) -> Double{
+public func norm(_ x: vector, ord:Double=2) -> Double{
     // takes the norm of an array
     if ord==2      { return sqrt(sum(pow(x, power: 2)))}
     else if ord==1 { return sum(abs(x))}
@@ -20,33 +20,34 @@ func norm(_ x: vector, ord:Double=2) -> Double{
     else if ord.double ==  inf {return max(abs(x))}
     else if ord.double == -inf {return min(abs(x))}
     assert(false, "type of norm unrecongnized")
-    return -1.0}
-func count_nonzero(_ x:vector)->Double{
+    return -1.0
+}
+public func count_nonzero(_ x:vector)->Double{
     return sum(abs(x) > S2_THRESHOLD)
 }
 
 // modifying elements of the array
-func clip(_ a:vector, a_min:Double, a_max:Double)->vector{
+public func clip(_ a:vector, a_min:Double, a_max:Double)->vector{
     // clip the matrix
     var y = a.copy()
     y[argwhere(a < a_min)] <- a_min
     y[argwhere(a > a_max)] <- a_max
     return y
 }
-func reverse(_ x:vector) -> vector{
+public func reverse(_ x:vector) -> vector{
     // reverse the array
     let y = x.copy()
     vDSP_vrvrsD(!y, 1.stride, y.n.length)
     return y
 }
-func delete(_ x:vector, idx:vector) -> vector{
+public func delete(_ x:vector, idx:vector) -> vector{
     // delete select elements
     var i = ones(x.n)
     i[idx] *= 0
     let y = x[argwhere(i)]
     return y
 }
-func `repeat`(_ x: vector, N:Int, axis:Int=0) -> vector{
+public func `repeat`(_ x: vector, N:Int, axis:Int=0) -> vector{
     // repeat the array element wise or as a whole array
     var y = zeros((N, x.n))
     
@@ -59,13 +60,13 @@ func `repeat`(_ x: vector, N:Int, axis:Int=0) -> vector{
 }
 
 // SORTING and the like
-func sort(_ x:vector)->vector{
+public func sort(_ x:vector)->vector{
     // sort the array and return a new array
     let y = x.copy()
     y.sort()
     return y
 }
-func unique(_ x:vector)->vector{
+public func unique(_ x:vector)->vector{
     var y = sort(x)
     var z = concat(zeros(1), y: y)
     let diff = abs(z[1..<z.n] - z[0..<z.n-1]) > S2_THRESHOLD
@@ -77,7 +78,7 @@ func unique(_ x:vector)->vector{
         return un
     }
 }
-func shuffle(_ x:vector)->vector{
+public func shuffle(_ x:vector)->vector{
     // randomly shuffle the array
     let y = x.copy()
     CVWrapper.shuffle(!y, n:y.n.cint)
@@ -85,13 +86,13 @@ func shuffle(_ x:vector)->vector{
 }
 
 // SETS
-func intersection(_ x: vector, y:vector)->vector{
+public func intersection(_ x: vector, y:vector)->vector{
     return unique(x[argwhere(in1d(x, y: y))])
 }
-func union(_ x:vector, y:vector)->vector{
+public func union(_ x:vector, y:vector)->vector{
     return unique(concat(x, y: y))
 }
-func in1d(_ x: vector, y:vector)->vector{
+public func in1d(_ x: vector, y:vector)->vector{
     if (x.n > 0 && y.n > 0){
         let (xx, yy) = meshgrid(x, y: y)
         let i = abs(xx-yy) < S2_THRESHOLD
@@ -100,7 +101,7 @@ func in1d(_ x: vector, y:vector)->vector{
     }
     return array()
 }
-func concat(_ x:vector, y:vector)->vector{
+public func concat(_ x:vector, y:vector)->vector{
     // concatenate two matrices
     var z = zeros(x.n + y.n)
     z[0..<x.n] = x
@@ -109,19 +110,19 @@ func concat(_ x:vector, y:vector)->vector{
 }
 
 // ARG
-func argmax(_ x:vector)->Int{
+public func argmax(_ x:vector)->Int{
     // find the location of the max
     var m:CInt = 0
     CVWrapper.argmax(!x, n: x.n.cint, max: &m)
     return Int(m)
 }
-func argmin(_ x:vector)->Int{
+public func argmin(_ x:vector)->Int{
     // find the location of the min
     var m:CInt = 0
     CVWrapper.argmin(!x, n: x.n.cint, min: &m)
     return Int(m)
 }
-func argsort(_ x:vector)->vector{
+public func argsort(_ x:vector)->vector{
     // sort the array but use integers
     
     // the array of integers that OpenCV needs
@@ -133,7 +134,7 @@ func argsort(_ x:vector)->vector{
     vDSP_vflt32D(&y, 1.stride, !z, 1.stride, x.n.length)
     return z
 }
-func argwhere(_ idx: vector) -> vector{
+public func argwhere(_ idx: vector) -> vector{
     // counts non-zero elements, return array of doubles (which can be indexed!).
     let i = arange(idx.n)
     let args = zeros(sum(idx).int)
@@ -143,26 +144,26 @@ func argwhere(_ idx: vector) -> vector{
 
 
 // LOGICAL
-func logical_and(_ x:vector, y:vector)->vector{
+public func logical_and(_ x:vector, y:vector)->vector{
     return x * y
 }
-func logical_or(_ x:vector, y:vector)->vector{
+public func logical_or(_ x:vector, y:vector)->vector{
     var i = x + y
     let j = argwhere(i > 0.5)
     i[j] <- 1.0
     return i
 }
-func logical_not(_ x:vector)->vector{
+public func logical_not(_ x:vector)->vector{
     return 1-x
 }
-func logical_xor(_ x:vector, y:vector)->vector{
+public func logical_xor(_ x:vector, y:vector)->vector{
     let i = x + y
     let j = (i < 1.5) && (i > 0.5)
     return j
 }
 
 // PRINTING
-func println(_ x: vector, prefix:String="array([", postfix:String="])", newline:String="\n", format:String="%.3f", seperator:String=", ", printAllElements:Bool=false){
+public func println(_ x: vector, prefix:String="array([", postfix:String="])", newline:String="\n", format:String="%.3f", seperator:String=", ", printAllElements:Bool=false){
     // print the matrix
     print(prefix, terminator: "")
     var suffix = seperator
@@ -182,7 +183,7 @@ func println(_ x: vector, prefix:String="array([", postfix:String="])", newline:
     print(postfix, terminator: "")
     print(newline, terminator: "")
 }
-func print(_ x: vector, prefix:String="vector([", postfix:String="])", format:String="%.3f", printWholeMatrix:Bool=false){
+public func print(_ x: vector, prefix:String="vector([", postfix:String="])", format:String="%.3f", printWholeMatrix:Bool=false){
     println(x, prefix:prefix, postfix:postfix, newline:"\n", format:format, printAllElements:printWholeMatrix)
 }
 

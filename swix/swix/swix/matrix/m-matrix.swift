@@ -8,16 +8,16 @@
 
 import Foundation
 import Accelerate
-struct matrix {
+public struct matrix {
     let n: Int
-    var rows: Int
-    var columns: Int
-    var count: Int
-    var shape: (Int, Int)
-    var flat:vector
-    var T:matrix {return transpose(self)}
-    var I:matrix {return inv(self)}
-    var pI:matrix {return pinv(self)}
+    public var rows: Int
+    public var columns: Int
+    public var count: Int
+    public var shape: (Int, Int)
+    public var flat:vector
+    public var T:matrix {return transpose(self)}
+    public var I:matrix {return inv(self)}
+    public var pI:matrix {return pinv(self)}
     init(columns: Int, rows: Int) {
         self.n = rows * columns
         self.rows = rows
@@ -27,12 +27,12 @@ struct matrix {
         self.flat = zeros(rows * columns)
         
     }
-    func copy()->matrix{
+    public func copy()->matrix{
         var y = zeros_like(self)
         y.flat = self.flat.copy()
         return y
     }
-    subscript(i: String) -> vector {
+    public subscript(i: String) -> vector {
         get {
             assert(i == "diag", "Currently the only support x[string] is x[\"diag\"]")
             let size = rows < columns ? rows : columns
@@ -48,10 +48,10 @@ struct matrix {
             self[j + j/n.double] = newValue
         }
     }
-    func indexIsValidForRow(_ r: Int, c: Int) -> Bool {
+    public func indexIsValidForRow(_ r: Int, c: Int) -> Bool {
         return r >= 0 && r < rows && c>=0 && c < columns
     }
-    func dot(_ y: matrix) -> matrix{
+    public func dot(_ y: matrix) -> matrix{
         let (Mx, Nx) = self.shape
         let (My, Ny) = y.shape
         assert(Nx == My, "Matrix sizes not compatible for dot product")
@@ -63,13 +63,13 @@ struct matrix {
             !z, Ny.cint)
         return z
     }
-    func dot(_ x: vector) -> vector{
+    public func dot(_ x: vector) -> vector{
         var y = zeros((x.n, 1))
         y.flat = x
         let z = self.dot(y)
         return z.flat
     }
-    func min(_ axis:Int = -1) -> Double{
+    public func min(_ axis:Int = -1) -> Double{
         if axis == -1{
             return self.flat.min()
         }
@@ -77,14 +77,14 @@ struct matrix {
         assert(false, "max(x, axis:Int) for maximum of each row is not implemented yet. Use max(A.flat) or A.flat.max() to get the global maximum")
 
     }
-    func max(_ axis:Int = -1) -> Double{
+    public func max(_ axis:Int = -1) -> Double{
         if axis == -1 {
             return self.flat.max()
         }
         assert(axis==0 || axis==1, "Axis must be 0 or 1 as matrix only has two dimensions")
         assert(false, "max(x, axis:Int) for maximum of each row is not implemented yet. Use max(A.flat) or A.flat.max() to get the global maximum")
     }
-    subscript(i: Int, j: Int) -> Double {
+    public subscript(i: Int, j: Int) -> Double {
         // x[0,0]
         get {
             var nI = i
@@ -103,7 +103,7 @@ struct matrix {
             flat[nI * columns + nJ] = newValue
         }
     }
-    subscript(i: Range<Int>, k: Int) -> vector {
+    public subscript(i: Range<Int>, k: Int) -> vector {
         // x[0..<2, 0]
         get {
             let idx = asarray(i)
@@ -114,7 +114,7 @@ struct matrix {
             self[idx, k] = newValue
         }
     }
-    subscript(r: Range<Int>, c: Range<Int>) -> matrix {
+    public subscript(r: Range<Int>, c: Range<Int>) -> matrix {
         // x[0..<2, 0..<2]
         get {
             let rr = asarray(r)
@@ -127,7 +127,7 @@ struct matrix {
             self[rr, cc] = newValue
         }
     }
-    subscript(i: Int, k: Range<Int>) -> vector {
+    public subscript(i: Int, k: Range<Int>) -> vector {
         // x[0, 0..<2]
         get {
             let idx = asarray(k)
@@ -138,7 +138,7 @@ struct matrix {
             self[i, idx] = newValue
         }
     }
-    subscript(or: vector, oc: vector) -> matrix {
+    public subscript(or: vector, oc: vector) -> matrix {
         // the main method.
         // x[array(1,2), array(3,4)]
         get {
@@ -165,12 +165,12 @@ struct matrix {
             }
         }
     }
-    subscript(r: vector) -> vector {
+    public subscript(r: vector) -> vector {
         // flat indexing
         get {return self.flat[r]}
         set {self.flat[r] = newValue }
     }
-    subscript(i: String, k:Int) -> vector {
+    public subscript(i: String, k:Int) -> vector {
         // x["all", 0]
         get {
             let idx = arange(shape.0)
@@ -182,7 +182,7 @@ struct matrix {
             self.flat[idx * self.columns.double + k.double] = newValue
         }
     }
-    subscript(i: Int, k: String) -> vector {
+    public subscript(i: Int, k: String) -> vector {
         // x[0, "all"]
         get {
             assert(k == "all", "Only 'all' supported")
@@ -196,7 +196,7 @@ struct matrix {
             self.flat[i.double * self.columns.double + idx] = newValue
         }
     }
-    subscript(i: vector, k: Int) -> vector {
+    public subscript(i: vector, k: Int) -> vector {
         // x[array(1,2), 0]
         get {
             let idx = i.copy()
@@ -208,7 +208,7 @@ struct matrix {
             self.flat[idx * self.columns.double + k.double] = newValue
         }
     }
-    subscript(i: matrix) -> vector {
+    public subscript(i: matrix) -> vector {
         // x[x < 5]
         get {
             return self.flat[i.flat]
@@ -217,7 +217,7 @@ struct matrix {
             self.flat[i.flat] = newValue
         }
     }
-    subscript(i: Int, k: vector) -> vector {
+    public subscript(i: Int, k: vector) -> vector {
         // x[0, array(1,2)]
         get {
             let x:vector = self.flat[i.double * self.columns.double + k]
