@@ -156,10 +156,10 @@ public:
      * Complete Retina filter constructor which allows all basic structural parameters definition
          * @param inputSize : the input frame size
      * @param colorMode : the chosen processing mode : with or without color processing
-     * @param colorSamplingMethod: specifies which kind of color sampling will be used
-     * @param useRetinaLogSampling: activate retina log sampling, if true, the 2 following parameters can be used
-     * @param reductionFactor: only usefull if param useRetinaLogSampling=true, specifies the reduction factor of the output frame (as the center (fovea) is high resolution and corners can be underscaled, then a reduction of the output is allowed without precision leak
-     * @param samplingStrenght: only usefull if param useRetinaLogSampling=true, specifies the strenght of the log scale that is applied
+     * @param colorSamplingMethod specifies which kind of color sampling will be used
+     * @param useRetinaLogSampling activate retina log sampling, if true, the 2 following parameters can be used
+     * @param reductionFactor only usefull if param useRetinaLogSampling=true, specifies the reduction factor of the output frame (as the center (fovea) is high resolution and corners can be underscaled, then a reduction of the output is allowed without precision leak
+     * @param samplingStrenght only usefull if param useRetinaLogSampling=true, specifies the strenght of the log scale that is applied
      */
     Retina(Size inputSize, const bool colorMode, RETINA_COLORSAMPLINGMETHOD colorSamplingMethod=RETINA_COLOR_BAYER, const bool useRetinaLogSampling=false, const double reductionFactor=1.0, const double samplingStrenght=10.0);
 
@@ -199,7 +199,6 @@ public:
      * => if the xml file does not exist, then default setup is applied
      * => warning, Exceptions are thrown if read XML file is not valid
      * @param newParameters : a parameters structures updated with the new target configuration
-         * @param applyDefaultSetupOnFailure : set to true if an error must be thrown on error
      */
     void setup(RetinaParameters newParameters);
 
@@ -234,13 +233,13 @@ public:
      * for more informations, please have a look at the paper Benoit A., Caplier A., Durette B., Herault, J., "USING HUMAN VISUAL SYSTEM MODELING FOR BIO-INSPIRED LOW LEVEL IMAGE PROCESSING", Elsevier, Computer Vision and Image Understanding 114 (2010), pp. 758-773, DOI: http://dx.doi.org/10.1016/j.cviu.2010.01.011
      * @param colorMode : specifies if (true) color is processed of not (false) to then processing gray level image
      * @param normaliseOutput : specifies if (true) output is rescaled between 0 and 255 of not (false)
-     * @param photoreceptorsLocalAdaptationSensitivity: the photoreceptors sensitivity renage is 0-1 (more log compression effect when value increases)
-     * @param photoreceptorsTemporalConstant: the time constant of the first order low pass filter of the photoreceptors, use it to cut high temporal frequencies (noise or fast motion), unit is frames, typical value is 1 frame
-     * @param photoreceptorsSpatialConstant: the spatial constant of the first order low pass filter of the photoreceptors, use it to cut high spatial frequencies (noise or thick contours), unit is pixels, typical value is 1 pixel
-     * @param horizontalCellsGain: gain of the horizontal cells network, if 0, then the mean value of the output is zero, if the parameter is near 1, then, the luminance is not filtered and is still reachable at the output, typicall value is 0
-     * @param HcellsTemporalConstant: the time constant of the first order low pass filter of the horizontal cells, use it to cut low temporal frequencies (local luminance variations), unit is frames, typical value is 1 frame, as the photoreceptors
-     * @param HcellsSpatialConstant: the spatial constant of the first order low pass filter of the horizontal cells, use it to cut low spatial frequencies (local luminance), unit is pixels, typical value is 5 pixel, this value is also used for local contrast computing when computing the local contrast adaptation at the ganglion cells level (Inner Plexiform Layer parvocellular channel model)
-     * @param ganglionCellsSensitivity: the compression strengh of the ganglion cells local adaptation output, set a value between 160 and 250 for best results, a high value increases more the low value sensitivity... and the output saturates faster, recommended value: 230
+     * @param photoreceptorsLocalAdaptationSensitivity the photoreceptors sensitivity renage is 0-1 (more log compression effect when value increases)
+     * @param photoreceptorsTemporalConstant the time constant of the first order low pass filter of the photoreceptors, use it to cut high temporal frequencies (noise or fast motion), unit is frames, typical value is 1 frame
+     * @param photoreceptorsSpatialConstant the spatial constant of the first order low pass filter of the photoreceptors, use it to cut high spatial frequencies (noise or thick contours), unit is pixels, typical value is 1 pixel
+     * @param horizontalCellsGain gain of the horizontal cells network, if 0, then the mean value of the output is zero, if the parameter is near 1, then, the luminance is not filtered and is still reachable at the output, typicall value is 0
+     * @param HcellsTemporalConstant the time constant of the first order low pass filter of the horizontal cells, use it to cut low temporal frequencies (local luminance variations), unit is frames, typical value is 1 frame, as the photoreceptors
+     * @param HcellsSpatialConstant the spatial constant of the first order low pass filter of the horizontal cells, use it to cut low spatial frequencies (local luminance), unit is pixels, typical value is 5 pixel, this value is also used for local contrast computing when computing the local contrast adaptation at the ganglion cells level (Inner Plexiform Layer parvocellular channel model)
+     * @param ganglionCellsSensitivity the compression strengh of the ganglion cells local adaptation output, set a value between 160 and 250 for best results, a high value increases more the low value sensitivity... and the output saturates faster, recommended value: 230
      */
     void setupOPLandIPLParvoChannel(const bool colorMode=true, const bool normaliseOutput = true, const float photoreceptorsLocalAdaptationSensitivity=0.7, const float photoreceptorsTemporalConstant=0.5, const float photoreceptorsSpatialConstant=0.53, const float horizontalCellsGain=0, const float HcellsTemporalConstant=1, const float HcellsSpatialConstant=7, const float ganglionCellsSensitivity=0.7);
 
@@ -248,13 +247,13 @@ public:
      * set parameters values for the Inner Plexiform Layer (IPL) magnocellular channel
      * this channel processes signals outpint from OPL processing stage in peripheral vision, it allows motion information enhancement. It is decorrelated from the details channel. See reference paper for more details.
      * @param normaliseOutput : specifies if (true) output is rescaled between 0 and 255 of not (false)
-     * @param parasolCells_beta: the low pass filter gain used for local contrast adaptation at the IPL level of the retina (for ganglion cells local adaptation), typical value is 0
-     * @param parasolCells_tau: the low pass filter time constant used for local contrast adaptation at the IPL level of the retina (for ganglion cells local adaptation), unit is frame, typical value is 0 (immediate response)
-     * @param parasolCells_k: the low pass filter spatial constant used for local contrast adaptation at the IPL level of the retina (for ganglion cells local adaptation), unit is pixels, typical value is 5
-     * @param amacrinCellsTemporalCutFrequency: the time constant of the first order high pass fiter of the magnocellular way (motion information channel), unit is frames, tipicall value is 5
-     * @param V0CompressionParameter: the compression strengh of the ganglion cells local adaptation output, set a value between 160 and 250 for best results, a high value increases more the low value sensitivity... and the output saturates faster, recommended value: 200
-     * @param localAdaptintegration_tau: specifies the temporal constant of the low pas filter involved in the computation of the local "motion mean" for the local adaptation computation
-     * @param localAdaptintegration_k: specifies the spatial constant of the low pas filter involved in the computation of the local "motion mean" for the local adaptation computation
+     * @param parasolCells_beta the low pass filter gain used for local contrast adaptation at the IPL level of the retina (for ganglion cells local adaptation), typical value is 0
+     * @param parasolCells_tau the low pass filter time constant used for local contrast adaptation at the IPL level of the retina (for ganglion cells local adaptation), unit is frame, typical value is 0 (immediate response)
+     * @param parasolCells_k the low pass filter spatial constant used for local contrast adaptation at the IPL level of the retina (for ganglion cells local adaptation), unit is pixels, typical value is 5
+     * @param amacrinCellsTemporalCutFrequency the time constant of the first order high pass fiter of the magnocellular way (motion information channel), unit is frames, tipicall value is 5
+     * @param V0CompressionParameter the compression strengh of the ganglion cells local adaptation output, set a value between 160 and 250 for best results, a high value increases more the low value sensitivity... and the output saturates faster, recommended value: 200
+     * @param localAdaptintegration_tau specifies the temporal constant of the low pas filter involved in the computation of the local "motion mean" for the local adaptation computation
+     * @param localAdaptintegration_k specifies the spatial constant of the low pas filter involved in the computation of the local "motion mean" for the local adaptation computation
      */
     void setupIPLMagnoChannel(const bool normaliseOutput = true, const float parasolCells_beta=0, const float parasolCells_tau=0, const float parasolCells_k=7, const float amacrinCellsTemporalCutFrequency=1.2, const float V0CompressionParameter=0.95, const float localAdaptintegration_tau=0, const float localAdaptintegration_k=7);
 
@@ -295,8 +294,8 @@ public:
     /**
      * activate color saturation as the final step of the color demultiplexing process
      * -> this saturation is a sigmoide function applied to each channel of the demultiplexed image.
-     * @param saturateColors: boolean that activates color saturation (if true) or desactivate (if false)
-     * @param colorSaturationValue: the saturation factor
+     * @param saturateColors boolean that activates color saturation (if true) or desactivate (if false)
+     * @param colorSaturationValue the saturation factor
      */
     void setColorSaturation(const bool saturateColors=true, const float colorSaturationValue=4.0);
 
@@ -307,13 +306,13 @@ public:
 
     /**
     * Activate/desactivate the Magnocellular pathway processing (motion information extraction), by default, it is activated
-    * @param activate: true if Magnocellular output should be activated, false if not
+    * @param activate true if Magnocellular output should be activated, false if not
     */
     void activateMovingContoursProcessing(const bool activate);
 
     /**
     * Activate/desactivate the Parvocellular pathway processing (contours information extraction), by default, it is activated
-    * @param activate: true if Parvocellular (contours information extraction) output should be activated, false if not
+    * @param activate true if Parvocellular (contours information extraction) output should be activated, false if not
     */
     void activateContoursProcessing(const bool activate);
 

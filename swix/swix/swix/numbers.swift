@@ -34,35 +34,35 @@ var euler = 0.57721566490153286060651209008240243104215933593992
 
 // largest possible value
 var inf = Double.infinity
-var nan = Double.NaN
+var nan = Double.nan
 
 // smallest possible difference
 var DOUBLE_EPSILON = DBL_EPSILON
 var FLOAT_EPSILON = FLT_EPSILON
 
-func close(x: Double, y: Double)->Bool{
+func close(_ x: Double, y: Double)->Bool{
     return abs(x-y) < S2_THRESHOLD
 }
 func ~= (x:Double, y:Double)->Bool{
     return close(x, y: y)
 }
-func rad2deg(x:Double)->Double{
-    return x * 180.0 / pi
+func rad2deg(_ x:Double)->Double{
+    return (x * 180.0) / pi
 }
-func deg2rad(x:Double)->Double{
-    return x * pi / 180.0
+func deg2rad(_ x:Double)->Double{
+    return (x * pi) / 180.0
 }
-func max(x:Double, y:Double)->Double{
+func max(_ x:Double, y:Double)->Double{
     return x < y ? y : x
 }
-func min(x:Double, y:Double)->Double{
+func min(_ x:Double, y:Double)->Double{
     return x < y ? x : y
 }
-func factorial(n:Double)->Double{
+func factorial(_ n:Double)->Double{
     let y = arange(n)+1
     return prod(y)
 }
-func binom(n:Double, k:Double)->Double{
+func binom(_ n:Double, k:Double)->Double{
     // similar to scipy.special.binom
     let i = arange(k)+1
     let result = (n+1-i) / i
@@ -107,20 +107,26 @@ extension String {
 }
 
 // damn integer division causes headaches
-infix operator  / {associativity none precedence 140}
+precedencegroup ComparisonPrecedence {
+  associativity: left
+  higherThan: LogicalConjunctionPrecedence
+}
+precedencegroup Additive { higherThan: ComparisonPrecedence }
+precedencegroup Multiplicative { higherThan: Additive }
+infix operator  / : Multiplicative
 func / (lhs: Int, rhs: Int) -> Double{
     return lhs.double / rhs.double}
 func / (lhs: Double, rhs: Int) -> Double{
     return lhs / rhs.double}
 
 // a quick hack to get what I want
-func isNumber(x: Double)   ->Bool{return true}
-func isNumber(x: Float)    ->Bool{return true}
-func isNumber(x: Int)      ->Bool{return true}
-func isNumber(x: CInt)     ->Bool{return true}
-func isNumber(x: vector)   ->Bool{return false}
-func isNumber(x: matrix) ->Bool{return false}
-func isNumber(x: AnyObject)->Bool{return false}
+func isNumber(_ x: Double)   ->Bool{return true}
+func isNumber(_ x: Float)    ->Bool{return true}
+func isNumber(_ x: Int)      ->Bool{return true}
+func isNumber(_ x: CInt)     ->Bool{return true}
+func isNumber(_ x: vector)   ->Bool{return false}
+func isNumber(_ x: matrix) ->Bool{return false}
+func isNumber(_ x: AnyObject)->Bool{return false}
 
 
 
