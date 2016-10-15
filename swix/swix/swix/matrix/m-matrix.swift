@@ -9,24 +9,40 @@
 import Foundation
 import Accelerate
 public struct matrix {
-    let n: Int
     public var rows: Int
     public var columns: Int
     public var count: Int
-    public var shape: (Int, Int)
+    public var shape: (Int, Int) { return (rows, columns) }
     public var flat:vector
     public var T:matrix {return transpose(self)}
     public var I:matrix {return inv(self)}
     public var pI:matrix {return pinv(self)}
     init(columns: Int, rows: Int) {
-        self.n = rows * columns
+        self.count = rows * columns
         self.rows = rows
         self.columns = columns
-        self.shape = (rows, columns)
-        self.count = n
         self.flat = zeros(rows * columns)
         
     }
+    public init(_ rowVec:[vector]) {
+      rows = rowVec.count
+      assert(rowVec.count > 0, "Can't create a matrix with no row data provided")
+      columns = rowVec[0].count
+      assert(rowVec[0].count > 0, "Can't create a matrix with no column data provided")
+      for i in 1..<rowVec.count {
+        assert(rowVec[i].count == rowVec[0].count, "All matrix rows must have same length")
+      }
+      count = rows * columns
+      flat = zeros(count)
+      var p = 0
+      for i in 0..<self.rows {
+        for j in 0..<columns {
+          flat[p] = rowVec[i][j]
+          p += 1
+        }
+      }
+    }
+  
     public func copy()->matrix{
         var y = zeros_like(self)
         y.flat = self.flat.copy()

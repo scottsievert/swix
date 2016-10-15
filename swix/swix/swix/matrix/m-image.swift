@@ -24,7 +24,7 @@ import Foundation
 //import UIKit // for iOS use
 //import CoreGraphics // possibly needed for iOS use
 
-func rgb2hsv_pixel(_ R:Double, G:Double, B:Double)->(Double, Double, Double){
+public func rgb2hsv_pixel(_ R:Double, G:Double, B:Double)->(Double, Double, Double){
     // tested against wikipedia/HSL_and_HSV. returns (H, S_hsv, V)
     let M = max(array(R, G, B))
     let m = min(array(R, G, B))
@@ -42,7 +42,7 @@ func rgb2hsv_pixel(_ R:Double, G:Double, B:Double)->(Double, Double, Double){
 }
 
 
-func rgb2hsv(_ r:matrix, g:matrix, b:matrix)->(matrix, matrix, matrix){
+public func rgb2hsv(_ r:matrix, g:matrix, b:matrix)->(matrix, matrix, matrix){
     assert(r.shape.0 == g.shape.0)
     assert(b.shape.0 == g.shape.0)
     assert(r.shape.1 == g.shape.1)
@@ -60,12 +60,12 @@ func rgb2hsv(_ r:matrix, g:matrix, b:matrix)->(matrix, matrix, matrix){
     }
     return (h, s, v)
 }
-func rgb2_hsv_vplane(_ r:matrix, g:matrix, b:matrix)->matrix{
+public func rgb2_hsv_vplane(_ r:matrix, g:matrix, b:matrix)->matrix{
     return max(max(r, y: g), y: b)
 }
 
 
-func savefig(_ x:matrix, filename:String, save:Bool=true, show:Bool=false){
+public func savefig(_ x:matrix, filename:String, save:Bool=true, show:Bool=false){
     // assumes Python is on your $PATH and pylab/etc are installed
     // prefix should point to the swix folder!
     // prefix is defined in numbers.swift
@@ -76,7 +76,7 @@ func savefig(_ x:matrix, filename:String, save:Bool=true, show:Bool=false){
     print("savefig: Removing CSV FILE " + S2_PREFIX + "temp.csv")
   Process.launchedProcess(launchPath: "rm", arguments: [S2_PREFIX+"temp.csv"])
 }
-func imshow(_ x: matrix){
+public func imshow(_ x: matrix){
     savefig(x, filename: "junk", save:false, show:true)
 }
 

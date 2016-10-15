@@ -140,7 +140,7 @@ func ^ (lhs: Double, rhs: vector) -> vector{
     return pow(lhs, y: rhs)}
 // PLUS
 infix operator + : Additive
-func + (lhs: vector, rhs: vector) -> vector{
+public func + (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "+", rhs: rhs)}
 func + (lhs: Double, rhs: vector) -> vector{
     return make_operator(lhs, operation: "+", rhs: rhs)}

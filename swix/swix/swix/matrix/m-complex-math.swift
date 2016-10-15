@@ -10,19 +10,19 @@ import Foundation
 import Swift
 import Accelerate
 
-func rank(_ x:matrix)->Double{
+public func rank(_ x:matrix)->Double{
     let (_, S, _) = svd(x, compute_uv:false)
     let m:Double = (x.shape.0 < x.shape.1 ? x.shape.1 : x.shape.0).double
     let tol = S.max() * m * DOUBLE_EPSILON
     return sum(S > tol)
 }
-func dot(_ x: matrix, y: matrix) -> matrix{
+public func dot(_ x: matrix, y: matrix) -> matrix{
     return x.dot(y)
 }
-func dot(_ A: matrix, x: vector) -> vector{
+public func dot(_ A: matrix, x: vector) -> vector{
     return A.dot(x)
 }
-func svd(_ x: matrix, compute_uv:Bool=true) -> (matrix, vector, matrix){
+public func svd(_ x: matrix, compute_uv:Bool=true) -> (matrix, vector, matrix){
     let (m, n) = x.shape
     let nS = m < n ? m : n // number singular values
     let sigma = zeros(nS)
@@ -41,7 +41,7 @@ func svd(_ x: matrix, compute_uv:Bool=true) -> (matrix, vector, matrix){
 
     return (u, sigma, v)
 }
-func pinv(_ x:matrix)->matrix{
+public func pinv(_ x:matrix)->matrix{
     var (u, s, v) = svd(x)
     let m = u.shape.0
     let n = v.shape.1
@@ -57,7 +57,7 @@ func pinv(_ x:matrix)->matrix{
     let res = v.T.dot(z).dot(u.T)
     return res
 }
-func inv(_ x: matrix) -> matrix{
+public func inv(_ x: matrix) -> matrix{
     assert(x.shape.0 == x.shape.1, "To take an inverse of a matrix, the matrix must be square. If you want the inverse of a rectangular matrix, use psuedoinverse.")
     let y = x.copy()
     let (M, N) = x.shape
@@ -72,7 +72,7 @@ func inv(_ x: matrix) -> matrix{
     dgetri_(&nc, !y, &nc, &ipiv, &work, &lwork, &info)
     return y
 }
-func solve(_ A: matrix, b: vector) -> vector{
+public func solve(_ A: matrix, b: vector) -> vector{
     let (m, n) = A.shape
     assert(b.n == m, "Ax = b, A.rows == b.n. Sizes must match which makes sense mathematically")
     assert(n == m, "Matrix must be square -- dictated by OpenCV")
@@ -80,7 +80,7 @@ func solve(_ A: matrix, b: vector) -> vector{
     CVWrapper.solve(!A, b:!b, x:!x, m:m.cint, n:n.cint)
     return x
 }
-func eig(_ x: matrix)->vector{
+public func eig(_ x: matrix)->vector{
     // matrix, value, vectors
     let (m, n) = x.shape
     assert(m == n, "Input must be square")

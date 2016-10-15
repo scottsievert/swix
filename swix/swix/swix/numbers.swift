@@ -23,46 +23,46 @@ let S2_THRESHOLD = 1e-9
 var SWIX_SEED:__CLPK_integer = 42
 
 // various important constants
-var pi = 3.1415926535897932384626433832795028841971693993751058
-var π = pi
-var tau = 2 * pi
-var τ = tau
-var phi = (1.0 + sqrt(5))/2
-var φ = phi
-var e = exp(1.double)
-var euler = 0.57721566490153286060651209008240243104215933593992
+public var pi = 3.1415926535897932384626433832795028841971693993751058
+public var π = pi
+public var tau = 2 * pi
+public var τ = tau
+public var phi = (1.0 + sqrt(5))/2
+public var φ = phi
+public var e = exp(1.double)
+public var euler = 0.57721566490153286060651209008240243104215933593992
 
 // largest possible value
-var inf = Double.infinity
-var nan = Double.nan
+public var inf = Double.infinity
+public var nan = Double.nan
 
 // smallest possible difference
-var DOUBLE_EPSILON = DBL_EPSILON
-var FLOAT_EPSILON = FLT_EPSILON
+public var DOUBLE_EPSILON = DBL_EPSILON
+public var FLOAT_EPSILON = FLT_EPSILON
 
-func close(_ x: Double, y: Double)->Bool{
+public func close(_ x: Double, y: Double)->Bool{
     return abs(x-y) < S2_THRESHOLD
 }
-func ~= (x:Double, y:Double)->Bool{
+public func ~= (x:Double, y:Double)->Bool{
     return close(x, y: y)
 }
-func rad2deg(_ x:Double)->Double{
+public func rad2deg(_ x:Double)->Double{
     return (x * 180.0) / pi
 }
-func deg2rad(_ x:Double)->Double{
+public func deg2rad(_ x:Double)->Double{
     return (x * pi) / 180.0
 }
-func max(_ x:Double, y:Double)->Double{
+public func max(_ x:Double, y:Double)->Double{
     return x < y ? y : x
 }
-func min(_ x:Double, y:Double)->Double{
+public func min(_ x:Double, y:Double)->Double{
     return x < y ? x : y
 }
-func factorial(_ n:Double)->Double{
+public func factorial(_ n:Double)->Double{
     let y = arange(n)+1
     return prod(y)
 }
-func binom(_ n:Double, k:Double)->Double{
+public func binom(_ n:Double, k:Double)->Double{
     // similar to scipy.special.binom
     let i = arange(k)+1
     let result = (n+1-i) / i
@@ -114,19 +114,19 @@ precedencegroup ComparisonPrecedence {
 precedencegroup Additive { higherThan: ComparisonPrecedence }
 precedencegroup Multiplicative { higherThan: Additive }
 infix operator  / : Multiplicative
-func / (lhs: Int, rhs: Int) -> Double{
+public func / (lhs: Int, rhs: Int) -> Double{
     return lhs.double / rhs.double}
-func / (lhs: Double, rhs: Int) -> Double{
+public func / (lhs: Double, rhs: Int) -> Double{
     return lhs / rhs.double}
 
 // a quick hack to get what I want
-func isNumber(_ x: Double)   ->Bool{return true}
-func isNumber(_ x: Float)    ->Bool{return true}
-func isNumber(_ x: Int)      ->Bool{return true}
-func isNumber(_ x: CInt)     ->Bool{return true}
-func isNumber(_ x: vector)   ->Bool{return false}
-func isNumber(_ x: matrix) ->Bool{return false}
-func isNumber(_ x: AnyObject)->Bool{return false}
+public func isNumber(_ x: Double)   ->Bool{return true}
+public func isNumber(_ x: Float)    ->Bool{return true}
+public func isNumber(_ x: Int)      ->Bool{return true}
+public func isNumber(_ x: CInt)     ->Bool{return true}
+public func isNumber(_ x: vector)   ->Bool{return false}
+public func isNumber(_ x: matrix) ->Bool{return false}
+public func isNumber(_ x: AnyObject)->Bool{return false}
 
 
 
