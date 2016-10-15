@@ -8,39 +8,42 @@
 
 import Foundation
 import Accelerate
+public typealias Shape = (rows:Int, columns:Int)
 public struct matrix {
-    public var rows: Int
-    public var columns: Int
-    public var count: Int
-    public var shape: (Int, Int) { return (rows, columns) }
-    public var flat:vector
+    var _shape:Shape
+    public var rows: Int { return _shape.rows }
+    public var columns: Int { return _shape.columns }
+    var _count: Int
+    public var count: Int { return _count }
+    public var shape: Shape { return _shape }
+    var flat:vector
     public var T:matrix {return transpose(self)}
     public var I:matrix {return inv(self)}
     public var pI:matrix {return pinv(self)}
     init(columns: Int, rows: Int) {
-        self.count = rows * columns
-        self.rows = rows
-        self.columns = columns
-        self.flat = zeros(rows * columns)
-        
+        _count = rows * columns
+        _shape.rows = rows
+        _shape.columns = columns
+        self.flat = zeros(_count)
     }
+
     public init(_ rowVec:[vector]) {
-      rows = rowVec.count
-      assert(rowVec.count > 0, "Can't create a matrix with no row data provided")
-      columns = rowVec[0].count
-      assert(rowVec[0].count > 0, "Can't create a matrix with no column data provided")
-      for i in 1..<rowVec.count {
-        assert(rowVec[i].count == rowVec[0].count, "All matrix rows must have same length")
-      }
-      count = rows * columns
-      flat = zeros(count)
-      var p = 0
-      for i in 0..<self.rows {
-        for j in 0..<columns {
-          flat[p] = rowVec[i][j]
-          p += 1
+        _shape.rows = rowVec.count
+        assert(rowVec.count > 0, "Can't create a matrix with no row data provided")
+        _shape.columns = rowVec[0].count
+        assert(rowVec[0].count > 0, "Can't create a matrix with no column data provided")
+        for i in 1..<rowVec.count {
+            assert(rowVec[i].count == rowVec[0].count, "All matrix rows must have same length")
         }
-      }
+        _count = _shape.rows * _shape.columns
+        flat = zeros(_count)
+        var p = 0
+        for i in 0..<self.rows {
+            for j in 0..<columns {
+                flat[p] = rowVec[i][j]
+                p += 1
+            }
+        }
     }
   
     public func copy()->matrix{
