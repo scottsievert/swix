@@ -19,8 +19,10 @@ var header = ["1", "2", "3"]
 
 var csv = CSVFile(data:x, header:header)
 
-write_csv(csv, filename:"/Users/thomaskilian/Desktop/test_2016.csv")
-var y:CSVFile = read_csv("/Users/thomaskilian/Desktop/test_2016.csv", header_present:true)
+let filename = NSSearchPathForDirectoriesInDomains(.desktopDirectory, .userDomainMask, true)[0] + "/test_2016.csv"
+
+write_csv(csv, filename:filename)
+var y:CSVFile = read_csv(filename, header_present:true)
 
 print("\n")
 print(y.data)
