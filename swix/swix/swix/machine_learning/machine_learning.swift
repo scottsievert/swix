@@ -15,7 +15,7 @@ public class SVM {
     public var kernel_type:String
     public var N:Int
     public var M:Int
-    init(){
+    public init(){
         self.cvsvm = cvSVM()
         
         

@@ -71,39 +71,39 @@ public func binom(_ n:Double, k:Double)->Double{
 
 // use 3.double or 3.14.int or N.int
 extension Int{
-    var stride:vDSP_Stride {return vDSP_Stride(self)}
-    var length:vDSP_Length {return vDSP_Length(self)}
-    var int:Int {return Int(self)}
-    var cint:CInt {return CInt(self)}
-    var float:Float {return Float(self)}
-    var double:Double {return Double(self)}
+    public var stride:vDSP_Stride {return vDSP_Stride(self)}
+    public var length:vDSP_Length {return vDSP_Length(self)}
+    public var int:Int {return Int(self)}
+    public var cint:CInt {return CInt(self)}
+    public var float:Float {return Float(self)}
+    public var double:Double {return Double(self)}
 }
 extension Double{
-    var int:Int {return Int(self)}
-    var float:Float {return Float(self)}
-    var double:Double {return Double(self)}
-    var cdouble:CDouble {return CDouble(self)}
+    public var int:Int {return Int(self)}
+    public var float:Float {return Float(self)}
+    public var double:Double {return Double(self)}
+    public var cdouble:CDouble {return CDouble(self)}
 }
 extension CInt{
-    var int:Int {return Int(self)}
-    var float:Float {return Float(self)}
-    var double:Double {return Double(self)}
+    public var int:Int {return Int(self)}
+    public var float:Float {return Float(self)}
+    public var double:Double {return Double(self)}
 }
 extension Float{
-    var int:Int {return Int(self)}
-    var cfloat:CFloat {return CFloat(self)}
-    var float:Float {return Float(self)}
-    var double:Double {return Double(self)}
+    public var int:Int {return Int(self)}
+    public var cfloat:CFloat {return CFloat(self)}
+    public var float:Float {return Float(self)}
+    public var double:Double {return Double(self)}
 
 }
 extension String {
-    var floatValue: Float {
+    public var floatValue: Float {
         return (self as NSString).floatValue
     }
-    var doubleValue: Double {
+    public var doubleValue: Double {
         return (self as NSString).doubleValue
     }
-    var nsstring:NSString {return NSString(string:self)}
+    public var nsstring:NSString {return NSString(string:self)}
 }
 
 // damn integer division causes headaches

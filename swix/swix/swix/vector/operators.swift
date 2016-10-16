@@ -146,6 +146,8 @@ public func + (lhs: Double, rhs: vector) -> vector{
     return make_operator(lhs, operation: "+", rhs: rhs)}
 public func + (lhs: vector, rhs: Double) -> vector{
     return make_operator(lhs, operation: "+", rhs: rhs)}
+public func + (lhs: Int, rhs: Double) -> Double{ return Double(lhs) + rhs }
+public func + (lhs: Double, rhs: Int) -> Double{ return Double(rhs) + lhs }
 // MINUS
 infix operator - : Additive
 public func - (lhs: vector, rhs: vector) -> vector{

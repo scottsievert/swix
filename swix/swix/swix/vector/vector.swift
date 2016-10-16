@@ -14,12 +14,11 @@ import Accelerate
 // SLOW PARTS: x[vector, vector] set
 
 public struct vector {
-    let n: Int // the number of elements
-    public var count: Int // ditto
+    public let n: Int // the number of elements
+    public var count: Int { return n } // ditto
     public var grid: [Double] // the raw values
     init(n: Int) {
         self.n = n
-        self.count = n
         grid = Array(repeating: 0.0, count: n)
     }
     public func reshape(_ shape: (Int,Int)) -> matrix{
