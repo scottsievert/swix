@@ -96,119 +96,119 @@ func make_operator(_ lhs:Double, operation:String, rhs:vector) -> vector{
 
 // DOUBLE ASSIGNMENT
 infix operator <-
-func <- (lhs:inout vector, rhs:Double){
+public func <- (lhs:inout vector, rhs:Double){
     let assign = ones(lhs.n) * rhs
     lhs = assign
 }
 
 // EQUALITY
 infix operator ~== : ComparisonPrecedence
-func ~== (lhs: vector, rhs: vector) -> Bool{
+public func ~== (lhs: vector, rhs: vector) -> Bool{
     assert(lhs.n == rhs.n, "`~==` only works on arrays of equal size")
     return max(abs(lhs - rhs)) > 1e-6 ? false : true;
 }
-func == (lhs: vector, rhs: vector) -> vector{
+public func == (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "==", rhs: rhs)}
-func !== (lhs: vector, rhs: vector) -> vector{
+public func !== (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "!==", rhs: rhs)}
 
 // NICE ARITHMETIC
-func += (x: inout vector, right: Double){
+public func += (x: inout vector, right: Double){
     x = x + right}
-func *= (x: inout vector, right: Double){
+public func *= (x: inout vector, right: Double){
     x = x * right}
-func -= (x: inout vector, right: Double){
+public func -= (x: inout vector, right: Double){
     x = x - right}
-func /= (x: inout vector, right: Double){
+public func /= (x: inout vector, right: Double){
     x = x / right}
 
 // MOD
 infix operator % : Multiplicative
-func % (lhs: vector, rhs: Double) -> vector{
+public func % (lhs: vector, rhs: Double) -> vector{
     return make_operator(lhs, operation: "%", rhs: rhs)}
-func % (lhs: vector, rhs: vector) -> vector{
+public func % (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "%", rhs: rhs)}
-func % (lhs: Double, rhs: vector) -> vector{
+public func % (lhs: Double, rhs: vector) -> vector{
     return make_operator(lhs, operation: "%", rhs: rhs)}
 // POW
 infix operator ^ : Multiplicative
-func ^ (lhs: vector, rhs: Double) -> vector{
+public func ^ (lhs: vector, rhs: Double) -> vector{
     return pow(lhs, power: rhs)}
-func ^ (lhs: vector, rhs: vector) -> vector{
+public func ^ (lhs: vector, rhs: vector) -> vector{
     return pow(lhs, y: rhs)}
-func ^ (lhs: Double, rhs: vector) -> vector{
+public func ^ (lhs: Double, rhs: vector) -> vector{
     return pow(lhs, y: rhs)}
 // PLUS
 infix operator + : Additive
 public func + (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "+", rhs: rhs)}
-func + (lhs: Double, rhs: vector) -> vector{
+public func + (lhs: Double, rhs: vector) -> vector{
     return make_operator(lhs, operation: "+", rhs: rhs)}
-func + (lhs: vector, rhs: Double) -> vector{
+public func + (lhs: vector, rhs: Double) -> vector{
     return make_operator(lhs, operation: "+", rhs: rhs)}
 // MINUS
 infix operator - : Additive
-func - (lhs: vector, rhs: vector) -> vector{
+public func - (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "-", rhs: rhs)}
-func - (lhs: Double, rhs: vector) -> vector{
+public func - (lhs: Double, rhs: vector) -> vector{
     return make_operator(lhs, operation: "-", rhs: rhs)}
-func - (lhs: vector, rhs: Double) -> vector{
+public func - (lhs: vector, rhs: Double) -> vector{
     return make_operator(lhs, operation: "-", rhs: rhs)}
 // TIMES
 infix operator * : Multiplicative
-func * (lhs: vector, rhs: vector) -> vector{
+public func * (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "*", rhs: rhs)}
-func * (lhs: Double, rhs: vector) -> vector{
+public func * (lhs: Double, rhs: vector) -> vector{
     return make_operator(lhs, operation: "*", rhs: rhs)}
-func * (lhs: vector, rhs: Double) -> vector{
+public func * (lhs: vector, rhs: Double) -> vector{
     return make_operator(lhs, operation: "*", rhs: rhs)}
 // DIVIDE
 infix operator / : Multiplicative
-func / (lhs: vector, rhs: vector) -> vector{
+public func / (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "/", rhs: rhs)
     }
-func / (lhs: Double, rhs: vector) -> vector{
+public func / (lhs: Double, rhs: vector) -> vector{
     return make_operator(lhs, operation: "/", rhs: rhs)}
-func / (lhs: vector, rhs: Double) -> vector{
+public func / (lhs: vector, rhs: Double) -> vector{
     return make_operator(lhs, operation: "/", rhs: rhs)}
 // LESS THAN
 infix operator < : ComparisonPrecedence
-func < (lhs: vector, rhs: Double) -> vector{
+public func < (lhs: vector, rhs: Double) -> vector{
     return make_operator(lhs, operation: "<", rhs: rhs)}
-func < (lhs: vector, rhs: vector) -> vector{
+public func < (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "<", rhs: rhs)}
-func < (lhs: Double, rhs: vector) -> vector{
+public func < (lhs: Double, rhs: vector) -> vector{
     return make_operator(lhs, operation: "<", rhs: rhs)}
 // GREATER THAN
 infix operator > : ComparisonPrecedence
-func > (lhs: vector, rhs: Double) -> vector{
+public func > (lhs: vector, rhs: Double) -> vector{
     return make_operator(lhs, operation: ">", rhs: rhs)}
-func > (lhs: vector, rhs: vector) -> vector{
+public func > (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: ">", rhs: rhs)}
-func > (lhs: Double, rhs: vector) -> vector{
+public func > (lhs: Double, rhs: vector) -> vector{
     return make_operator(lhs, operation: ">", rhs: rhs)}
 // GREATER THAN OR EQUAL
 infix operator >= : ComparisonPrecedence
-func >= (lhs: vector, rhs: Double) -> vector{
+public func >= (lhs: vector, rhs: Double) -> vector{
     return make_operator(lhs, operation: ">=", rhs: rhs)}
-func >= (lhs: vector, rhs: vector) -> vector{
+public func >= (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: ">=", rhs: rhs)}
-func >= (lhs: Double, rhs: vector) -> vector{
+public func >= (lhs: Double, rhs: vector) -> vector{
     return make_operator(lhs, operation: ">=", rhs: rhs)}
 // LESS THAN OR EQUAL
 infix operator <= : ComparisonPrecedence
-func <= (lhs: vector, rhs: Double) -> vector{
+public func <= (lhs: vector, rhs: Double) -> vector{
     return make_operator(lhs, operation: "<=", rhs: rhs)}
-func <= (lhs: vector, rhs: vector) -> vector{
+public func <= (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "<=", rhs: rhs)}
-func <= (lhs: Double, rhs: vector) -> vector{
+public func <= (lhs: Double, rhs: vector) -> vector{
     return make_operator(lhs, operation: "<=", rhs: rhs)}
 // LOGICAL AND
 infix operator && : Additive
-func && (lhs: vector, rhs: vector) -> vector{
+public func && (lhs: vector, rhs: vector) -> vector{
     return logical_and(lhs, y: rhs)}
 // LOGICAL OR
-func || (lhs: vector, rhs: vector) -> vector {
+public func || (lhs: vector, rhs: vector) -> vector {
     return logical_or(lhs, y: rhs)
 }
 
