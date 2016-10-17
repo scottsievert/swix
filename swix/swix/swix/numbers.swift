@@ -106,16 +106,6 @@ extension String {
     public var nsstring:NSString {return NSString(string:self)}
 }
 
-// damn integer division causes headaches
-precedencegroup ComparisonPrecedence {
-  associativity: left
-  higherThan: LogicalConjunctionPrecedence
-}
-precedencegroup AdditivePrecedence { higherThan: ComparisonPrecedence }
-precedencegroup MultiplicativePrecedence { higherThan: AdditivePrecedence }
-precedencegroup PowerPrecedence { higherThan: MultiplicativePrecedence }
-
-infix operator  / : MultiplicativePrecedence
 public func / (lhs: Int, rhs: Int) -> Double{
     return lhs.double / rhs.double}
 public func / (lhs: Double, rhs: Int) -> Double{

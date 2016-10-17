@@ -14,16 +14,6 @@
 import Cocoa
 import SwixOO
 
-infix operator &&
-infix operator ||
-infix operator %
-infix operator ~==
-infix operator +
-infix operator -
-infix operator *
-infix operator /
-infix operator ^
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 

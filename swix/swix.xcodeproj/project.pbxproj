@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A77514C11DAD407F00319238 /* SwixOO.h in Headers */ = {isa = PBXBuildFile; fileRef = A77514BF1DAD407F00319238 /* SwixOO.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A77514CC1DAD43E600319238 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D24D7132199272E600D4B9D8 /* opencv2.framework */; };
+		A7890A7C1DB4FED7002CC65E /* SwixOO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77514BD1DAD407F00319238 /* SwixOO.framework */; };
 		A7B290931DB3CD7900ED9C4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B290921DB3CD7900ED9C4E /* AppDelegate.swift */; };
 		A7B290951DB3CD7900ED9C4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7B290941DB3CD7900ED9C4E /* Assets.xcassets */; };
 		A7B290981DB3CD7900ED9C4E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7B290961DB3CD7900ED9C4E /* MainMenu.xib */; };
@@ -94,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7890A7C1DB4FED7002CC65E /* SwixOO.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

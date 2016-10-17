@@ -68,25 +68,22 @@ public func <- (lhs:inout matrix, rhs:Double){
 }
 
 // SOLVE
-infix operator !/ : PowerPrecedence
+infix operator !/ : AdditionPrecedence
 public func !/ (lhs: matrix, rhs: vector) -> vector{
     return solve(lhs, b: rhs)}
 // EQUALITY
 public func ~== (lhs: matrix, rhs: matrix) -> Bool{
     return (rhs.flat ~== lhs.flat)}
 
-infix operator == : ComparisonPrecedence
 public func == (lhs: matrix, rhs: matrix)->matrix{
     return (lhs.flat == rhs.flat).reshape(lhs.shape)
 }
-infix operator !== : ComparisonPrecedence
 public func !== (lhs: matrix, rhs: matrix)->matrix{
     return (lhs.flat !== rhs.flat).reshape(lhs.shape)
 }
 
 /// ELEMENT WISE OPERATORS
 // PLUS
-infix operator + : AdditivePrecedence
 public func + (lhs: matrix, rhs: matrix) -> matrix{
     return make_operator(lhs, operation: "+", rhs: rhs)}
 public func + (lhs: Double, rhs: matrix) -> matrix{
@@ -94,7 +91,6 @@ public func + (lhs: Double, rhs: matrix) -> matrix{
 public func + (lhs: matrix, rhs: Double) -> matrix{
     return make_operator(lhs, operation: "+", rhs: rhs)}
 // MINUS
-infix operator - : AdditivePrecedence
 public func - (lhs: matrix, rhs: matrix) -> matrix{
     return make_operator(lhs, operation: "-", rhs: rhs)}
 public func - (lhs: Double, rhs: matrix) -> matrix{
@@ -102,7 +98,6 @@ public func - (lhs: Double, rhs: matrix) -> matrix{
 public func - (lhs: matrix, rhs: Double) -> matrix{
     return make_operator(lhs, operation: "-", rhs: rhs)}
 // TIMES
-infix operator * : MultiplicativePrecedence
 public func * (lhs: matrix, rhs: matrix) -> matrix{
     return make_operator(lhs, operation: "*", rhs: rhs)}
 public func * (lhs: Double, rhs: matrix) -> matrix{
@@ -110,7 +105,6 @@ public func * (lhs: Double, rhs: matrix) -> matrix{
 public func * (lhs: matrix, rhs: Double) -> matrix{
     return make_operator(lhs, operation: "*", rhs: rhs)}
 // DIVIDE
-infix operator / : MultiplicativePrecedence
 public func / (lhs: matrix, rhs: matrix) -> matrix{
     return make_operator(lhs, operation: "/", rhs: rhs)
 }
@@ -119,7 +113,6 @@ public func / (lhs: Double, rhs: matrix) -> matrix{
 public func / (lhs: matrix, rhs: Double) -> matrix{
     return make_operator(lhs, operation: "/", rhs: rhs)}
 // LESS THAN
-infix operator < : ComparisonPrecedence
 public func < (lhs: matrix, rhs: Double) -> matrix{
     return make_operator(lhs, operation: "<", rhs: rhs)}
 public func < (lhs: matrix, rhs: matrix) -> matrix{
@@ -127,7 +120,6 @@ public func < (lhs: matrix, rhs: matrix) -> matrix{
 public func < (lhs: Double, rhs: matrix) -> matrix{
     return make_operator(lhs, operation: "<", rhs: rhs)}
 // GREATER THAN
-infix operator > : ComparisonPrecedence
 public func > (lhs: matrix, rhs: Double) -> matrix{
     return make_operator(lhs, operation: ">", rhs: rhs)}
 public func > (lhs: matrix, rhs: matrix) -> matrix{
@@ -135,7 +127,6 @@ public func > (lhs: matrix, rhs: matrix) -> matrix{
 public func > (lhs: Double, rhs: matrix) -> matrix{
     return make_operator(lhs, operation: ">", rhs: rhs)}
 // GREATER THAN OR EQUAL
-infix operator >= : ComparisonPrecedence
 public func >= (lhs: matrix, rhs: Double) -> matrix{
     return make_operator(lhs, operation: ">=", rhs: rhs)}
 public func >= (lhs: matrix, rhs: matrix) -> matrix{
@@ -143,7 +134,6 @@ public func >= (lhs: matrix, rhs: matrix) -> matrix{
 public func >= (lhs: Double, rhs: matrix) -> matrix{
     return make_operator(lhs, operation: ">=", rhs: rhs)}
 // LESS THAN OR EQUAL
-infix operator <= : ComparisonPrecedence
 public func <= (lhs: matrix, rhs: Double) -> matrix{
     return make_operator(lhs, operation: "<=", rhs: rhs)}
 public func <= (lhs: matrix, rhs: matrix) -> matrix{
