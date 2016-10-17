@@ -34,18 +34,18 @@ public class SVM {
         // careful: NU_SVR and SIGMOID throws an exception error
         self.cvsvm.setParams(svm_type.nsstring as String, kernel:kernel_type.nsstring as String, nu:nu.cfloat)
     }
-    public func train(_ responses: matrix, _ targets: vector){
+    public func train(_ responses: Matrix, _ targets: Vector){
         // convert matrix2d to NSArray
         self.M = responses.shape.0
         self.N = responses.shape.1
         self.cvsvm.train(!responses, targets:!targets, m:self.M.cint, n:self.N.cint)
     }
-    public func predict(_ response: vector) -> Double{
+    public func predict(_ response: Vector) -> Double{
         assert(self.N == response.count, "Sizes of input arguments do not match: predict.count != trained.count. The varianbles you're trying to predict a result from must match variables you trained off of.")
         let tp = self.cvsvm.predict(!response, n:self.N.cint)
         return tp.double
     }
-    public func predict(_ responses: matrix) -> vector{
+    public func predict(_ responses: Matrix) -> Vector{
         let y = zeros(responses.shape.0)
         assert(self.N == responses.shape.1, "Sizes must match")
         self.cvsvm.predict(!responses, into:!y, m:responses.shape.0.cint, n:responses.shape.1.cint);
@@ -65,14 +65,14 @@ public class kNearestNeighbors{
         self.N = -1
         self.M = -1
     }
-    public func train(_ responses: matrix, targets: vector){
+    public func train(_ responses: Matrix, targets: Vector){
         self.M = responses.shape.0
         self.N = responses.shape.1
         
         self.knn.train(!responses, targets: !targets, m:self.M.cint, n:self.N.cint)
         
     }
-    public func predict(_ x: vector, k: Int) -> Double{
+    public func predict(_ x: Vector, k: Int) -> Double{
         assert(self.N == x.count, "Sizes of input arguments do not match: predict.count != trained.count. The varianbles you're trying to predict a result from must match variables you trained off of.")
         assert(k <= 32, "k <= 32 for performance reasons enforced by OpenCV.")
         let result = self.knn.predict(!x, n:x.n.cint, k:k.cint)

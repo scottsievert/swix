@@ -116,8 +116,8 @@ public func isNumber(_ x: Double)   ->Bool{return true}
 public func isNumber(_ x: Float)    ->Bool{return true}
 public func isNumber(_ x: Int)      ->Bool{return true}
 public func isNumber(_ x: CInt)     ->Bool{return true}
-public func isNumber(_ x: vector)   ->Bool{return false}
-public func isNumber(_ x: matrix) ->Bool{return false}
+public func isNumber(_ x: Vector)   ->Bool{return false}
+public func isNumber(_ x: Matrix) ->Bool{return false}
 public func isNumber(_ x: AnyObject)->Bool{return false}
 
 

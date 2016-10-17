@@ -8,8 +8,8 @@
 
 import Foundation
 
-// vector binary
-public func write_binary(_ x:vector, filename:String){
+// Vector binary
+public func write_binary(_ x:Vector, filename:String){
     let N = x.n
   var xVec = x
   let data = withUnsafePointer(to: &xVec) {
@@ -19,7 +19,7 @@ public func write_binary(_ x:vector, filename:String){
   //  let data = Data(bytes: UnsafePointer<UInt8>(!x), count:N*MemoryLayout<Double>.size)
     try? data.write(to: URL(fileURLWithPath: filename), options: [])
 }
-public func read_binary(_ filename:String) -> vector{
+public func read_binary(_ filename:String) -> Vector{
     let read = try? Data(contentsOf: URL(fileURLWithPath: filename))
     let l:Int! = read?.count
     let sD:Int = MemoryLayout<Double>.size
@@ -31,18 +31,18 @@ public func read_binary(_ filename:String) -> vector{
 }
 
 // matrix binary
-public func write_binary(_ x:matrix, filename:String){
+public func write_binary(_ x:Matrix, filename:String){
     let y = concat(array(x.shape.0.double, x.shape.1.double), y: x.flat)
     write_binary(y, filename:filename)
 }
-public func read_binary(_ filename:String)->matrix{
-    var a:vector = read_binary(filename)
+public func read_binary(_ filename:String)->Matrix{
+    var a:Vector = read_binary(filename)
     let (w, h) = (a[0], a[1])
     return reshape(a[2..<a.n], shape: (w.int,h.int))
 }
 
-// vector csv
-public func write_csv(_ x:vector, filename:String){
+// Vector csv
+public func write_csv(_ x:Vector, filename:String){
     // write the array to CSV
     var seperator=","
     var str = ""
@@ -58,7 +58,7 @@ public func write_csv(_ x:vector, filename:String){
     }
     
 }
-public func read_csv(_ filename:String) -> vector{
+public func read_csv(_ filename:String) -> Vector{
     var x: String?
     do {
         x = try String(contentsOfFile: filename, encoding: String.Encoding.utf8)
@@ -80,9 +80,9 @@ public func read_csv(_ filename:String) -> vector{
 }
 
 public class CSVFile{
-    public var data: matrix
+    public var data: Matrix
     public var header: [String]
-    public init(data: matrix, header: [String]){
+    public init(data: Matrix, header: [String]){
         self.data = data
         self.header = header
     }
@@ -161,7 +161,7 @@ public func write_csv(_ csv:CSVFile, filename:String){
     write_csv(csv.data, filename:filename, header:csv.header)
 }
 
-public func write_csv(_ x:matrix, filename:String, header:[String] = [""]){
+public func write_csv(_ x:Matrix, filename:String, header:[String] = [""]){
     var seperator=","
     var str = ""
     var i:Int=1

@@ -42,7 +42,7 @@ public func rgb2hsv_pixel(_ R:Double, G:Double, B:Double)->(Double, Double, Doub
 }
 
 
-public func rgb2hsv(_ r:matrix, g:matrix, b:matrix)->(matrix, matrix, matrix){
+public func rgb2hsv(_ r:Matrix, g:Matrix, b:Matrix)->(Matrix, Matrix, Matrix){
     assert(r.shape.0 == g.shape.0)
     assert(b.shape.0 == g.shape.0)
     assert(r.shape.1 == g.shape.1)
@@ -60,12 +60,12 @@ public func rgb2hsv(_ r:matrix, g:matrix, b:matrix)->(matrix, matrix, matrix){
     }
     return (h, s, v)
 }
-public func rgb2_hsv_vplane(_ r:matrix, g:matrix, b:matrix)->matrix{
+public func rgb2_hsv_vplane(_ r:Matrix, g:Matrix, b:Matrix)->Matrix{
     return max(max(r, y: g), y: b)
 }
 
 
-public func savefig(_ x:matrix, filename:String, save:Bool=true, show:Bool=false){
+public func savefig(_ x:Matrix, filename:String, save:Bool=true, show:Bool=false){
     // assumes Python is on your $PATH and pylab/etc are installed
     // prefix should point to the swix folder!
     // prefix is defined in numbers.swift
@@ -76,11 +76,11 @@ public func savefig(_ x:matrix, filename:String, save:Bool=true, show:Bool=false
     print("savefig: Removing CSV FILE " + S2_PREFIX + "temp.csv")
   Process.launchedProcess(launchPath: "rm", arguments: [S2_PREFIX+"temp.csv"])
 }
-public func imshow(_ x: matrix){
+public func imshow(_ x: Matrix){
     savefig(x, filename: "junk", save:false, show:true)
 }
 
-//func UIImageToRGBA(image:UIImage)->(matrix, matrix, matrix, matrix){
+//func UIImageToRGBA(image:UIImage)->(Matrix, Matrix, Matrix, Matrix){
 //    // returns red, green, blue and alpha channels
 //    
 //    // init'ing
@@ -121,7 +121,7 @@ public func imshow(_ x: matrix){
 //    a.flat = rawDataArray[4*i+3]
 //    return (r, g, b, a)
 //}
-//func RGBAToUIImage(r:matrix, g:matrix, b:matrix, a:matrix)->UIImage{
+//func RGBAToUIImage(r:Matrix, g:Matrix, b:Matrix, a:Matrix)->UIImage{
 //    // might be useful! [1]
 //    // [1]:http://stackoverflow.com/questions/30958427/pixel-array-to-uiimage-in-swift
 //    // setup

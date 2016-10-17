@@ -11,9 +11,9 @@ import Accelerate
 
 // the matrix definition and related functions go here
 
-// SLOW PARTS: x[vector, vector] set
+// SLOW PARTS: x[Vector, Vector] set
 
-public struct vector {
+public struct Vector {
     public let n: Int // the number of elements
     public var count: Int { return n } // ditto
     public var grid: [Double] // the raw values
@@ -21,7 +21,7 @@ public struct vector {
         self.n = n
         grid = Array(repeating: 0.0, count: n)
     }
-    public func copy() -> vector{
+    public func copy() -> Vector{
         // return a new array just like this one
         let y = zeros(n)
         cblas_dcopy(self.n.cint, !self, 1.cint, !y, 1.cint)
@@ -51,7 +51,7 @@ public struct vector {
         // return the mean
         return sum(self) / n
     }
-    public subscript(index:String)->vector{
+    public subscript(index:String)->Vector{
         // assumed to be x["all"]. returns every element
         get {
             assert(index == "all", "Currently only \"all\" is supported")
@@ -77,7 +77,7 @@ public struct vector {
             grid[newIndex] = newValue
         }
     }
-    public subscript(r: Range<Int>) -> vector {
+    public subscript(r: Range<Int>) -> Vector {
         // x[0..<N]. Access a range of values.
         get {
             // assumes that r is not [0, 1, 2, 3...] not [0, 2, 4...]
@@ -86,11 +86,11 @@ public struct vector {
         set {
             self[asarray(r)].grid = newValue.grid}
     }
-    public subscript(i: vector) -> vector {
+    public subscript(i: Vector) -> Vector {
         // x[arange(2)]. access a range of values; x[0..<2] depends on this.
         get {
-            // vector has fractional parts, and those parts get truncated
-            var idx:vector
+            // Vector has fractional parts, and those parts get truncated
+            var idx:Vector
             if i.n > 0 {
                 if i.n == self.n && i.max() < 1.5 {
                     // assumed to be boolean
@@ -114,7 +114,7 @@ public struct vector {
             return array()
         }
         set {
-            var idx:vector// = oidx.copy()
+            var idx:Vector// = oidx.copy()
             if i.n > 0{
                 if i.n == self.n && i.max() < 1.5{
                     // assumed to be boolean

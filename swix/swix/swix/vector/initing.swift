@@ -13,35 +13,35 @@ import Swift
 // SLOW PARTS: array(doubles), read_csv, write_csv. not a huge deal -- hopefully not used in final code
 
 
-public func zeros(_ N: Int) -> vector{
+public func zeros(_ N: Int) -> Vector{
     // N zeros
-    return vector(n: N)
+    return Vector(n: N)
 }
-public func zeros_like(_ x: vector) -> vector{
+public func zeros_like(_ x: Vector) -> Vector{
     // make an array like the other array
    return zeros(x.n)
 }
-public func ones_like(_ x: vector) -> vector{
+public func ones_like(_ x: Vector) -> Vector{
     // make an array like the other array
     return zeros_like(x) + 1
 }
-public func ones(_ N: Int) -> vector{
+public func ones(_ N: Int) -> Vector{
     // N ones
-    return vector(n: N)+1
+    return Vector(n: N)+1
 }
-public func arange(_ max: Double, x exclusive:Bool = true) -> vector{
+public func arange(_ max: Double, x exclusive:Bool = true) -> Vector{
     // 0..<max
     return arange(0, max: max, x:exclusive)
 }
-public func arange(_ max: Int, x exclusive:Bool = true) -> vector{
+public func arange(_ max: Int, x exclusive:Bool = true) -> Vector{
     // 0..<max
     return arange(0, max: max.double, x:exclusive)
 }
-public func range(_ min:Double, max:Double, step:Double) -> vector{
+public func range(_ min:Double, max:Double, step:Double) -> Vector{
     // min, min+step, min+2*step..., max-step, max
     return linspace(min, max: max, num:1+((max-min)/step).int)
 }
-public func arange(_ min: Double, max: Double, x exclusive: Bool = true) -> vector{
+public func arange(_ min: Double, max: Double, x exclusive: Bool = true) -> Vector{
     // min...max
     var pad = 0
     if !exclusive {pad = 1}
@@ -52,7 +52,7 @@ public func arange(_ min: Double, max: Double, x exclusive: Bool = true) -> vect
     vDSP_vrampD(&o, &l, !x, 1.stride, N.length)
     return x
 }
-public func linspace(_ min: Double, max: Double, num: Int=50) -> vector{
+public func linspace(_ min: Double, max: Double, num: Int=50) -> Vector{
     // 0...1
     let x = zeros(num+0)
     var min  = CDouble(min)
@@ -60,7 +60,7 @@ public func linspace(_ min: Double, max: Double, num: Int=50) -> vector{
     vDSP_vrampD(&min, &step, !x, 1.stride, x.n.length)
     return x
 }
-public func array(_ numbers: Double...) -> vector{
+public func array(_ numbers: Double...) -> Vector{
     // array(1, 2, 3, 4) -> arange(4)+1
     // okay to leave unoptimized, only used for testing
     var x = zeros(numbers.count)
@@ -71,13 +71,13 @@ public func array(_ numbers: Double...) -> vector{
     }
     return x
 }
-public func asarray(_ x: [Double]) -> vector{
+public func asarray(_ x: [Double]) -> Vector{
     // convert a grid of double's to an array
     var y = zeros(x.count)
     y.grid = x
     return y
 }
-public func asarray(_ seq: Range<Int>) -> vector {
+public func asarray(_ seq: Range<Int>) -> Vector {
     // make a range a grid of arrays
     // improve with [1]
     // [1]:https://gist.github.com/nubbel/d5a3639bea96ad568cf2
@@ -86,7 +86,7 @@ public func asarray(_ seq: Range<Int>) -> vector {
     return arange(start, max: end, x:true)
 }
 
-public func copy(_ x: vector) -> vector{
+public func copy(_ x: Vector) -> Vector{
     // copy the value
     return x.copy()
 }
@@ -95,7 +95,7 @@ public func seed(_ n:Int){
     SWIX_SEED = __CLPK_integer(n)
 }
 
-public func rand(_ N: Int, distro:String="uniform") -> vector{
+public func rand(_ N: Int, distro:String="uniform") -> Vector{
     let x = zeros(N)
     var i:__CLPK_integer = 1
     if distro=="normal" {i = __CLPK_integer(3)}
@@ -105,10 +105,10 @@ public func rand(_ N: Int, distro:String="uniform") -> vector{
     SWIX_SEED = seed[0]
     return x
 }
-public func randn(_ N: Int, mean: Double=0, sigma: Double=1) -> vector{
+public func randn(_ N: Int, mean: Double=0, sigma: Double=1) -> Vector{
     return (rand(N, distro:"normal") * sigma) + mean;
 }
-public func randperm(_ N:Int)->vector{
+public func randperm(_ N:Int)->Vector{
     let x = arange(N)
     let y = shuffle(x)
     return y

@@ -11,29 +11,29 @@ import Accelerate
 
 
 // integration
-public func cumtrapz(_ x:vector)->vector{
+public func cumtrapz(_ x:Vector)->Vector{
     // integrate and see the steps at each iteration
     let y = zeros_like(x)
     var dx:CDouble = 1.0
     vDSP_vtrapzD(!x, 1.stride, &dx, !y, 1.stride, x.n.length)
     return y
 }
-public func trapz(_ x:vector)->Double{
+public func trapz(_ x:Vector)->Double{
     // integrate and get the final value
     return cumtrapz(x)[-1]
 }
 // basic definitions
-public func inner(_ x:vector, y:vector)->Double{
+public func inner(_ x:Vector, y:Vector)->Double{
     // the inner product. aka dot product, but I use dot product as a short for matrix multiplication
     return sum(x * y)
 }
-public func outer(_ x:vector, y:vector)->matrix{
+public func outer(_ x:Vector, y:Vector)->Matrix{
     // the outer product.
     let (xm, ym) = meshgrid(x, y: y)
     return xm * ym
 }
 // fourier transforms
-public func fft(_ x: vector) -> (vector, vector){
+public func fft(_ x: Vector) -> (Vector, Vector){
     let N:CInt = x.n.cint
     var yr = zeros(N.int)
     var yi = zeros(N.int)
@@ -60,7 +60,7 @@ public func fft(_ x: vector) -> (vector, vector){
     yi /= 2.0
     return (yr, yi)
 }
-public func ifft(_ yr: vector, yi: vector) -> vector{
+public func ifft(_ yr: Vector, yi: Vector) -> Vector{
     let N = yr.n
     var x = zeros(N)
     
@@ -82,7 +82,7 @@ public func ifft(_ yr: vector, yi: vector) -> vector{
     x /= 16.0
     return x
 }
-public func fftconvolve(_ x:vector, kernel:vector)->vector{
+public func fftconvolve(_ x:Vector, kernel:Vector)->Vector{
     // convolve two arrays using the fourier transform.
     // zero padding, assuming kernel is smaller than x
     var k_pad = zeros_like(x)

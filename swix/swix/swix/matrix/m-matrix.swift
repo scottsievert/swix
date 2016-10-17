@@ -9,17 +9,17 @@
 import Foundation
 import Accelerate
 public typealias Shape = (rows:Int, columns:Int)
-public struct matrix {
+public struct Matrix {
     var _shape:Shape
     public var rows: Int { return _shape.rows }
     public var columns: Int { return _shape.columns }
     var _count: Int
     public var count: Int { return _count }
     public var shape: Shape { return _shape }
-    public var flat:vector
-    public var T:matrix {return transpose(self)}
-    public var I:matrix {return inv(self)}
-    public var pI:matrix {return pinv(self)}
+    public var flat:Vector
+    public var T:Matrix {return transpose(self)}
+    public var I:Matrix {return inv(self)}
+    public var pI:Matrix {return pinv(self)}
     init(columns: Int, rows: Int) {
         _count = rows * columns
         _shape.rows = rows
@@ -27,7 +27,7 @@ public struct matrix {
         self.flat = zeros(_count)
     }
 
-    public init(_ rowVec:[vector]) {
+    public init(_ rowVec:[Vector]) {
         _shape.rows = rowVec.count
         assert(rowVec.count > 0, "Can't create a matrix with no row data provided")
         _shape.columns = rowVec[0].count
@@ -46,12 +46,12 @@ public struct matrix {
         }
     }
   
-    public func copy()->matrix{
+    public func copy()->Matrix{
         var y = zeros_like(self)
         y.flat = self.flat.copy()
         return y
     }
-    public subscript(i: String) -> vector {
+    public subscript(i: String) -> Vector {
         get {
             assert(i == "diag", "Currently the only support x[string] is x[\"diag\"]")
             let size = rows < columns ? rows : columns
@@ -70,7 +70,7 @@ public struct matrix {
     public func indexIsValidForRow(_ r: Int, c: Int) -> Bool {
         return r >= 0 && r < rows && c>=0 && c < columns
     }
-    public func dot(_ y: matrix) -> matrix{
+    public func dot(_ y: Matrix) -> Matrix{
         let (Mx, Nx) = self.shape
         let (My, Ny) = y.shape
         assert(Nx == My, "Matrix sizes not compatible for dot product")
@@ -82,7 +82,7 @@ public struct matrix {
             !z, Ny.cint)
         return z
     }
-    public func dot(_ x: vector) -> vector{
+    public func dot(_ x: Vector) -> Vector{
         var y = zeros((x.n, 1))
         y.flat = x
         let z = self.dot(y)
@@ -122,7 +122,7 @@ public struct matrix {
             flat[nI * columns + nJ] = newValue
         }
     }
-    public subscript(i: Range<Int>, k: Int) -> vector {
+    public subscript(i: Range<Int>, k: Int) -> Vector {
         // x[0..<2, 0]
         get {
             let idx = asarray(i)
@@ -133,7 +133,7 @@ public struct matrix {
             self[idx, k] = newValue
         }
     }
-    public subscript(r: Range<Int>, c: Range<Int>) -> matrix {
+    public subscript(r: Range<Int>, c: Range<Int>) -> Matrix {
         // x[0..<2, 0..<2]
         get {
             let rr = asarray(r)
@@ -146,7 +146,7 @@ public struct matrix {
             self[rr, cc] = newValue
         }
     }
-    public subscript(i: Int, k: Range<Int>) -> vector {
+    public subscript(i: Int, k: Range<Int>) -> Vector {
         // x[0, 0..<2]
         get {
             let idx = asarray(k)
@@ -157,7 +157,7 @@ public struct matrix {
             self[i, idx] = newValue
         }
     }
-    public subscript(or: vector, oc: vector) -> matrix {
+    public subscript(or: Vector, oc: Vector) -> Matrix {
         // the main method.
         // x[array(1,2), array(3,4)]
         get {
@@ -184,16 +184,16 @@ public struct matrix {
             }
         }
     }
-    public subscript(r: vector) -> vector {
+    public subscript(r: Vector) -> Vector {
         // flat indexing
         get {return self.flat[r]}
         set {self.flat[r] = newValue }
     }
-    public subscript(i: String, k:Int) -> vector {
+    public subscript(i: String, k:Int) -> Vector {
         // x["all", 0]
         get {
             let idx = arange(shape.0)
-            let x:vector = self.flat[idx * self.columns.double + k.double]
+            let x:Vector = self.flat[idx * self.columns.double + k.double]
             return x
         }
         set {
@@ -201,12 +201,12 @@ public struct matrix {
             self.flat[idx * self.columns.double + k.double] = newValue
         }
     }
-    public subscript(i: Int, k: String) -> vector {
+    public subscript(i: Int, k: String) -> Vector {
         // x[0, "all"]
         get {
             assert(k == "all", "Only 'all' supported")
             let idx = arange(shape.1)
-            let x:vector = self.flat[i.double * self.columns.double + idx]
+            let x:Vector = self.flat[i.double * self.columns.double + idx]
             return x
         }
         set {
@@ -215,11 +215,11 @@ public struct matrix {
             self.flat[i.double * self.columns.double + idx] = newValue
         }
     }
-    public subscript(i: vector, k: Int) -> vector {
+    public subscript(i: Vector, k: Int) -> Vector {
         // x[array(1,2), 0]
         get {
             let idx = i.copy()
-            let x:vector = self.flat[idx * self.columns.double + k.double]
+            let x:Vector = self.flat[idx * self.columns.double + k.double]
             return x
         }
         set {
@@ -227,7 +227,7 @@ public struct matrix {
             self.flat[idx * self.columns.double + k.double] = newValue
         }
     }
-    public subscript(i: matrix) -> vector {
+    public subscript(i: Matrix) -> Vector {
         // x[x < 5]
         get {
             return self.flat[i.flat]
@@ -236,10 +236,10 @@ public struct matrix {
             self.flat[i.flat] = newValue
         }
     }
-    public subscript(i: Int, k: vector) -> vector {
+    public subscript(i: Int, k: Vector) -> Vector {
         // x[0, array(1,2)]
         get {
-            let x:vector = self.flat[i.double * self.columns.double + k]
+            let x:Vector = self.flat[i.double * self.columns.double + k]
             return x
         }
         set {
@@ -248,14 +248,14 @@ public struct matrix {
     }
 }
 
-extension vector {
-    public func reshape(_ shape: (Int,Int)) -> matrix{
+extension Vector {
+    public func reshape(_ shape: (Int,Int)) -> Matrix{
         // reshape to a matrix of size.
         var (mm, nn) = shape
         if mm == -1 {mm = n / nn}
         if nn == -1 {nn = n / mm}
         assert(mm * nn == n, "Number of elements must not change.")
-        var y:matrix = zeros((mm, nn))
+        var y:Matrix = zeros((mm, nn))
         y.flat = self
         return y
     }

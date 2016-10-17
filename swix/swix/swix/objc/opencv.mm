@@ -62,7 +62,7 @@ void copy(Mat x, double * y, int N);
     // instead, I can do threshold(abs(x - y), 1e-9)
     
     // threshold: vDSP_vthrscD
-    // abs can be vectorized, - vectorized
+    // abs can be Vectorized, - Vectorized
     Mat xMat(1, N, CV_64F, x);
     Mat yMat(1, N, CV_64F, y);
     Mat zMat;

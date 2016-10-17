@@ -220,115 +220,113 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         assert(!isNumber(zeros(2)))
         //        assert(!isNumber("3.14"))
     }
-    class vectorTests{
-        init(){
-            initingTests()
-            vectorSwiftTests()
-        }
-        func initingTests(){
-            // testing zeros and array
-            assert(zeros(4) ~== array(0,0,0,0))
-            assert(ones(4) ~== (zeros(4)+1))
-            assert(zeros_like(ones(4)) ~== zeros(4))
-            assert(arange(4) ~== array(0, 1, 2, 3))
-            assert(arange(2, max: 4) ~== array(2, 3))
-            assert(linspace(0,max: 1,num:3) ~== array(0, 0.5, 1))
-            assert(`repeat`(arange(2), N: 2) ~== array(0,1,0,1))
-//            assert(copy(arange(4)) ~== arange(4))
-            assert(asarray(0..<2) ~== array(0, 1))
-//            assert(copy(arange(3)) ~== array(0, 1, 2))
-            //assert(sum((rand(3) - array(0.516, 0.294, 0.727)) < 1e-2) == 3)
-            
-            let N = 1e4.int
-            seed(42)
-            let x = rand(N)
-            
-            seed(42)
-            var y = rand(N)
-            assert(x ~== y)
-            
-            seed(29)
-            y = rand(N)
-            assert(!(x ~== y))
-            
-            seed(42)
-            y = rand(N)
-            assert(x ~== y)
-            
-            assert(abs(x.mean() - 0.5) < 1e-1)
-            assert((abs(variance(x) - ((1/12) as Double))) < 1e-1)
-        }
-        func vectorSwiftTests(){
-            // testing the file vector.swift
-            var x_idx = zeros(4)
-            x_idx[0..<2] <- 2
-            assert(x_idx ~== array(2, 2, 0, 0))
-            assert(arange(4).reshape((2,2)) ~== array("0 1; 2 3"))
-            assert(arange(4).copy() ~== arange(4))
-            var x = array(4, 2, 3, 1)
-            x.sort()
-            assert(x ~== array(1, 2, 3, 4))
-            assert(x.min() == 1)
-            assert(x.max() == 4)
-            assert(x.mean() == 2.5)
-            assert(x["all"] ~== array(1, 2, 3, 4))
-            x[0] = 0
-            assert(x[0] == 0)
-            x[0..<2] = array(1, 3)
-            assert(x[0..<2] ~== array(1, 3))
-            x[arange(2)] = array(4, 1)
-            assert(x[arange(2)] ~== array(4, 1))
-            
-            let y = array(5, 2, 4, 3, 1)
-            assert((y < 2) ~== array(0, 0, 0, 0, 1))
-            assert(reverse(y) ~== array(1, 3, 4, 2, 5))
-            assert(sort(y) ~== array(1, 2, 3, 4, 5))
-            assert(delete(y, idx: array(0, 1)) ~== array(4, 3, 1))
-            assert(asarray([0, 1, 2]) ~== array(0, 1, 2))
-            assert(asarray(0..<2) ~== array(0, 1))
-            assert(concat(array(1, 2), y: array(3, 4)) ~== (arange(4)+1))
-            assert(clip(y, a_min: 2, a_max: 4) ~== array(4, 2, 4, 3, 2))
-            assert(delete(y, idx: array(0, 1)) ~== array(4,3,1))
-            assert(`repeat`(array(0,1),N: 2) ~== array(0,1,0,1))
-            assert(`repeat`(array(0, 1),N:2, axis:1) ~== array(0,0,1,1))
-            assert(argmax(array(1,4,2,5)) == 3)
-            assert(argmin(array(1,4,2,5)) == 0)
-            assert(argsort(array(1,4,2,5)) ~== array(0, 2, 1, 3))
-            
-            assert(arange(4) ~== array(0, 1, 2, 3))
-            let xO = array(1, 2, 3)
-            let yO = array(1, 2, 3) + 3
-            assert(outer(xO, y: yO) ~== array(4, 5, 6, 8, 10, 12, 12, 15, 18).reshape((3,3)))
-            let xR1 = array(1.1, 1.2, 1.3)
-            let xR2 = array(1, 1, 1)
-            assert(remainder(xR1, x2: xR2) ~== array(0.1, 0.2, 0.3))
-            assert((xR1 % 1.0) ~== array(0.1, 0.2, 0.3))
-            assert((1.0 % xR1) ~== ones(3))
-            assert(arange(4)[-1] == 3.0)
-            
-            let xR = arange(4*4).reshape((4,4))
-            assert(rank(xR) == 2.0)
-            
-            assert(pow(array(1,2,3,4), power: 2) ~== array(1,4,9,16))
-            assert(pow(ones(4)*2, y: ones(4)*2) ~== array(4, 4, 4, 4))
-            assert(pow(-1, y: array(1, 2, 3, 4)) ~== array(-1, 1, -1, 1))
-            assert(norm(array(1,1,1), ord:2) == sqrt(3))
-            assert(norm(array(1,0,1), ord:1) == 2)
-            assert(norm(array(4,0,0), ord:0) == 1)
-            assert(norm(array(4,0,0), ord:-1) == 4)
-            assert(norm(array(4,2,-3), ord:inf) == 4)
-            assert(norm(array(4,2,-3), ord:-inf) == 2)
-            
-            assert(sign(array(-3, 4, 5)) ~== array(-1, 1, 1))
-            assert(floor(array(1.1, 1.2, 1.6)) ~== array(1, 1, 1))
-            assert(round(array(1.1, 1.2, 1.6)) ~== array(1, 1, 2))
-            assert(ceil(array(1.2, 1.5, 1.8)) ~== (ones(3)*2))
-            assert(log10(ones(4) * 10) ~== ones(4))
-            assert(log2(ones(4) * 2) ~== ones(4))
-            assert(log(ones(4) * e) ~== ones(4))
-            assert(exp2(ones(4)*2) ~== (ones(4) * 4))
-            assert(exp(ones(4)*2) ~== (ones(4)*(e*e)))
-        }
+    func vectorTests(){
+        initingTests()
+        vectorSwiftTests()
+    }
+    func initingTests(){
+        // testing zeros and array
+        assert(zeros(4) ~== array(0,0,0,0))
+        assert(ones(4) ~== (zeros(4)+1))
+        assert(zeros_like(ones(4)) ~== zeros(4))
+        assert(arange(4) ~== array(0, 1, 2, 3))
+        assert(arange(2, max: 4) ~== array(2, 3))
+        assert(linspace(0,max: 1,num:3) ~== array(0, 0.5, 1))
+        assert(`repeat`(arange(2), N: 2) ~== array(0,1,0,1))
+        //            assert(copy(arange(4)) ~== arange(4))
+        assert(asarray(0..<2) ~== array(0, 1))
+        //            assert(copy(arange(3)) ~== array(0, 1, 2))
+        //assert(sum((rand(3) - array(0.516, 0.294, 0.727)) < 1e-2) == 3)
+        
+        let N = 1e4.int
+        seed(42)
+        let x = rand(N)
+        
+        seed(42)
+        var y = rand(N)
+        assert(x ~== y)
+        
+        seed(29)
+        y = rand(N)
+        assert(!(x ~== y))
+        
+        seed(42)
+        y = rand(N)
+        assert(x ~== y)
+        
+        assert(abs(x.mean() - 0.5) < 1e-1)
+        assert((abs(variance(x) - ((1/12) as Double))) < 1e-1)
+    }
+    func vectorSwiftTests(){
+        // testing the file vector.swift
+        var x_idx = zeros(4)
+        x_idx[0..<2] <- 2
+        assert(x_idx ~== array(2, 2, 0, 0))
+        assert(arange(4).reshape((2,2)) ~== array("0 1; 2 3"))
+        assert(arange(4).copy() ~== arange(4))
+        var x = array(4, 2, 3, 1)
+        x.sort()
+        assert(x ~== array(1, 2, 3, 4))
+        assert(x.min() == 1)
+        assert(x.max() == 4)
+        assert(x.mean() == 2.5)
+        assert(x["all"] ~== array(1, 2, 3, 4))
+        x[0] = 0
+        assert(x[0] == 0)
+        x[0..<2] = array(1, 3)
+        assert(x[0..<2] ~== array(1, 3))
+        x[arange(2)] = array(4, 1)
+        assert(x[arange(2)] ~== array(4, 1))
+        
+        let y = array(5, 2, 4, 3, 1)
+        assert((y < 2) ~== array(0, 0, 0, 0, 1))
+        assert(reverse(y) ~== array(1, 3, 4, 2, 5))
+        assert(sort(y) ~== array(1, 2, 3, 4, 5))
+        assert(delete(y, idx: array(0, 1)) ~== array(4, 3, 1))
+        assert(asarray([0, 1, 2]) ~== array(0, 1, 2))
+        assert(asarray(0..<2) ~== array(0, 1))
+        assert(concat(array(1, 2), y: array(3, 4)) ~== (arange(4)+1))
+        assert(clip(y, a_min: 2, a_max: 4) ~== array(4, 2, 4, 3, 2))
+        assert(delete(y, idx: array(0, 1)) ~== array(4,3,1))
+        assert(`repeat`(array(0,1),N: 2) ~== array(0,1,0,1))
+        assert(`repeat`(array(0, 1),N:2, axis:1) ~== array(0,0,1,1))
+        assert(argmax(array(1,4,2,5)) == 3)
+        assert(argmin(array(1,4,2,5)) == 0)
+        assert(argsort(array(1,4,2,5)) ~== array(0, 2, 1, 3))
+        
+        assert(arange(4) ~== array(0, 1, 2, 3))
+        let xO = array(1, 2, 3)
+        let yO = array(1, 2, 3) + 3
+        assert(outer(xO, y: yO) ~== array(4, 5, 6, 8, 10, 12, 12, 15, 18).reshape((3,3)))
+        let xR1 = array(1.1, 1.2, 1.3)
+        let xR2 = array(1, 1, 1)
+        assert(remainder(xR1, x2: xR2) ~== array(0.1, 0.2, 0.3))
+        assert((xR1 % 1.0) ~== array(0.1, 0.2, 0.3))
+        assert((1.0 % xR1) ~== ones(3))
+        assert(arange(4)[-1] == 3.0)
+        
+        let xR = arange(4*4).reshape((4,4))
+        assert(rank(xR) == 2.0)
+        
+        assert(pow(array(1,2,3,4), power: 2) ~== array(1,4,9,16))
+        assert(pow(ones(4)*2, y: ones(4)*2) ~== array(4, 4, 4, 4))
+        assert(pow(-1, y: array(1, 2, 3, 4)) ~== array(-1, 1, -1, 1))
+        assert(norm(array(1,1,1), ord:2) == sqrt(3))
+        assert(norm(array(1,0,1), ord:1) == 2)
+        assert(norm(array(4,0,0), ord:0) == 1)
+        assert(norm(array(4,0,0), ord:-1) == 4)
+        assert(norm(array(4,2,-3), ord:inf) == 4)
+        assert(norm(array(4,2,-3), ord:-inf) == 2)
+        
+        assert(sign(array(-3, 4, 5)) ~== array(-1, 1, 1))
+        assert(floor(array(1.1, 1.2, 1.6)) ~== array(1, 1, 1))
+        assert(round(array(1.1, 1.2, 1.6)) ~== array(1, 1, 2))
+        assert(ceil(array(1.2, 1.5, 1.8)) ~== (ones(3)*2))
+        assert(log10(ones(4) * 10) ~== ones(4))
+        assert(log2(ones(4) * 2) ~== ones(4))
+        assert(log(ones(4) * e) ~== ones(4))
+        assert(exp2(ones(4)*2) ~== (ones(4) * 4))
+        assert(exp(ones(4)*2) ~== (ones(4)*(e*e)))
     }
     func matrixTests(){
         let x = randn((4,4))
@@ -346,22 +344,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func readWriteTests(){
         let x1 = arange(9).reshape((3,3)) * 2
         write_csv(x1, filename: "../../python_testing/csvs/image.csv")
-        let y1:matrix = read_csv("../../python_testing/csvs/image.csv").data
+        let y1:Matrix = read_csv("../../python_testing/csvs/image.csv").data
         assert(x1 ~== y1)
         
         let x2 = array(1, 2, 3, 4, 5, 2, 1)
         write_csv(x2, filename:"../../python_testing/csvs/vector.csv")
-        let y2:vector = read_csv("../../python_testing/csvs/vector.csv")
+        let y2:Vector = read_csv("../../python_testing/csvs/vector.csv")
         assert(x2 ~== y2)
         
         let x3 = array(1, 5, 3, 1, 0, -10) * pi
         write_binary(x3, filename:"../../python_testing/csvs/x3.npy")
-        let y3:vector = read_binary("../../python_testing/csvs/x3.npy")
+        let y3:Vector = read_binary("../../python_testing/csvs/x3.npy")
         assert(y3 ~== x3)
         
         let x4 = arange(9).reshape((3,3))
         write_binary(x4, filename:"../../python_testing/csvs/x4.npy")
-        let y4:matrix = read_binary("../../python_testing/csvs/x4.npy")
+        let y4:Matrix = read_binary("../../python_testing/csvs/x4.npy")
         assert(y4 ~== x4)
     }
     func twoDTests(){
