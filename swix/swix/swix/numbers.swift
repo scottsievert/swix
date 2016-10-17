@@ -111,9 +111,11 @@ precedencegroup ComparisonPrecedence {
   associativity: left
   higherThan: LogicalConjunctionPrecedence
 }
-precedencegroup Additive { higherThan: ComparisonPrecedence }
-precedencegroup Multiplicative { higherThan: Additive }
-infix operator  / : Multiplicative
+precedencegroup AdditivePrecedence { higherThan: ComparisonPrecedence }
+precedencegroup MultiplicativePrecedence { higherThan: AdditivePrecedence }
+precedencegroup PowerPrecedence { higherThan: MultiplicativePrecedence }
+
+infix operator  / : MultiplicativePrecedence
 public func / (lhs: Int, rhs: Int) -> Double{
     return lhs.double / rhs.double}
 public func / (lhs: Double, rhs: Int) -> Double{

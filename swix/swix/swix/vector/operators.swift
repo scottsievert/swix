@@ -95,7 +95,7 @@ func make_operator(_ lhs:Double, operation:String, rhs:vector) -> vector{
 }
 
 // DOUBLE ASSIGNMENT
-infix operator <-
+infix operator <- : PowerPrecedence
 public func <- (lhs:inout vector, rhs:Double){
     lhs = ones(lhs.n) * rhs
 }
@@ -122,7 +122,7 @@ public func /= (x: inout vector, right: Double){
     x = x / right}
 
 // MOD
-infix operator % : Multiplicative
+infix operator % : MultiplicativePrecedence
 public func % (lhs: vector, rhs: Double) -> vector{
     return make_operator(lhs, operation: "%", rhs: rhs)}
 public func % (lhs: vector, rhs: vector) -> vector{
@@ -130,7 +130,7 @@ public func % (lhs: vector, rhs: vector) -> vector{
 public func % (lhs: Double, rhs: vector) -> vector{
     return make_operator(lhs, operation: "%", rhs: rhs)}
 // POW
-infix operator ^ : Multiplicative
+infix operator ^ : PowerPrecedence
 public func ^ (lhs: vector, rhs: Double) -> vector{
     return pow(lhs, power: rhs)}
 public func ^ (lhs: vector, rhs: vector) -> vector{
@@ -138,7 +138,7 @@ public func ^ (lhs: vector, rhs: vector) -> vector{
 public func ^ (lhs: Double, rhs: vector) -> vector{
     return pow(lhs, y: rhs)}
 // PLUS
-infix operator + : Additive
+infix operator + : AdditivePrecedence
 public func + (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "+", rhs: rhs)}
 public func + (lhs: Double, rhs: vector) -> vector{
@@ -148,7 +148,7 @@ public func + (lhs: vector, rhs: Double) -> vector{
 public func + (lhs: Int, rhs: Double) -> Double{ return Double(lhs) + rhs }
 public func + (lhs: Double, rhs: Int) -> Double{ return Double(rhs) + lhs }
 // MINUS
-infix operator - : Additive
+infix operator - : AdditivePrecedence
 public func - (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "-", rhs: rhs)}
 public func - (lhs: Double, rhs: vector) -> vector{
@@ -156,7 +156,7 @@ public func - (lhs: Double, rhs: vector) -> vector{
 public func - (lhs: vector, rhs: Double) -> vector{
     return make_operator(lhs, operation: "-", rhs: rhs)}
 // TIMES
-infix operator * : Multiplicative
+infix operator * : MultiplicativePrecedence
 public func * (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "*", rhs: rhs)}
 public func * (lhs: Double, rhs: vector) -> vector{
@@ -164,7 +164,7 @@ public func * (lhs: Double, rhs: vector) -> vector{
 public func * (lhs: vector, rhs: Double) -> vector{
     return make_operator(lhs, operation: "*", rhs: rhs)}
 // DIVIDE
-infix operator / : Multiplicative
+infix operator / : MultiplicativePrecedence
 public func / (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "/", rhs: rhs)
     }
@@ -205,7 +205,6 @@ public func <= (lhs: vector, rhs: vector) -> vector{
 public func <= (lhs: Double, rhs: vector) -> vector{
     return make_operator(lhs, operation: "<=", rhs: rhs)}
 // LOGICAL AND
-infix operator && : Additive
 public func && (lhs: vector, rhs: vector) -> vector{
     return logical_and(lhs, y: rhs)}
 // LOGICAL OR
