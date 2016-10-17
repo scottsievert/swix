@@ -52,7 +52,6 @@
 		A7B290A61DB3D19200ED9C4E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		A7B290A81DB3D20C00ED9C4E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D24D7132199272E600D4B9D8 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../swix/swix/objc/opencv2.framework; sourceTree = "<group>"; };
-		D2D216381B629E8E00489EB9 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D2D2163A1B629E8E00489EB9 /* imshow.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = imshow.py; sourceTree = "<group>"; };
 		D2D2163B1B629E8E00489EB9 /* io.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = io.swift; sourceTree = "<group>"; };
 		D2D2163D1B629E8E00489EB9 /* machine_learning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = machine_learning.swift; sourceTree = "<group>"; };
@@ -111,14 +110,6 @@
 			path = Swix;
 			sourceTree = "<group>";
 		};
-		A7B2908B1DB3CCE400ED9C4E /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				D2D216381B629E8E00489EB9 /* main.swift */,
-			);
-			name = Test;
-			sourceTree = "<group>";
-		};
 		A7B290911DB3CD7900ED9C4E /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,7 +153,6 @@
 		D2D216371B629E8E00489EB9 /* swix */ = {
 			isa = PBXGroup;
 			children = (
-				A7B2908B1DB3CCE400ED9C4E /* Test */,
 				D2D216391B629E8E00489EB9 /* swix */,
 			);
 			path = swix;
