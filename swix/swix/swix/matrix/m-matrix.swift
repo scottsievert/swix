@@ -16,7 +16,7 @@ public struct matrix {
     var _count: Int
     public var count: Int { return _count }
     public var shape: Shape { return _shape }
-    var flat:vector
+    public var flat:vector
     public var T:matrix {return transpose(self)}
     public var I:matrix {return inv(self)}
     public var pI:matrix {return pinv(self)}
@@ -248,19 +248,15 @@ public struct matrix {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+extension vector {
+    public func reshape(_ shape: (Int,Int)) -> matrix{
+        // reshape to a matrix of size.
+        var (mm, nn) = shape
+        if mm == -1 {mm = n / nn}
+        if nn == -1 {nn = n / mm}
+        assert(mm * nn == n, "Number of elements must not change.")
+        var y:matrix = zeros((mm, nn))
+        y.flat = self
+        return y
+    }
+}

@@ -97,8 +97,7 @@ func make_operator(_ lhs:Double, operation:String, rhs:vector) -> vector{
 // DOUBLE ASSIGNMENT
 infix operator <-
 public func <- (lhs:inout vector, rhs:Double){
-    let assign = ones(lhs.n) * rhs
-    lhs = assign
+    lhs = ones(lhs.n) * rhs
 }
 
 // EQUALITY

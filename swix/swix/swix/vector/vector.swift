@@ -21,16 +21,6 @@ public struct vector {
         self.n = n
         grid = Array(repeating: 0.0, count: n)
     }
-    public func reshape(_ shape: (Int,Int)) -> matrix{
-        // reshape to a matrix of size.
-        var (mm, nn) = shape
-        if mm == -1 {mm = n / nn}
-        if nn == -1 {nn = n / mm}
-        assert(mm * nn == n, "Number of elements must not change.")
-        var y:matrix = zeros((mm, nn))
-        y.flat = self
-        return y
-    }
     public func copy() -> vector{
         // return a new array just like this one
         let y = zeros(n)

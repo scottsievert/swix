@@ -1,18 +1,55 @@
 //
-//  fullTests.swift
-//  swix
+//  AppDelegate.swift
+//  Tests
 //
-//  Created by Scott Sievert on 7/18/14.
-//  Copyright (c) 2014 com.scott. All rights reserved.
+//  Created by Thomas Kilian on 16.10.16.
+//  Copyright © 2016 com.scott. All rights reserved.
 //
 
-import Foundation
+//
+// Basically this is a command line utility. 
+// But since Swift makes life hard when you try to use a framework with command line utilities, this is made a primitive app.
+//
 
-class swixTests {
-    var N:Int
-    init(run_io_tests:Bool=false){
+import Cocoa
+import SwixOO
+
+infix operator &&
+infix operator ||
+infix operator %
+infix operator ~==
+infix operator +
+infix operator -
+infix operator *
+infix operator /
+infix operator ^
+
+@NSApplicationMain
+class AppDelegate: NSObject, NSApplicationDelegate {
+
+    @IBOutlet weak var window: NSWindow!
+
+
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        doTests(run_io_tests: false)
+        
+        speedTests()
+        
+        let csv = CSVFile(data:eye(3), header:["1", "2", "3"])
+        
+        let filename = NSSearchPathForDirectoriesInDomains(.desktopDirectory, .userDomainMask, true)[0] + "/test_2016.csv"
+        write_csv(csv, filename:filename)
+        let y:CSVFile = read_csv(filename, header_present:true)
+        
+        print("\n")
+        print(y.data)
+        print(y.header)
+        exit(0)
+    }
+
+    var N:Int = 10
+    func doTests(run_io_tests:Bool=false){
         print("running many simple tests")
-        self.N = 10
         operatorTests()
         print("   operators work as expected")
         comparisonTests()
@@ -60,9 +97,9 @@ class swixTests {
             print("Int(1)+Double(1)==2 through ScalarArithmetic")
         }
         func swift_complex_test(){
-//            var x = 1.0 + 1.0.i
-//            assert(abs(x) == sqrt(2))
-//            print("scalar (not vector) complex number usage works using swift-complex.")
+            //            var x = 1.0 + 1.0.i
+            //            assert(abs(x) == sqrt(2))
+            //            print("scalar (not vector) complex number usage works using swift-complex.")
         }
         func range_test(){
             var x = arange(4)
@@ -104,7 +141,7 @@ class swixTests {
         func dot_test(){
             let x = eye(3) * 2
             let y = array("1 2 3 1; 4 5 6 1; 7 8 9 1")
-            assert((x.dot(y)) ~== 2*y)
+            assert((x.dot(y)) ~== (2.0*y))
             print("dot product works with dot(x, y) or x *! y")
             
             let xA = ones(3)
@@ -182,16 +219,16 @@ class swixTests {
     func numberTests(){
         assert(close(0, y: 1e-10) == true)
         assert(close(0, y: 1e-10) == (1e-10 ~= 0))
-        assert(rad2deg(pi/2) == 90)
-        assert(deg2rad(90) == pi/2)
+        assert(rad2deg(pi/2.0) == 90.0)
+        assert(deg2rad(90.0) == (pi/2.0))
         assert(max(0, 1) == 1)
         assert(min(0, 1) == 0)
-//        assert("3.14".floatValue == 3.14)
-        assert(3 / 4 == 0.75)
-        assert(3.25 / 4 == 0.8125)
+        //        assert("3.14".floatValue == 3.14)
+        assert((3 / 4) as Double == 0.75)
+        assert((3.25 / 4) as Double == 0.8125)
         assert(isNumber(3))
         assert(!isNumber(zeros(2)))
-//        assert(!isNumber("3.14"))
+        //        assert(!isNumber("3.14"))
     }
     class vectorTests{
         init(){
@@ -207,9 +244,9 @@ class swixTests {
             assert(arange(2, max: 4) ~== array(2, 3))
             assert(linspace(0,max: 1,num:3) ~== array(0, 0.5, 1))
             assert(`repeat`(arange(2), N: 2) ~== array(0,1,0,1))
-            assert(copy(arange(4)) ~== arange(4))
+//            assert(copy(arange(4)) ~== arange(4))
             assert(asarray(0..<2) ~== array(0, 1))
-            assert(copy(arange(3)) ~== array(0, 1, 2))
+//            assert(copy(arange(3)) ~== array(0, 1, 2))
             //assert(sum((rand(3) - array(0.516, 0.294, 0.727)) < 1e-2) == 3)
             
             let N = 1e4.int
@@ -229,7 +266,7 @@ class swixTests {
             assert(x ~== y)
             
             assert(abs(x.mean() - 0.5) < 1e-1)
-            assert(abs(variance(x) - 1/12) < 1e-1)
+            assert((abs(variance(x) - ((1/12) as Double))) < 1e-1)
         }
         func vectorSwiftTests(){
             // testing the file vector.swift
@@ -267,7 +304,7 @@ class swixTests {
             assert(argmax(array(1,4,2,5)) == 3)
             assert(argmin(array(1,4,2,5)) == 0)
             assert(argsort(array(1,4,2,5)) ~== array(0, 2, 1, 3))
-
+            
             assert(arange(4) ~== array(0, 1, 2, 3))
             let xO = array(1, 2, 3)
             let yO = array(1, 2, 3) + 3
@@ -275,8 +312,8 @@ class swixTests {
             let xR1 = array(1.1, 1.2, 1.3)
             let xR2 = array(1, 1, 1)
             assert(remainder(xR1, x2: xR2) ~== array(0.1, 0.2, 0.3))
-            assert(xR1 % 1.0 ~== array(0.1, 0.2, 0.3))
-            assert(1.0 % xR1 ~== ones(3))
+            assert((xR1 % 1.0) ~== array(0.1, 0.2, 0.3))
+            assert((1.0 % xR1) ~== ones(3))
             assert(arange(4)[-1] == 3.0)
             
             let xR = arange(4*4).reshape((4,4))
@@ -295,12 +332,12 @@ class swixTests {
             assert(sign(array(-3, 4, 5)) ~== array(-1, 1, 1))
             assert(floor(array(1.1, 1.2, 1.6)) ~== array(1, 1, 1))
             assert(round(array(1.1, 1.2, 1.6)) ~== array(1, 1, 2))
-            assert(ceil(array(1.2, 1.5, 1.8)) ~== ones(3)*2)
+            assert(ceil(array(1.2, 1.5, 1.8)) ~== (ones(3)*2))
             assert(log10(ones(4) * 10) ~== ones(4))
             assert(log2(ones(4) * 2) ~== ones(4))
             assert(log(ones(4) * e) ~== ones(4))
-            assert(exp2(ones(4)*2) ~== ones(4) * 4)
-            assert(exp(ones(4)*2) ~== ones(4)*e*e)
+            assert(exp2(ones(4)*2) ~== (ones(4) * 4))
+            assert(exp(ones(4)*2) ~== (ones(4)*(e*e)))
         }
     }
     func matrixTests(){
@@ -390,9 +427,9 @@ class swixTests {
         assert(`repeat`(array(0, 1), N: 2) ~== array(0, 1, 0, 1))
         assert(`repeat`(array(0, 1), N: 2, axis:1) ~== array(0, 0, 1, 1))
         
-//        var xC = zeros_like(x)
-        var xC = copy(x)
-        assert(xC ~== x.copy())
+        //        var xC = zeros_like(x)
+//        var xC = copy(x)
+//        assert(xC ~== x.copy())
         
         assert(array("0 1 2; 3 4 5") ~== arange(6).reshape((2,3)))
         
@@ -408,7 +445,7 @@ class swixTests {
         assert(x.max() == max(x))
         assert(x.max() == 1)
         
-        assert(x.copy() ~== copy(x))
+//        assert(x.copy() ~== copy(x))
         assert(x.copy() ~== array(-1, 0, 1))
         
         assert(arange(4).reshape((2,2)).copy() ~== arange(4).reshape((2,2)))
@@ -418,8 +455,8 @@ class swixTests {
         assert((z < 0) ~== array(1, 1, 1, 0, 0, 0, 0))
         
         assert(sin(array(1, 2, 3, 4)) ~== array(sin(1), sin(2), sin(3), sin(4)))
-//        func f(x:Double)->Double {return x+1}
-//        assert(apply_function(f,arange(100)) ~== (arange(100)+1))
+        //        func f(x:Double)->Double {return x+1}
+        //        assert(apply_function(f,arange(100)) ~== (arange(100)+1))
         var x5 = arange(5)
         var y5 = array(1, 5, 3, 2, 6)
         assert(max(x5, y: y5) ~== array(1, 5, 3, 3, 6))
@@ -474,8 +511,8 @@ class swixTests {
         assert((array(1, 2, 3)^2) ~== array(1, 4, 9))
         
         // MODULO
-        assert(array(1, 3.14, 2.1)%1.0 ~== array(0, 0.14, 0.1))
-        assert(array(1, 2, 6) % 5 ~== array(1, 2, 1))
+        assert((array(1, 3.14, 2.1)%1.0) ~== array(0, 0.14, 0.1))
+        assert((array(1, 2, 6) % 5) ~== array(1, 2, 1))
     }
     func comparisonTests(){
         //     true:  <, >, <=, >=, ==, !==
@@ -502,16 +539,74 @@ class swixTests {
         assert((x <= 4) ~== array(1, 1, 1, 1, 0, 0))
         assert((x >= 4) ~== array(0, 0, 0, 1, 1, 1))
     }
+    
+    func speedTests(){
+        time(pe1, name:"Project Euler 1")
+        time(pe10, name:"Project Euler 10")
+        time(pe73, name:"Project Euler 73")
+        time(pi_approx, name:"Pi approximation")
+        time(soft_thresholding, name:"Soft thresholding")
+    }
+    func time(_ f:(()->()), name:String="function"){
+        let start = Date()
+        f()
+        print(NSString(format:"\(name) time (s): %.4f" as NSString, -1.0 * start.timeIntervalSinceNow))
+    }
+    func pe1(){
+        let N = 1e6
+        let x = arange(N)
+        // seeing where that modulo is 0
+        _ = abs(x%3.0)
+        _ = argwhere((abs(x%3.0) < 1e-9) || (abs(x%5.0) < 1e-9))
+        // println(sum(x[i]))
+        // prints 233168.0, the correct answer
+    }
+    func pe10(){
+        // find all primes
+        let N = 2e6.int
+        var primes = arange(Double(N))
+        let top = (sqrt(N.double)).int
+        for i in 2 ..< top{
+            let max:Int = (N/i)
+            let j = arange(2, max: max.double) * i.double
+            primes[j] *= 0.0
+        }
+        // sum(primes) is the correct answer
+    }
+    func pe73(){
+        let N = 1e3
+        let i = arange(N)+1
+        let (n, d) = meshgrid(i, y: i)
+        
+        var f = (n / d).flat
+        f = unique(f)
+        _ = (f > (1/3) as Double) && (f < (1/2) as Double)
+        // println(f[argwhere(j)].n)
+    }
+    
+    
+    func soft_thresholding(){
+        let N = 1e2.int
+        let j = linspace(-1, max: 1, num:N)
+        let (x, y) = meshgrid(j, y: j)
+        var z = pow(x, power: 2) + pow(y, power: 2)
+        let i = abs(z) < 0.5
+        z[argwhere(i)] *= 0
+        z[argwhere(1-i)] -= 0.5
+    }
+    
+    
+    
+    func pi_approx(){
+        let N = 1e6
+        var k = arange(N)
+        var pi_approx = 1 / ((2.0*k) + 1.0)
+        pi_approx[(2.0*k[0..<(N/2).int])+1.0] *= -1
+        // println(4 * pi_approx)
+        // prints 3.14059265383979
+    }
+
+
 }
-
-
-
-
-
-
-
-
-
-
 
 
