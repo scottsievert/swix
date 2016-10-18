@@ -10,43 +10,43 @@ import Foundation
 import Accelerate
 
 
-func zeros(shape: (Int, Int)) -> matrix{
-    return matrix(columns: shape.1, rows: shape.0)
+public func zeros(_ shape: (Int, Int)) -> Matrix{
+    return Matrix(columns: shape.1, rows: shape.0)
 }
-func zeros_like(x: matrix) -> matrix{
-    let y:matrix = zeros((x.shape.0, x.shape.1))
+public func zeros_like(_ x: Matrix) -> Matrix{
+    let y:Matrix = zeros((x.shape.0, x.shape.1))
     return y
 }
-func ones_like(x: matrix) -> matrix{
+public func ones_like(_ x: Matrix) -> Matrix{
     return zeros_like(x) + 1
 }
-func ones(shape: (Int, Int)) -> matrix{
+public func ones(_ shape: (Int, Int)) -> Matrix{
     return zeros(shape)+1
 }
-func eye(N: Int) -> matrix{
+public func eye(_ N: Int) -> Matrix{
     return diag(ones(N))
 }
-func diag(x:vector)->matrix{
+public func diag(_ x:Vector)->Matrix{
     var y = zeros((x.n, x.n))
     y["diag"] = x
     return y
 }
-func randn(N: (Int, Int), mean: Double=0, sigma: Double=1) -> matrix{
+public func randn(_ N: (Int, Int), mean: Double=0, sigma: Double=1) -> Matrix{
     var x = zeros(N)
     let y = randn(N.0 * N.1, mean:mean, sigma:sigma)
     x.flat = y
     return x
 }
-func rand(N: (Int, Int)) -> matrix{
+public func rand(_ N: (Int, Int)) -> Matrix{
     var x = zeros(N)
     let y = rand(N.0 * N.1)
     x.flat = y
     return x
 }
-func reshape(x: vector, shape:(Int, Int))->matrix{
+public func reshape(_ x: Vector, shape:(Int, Int))->Matrix{
     return x.reshape(shape)
 }
-func meshgrid(x: vector, y:vector) -> (matrix, matrix){
+public func meshgrid(_ x: Vector, y:Vector) -> (Matrix, Matrix){
     assert(x.n > 0 && y.n > 0, "If these matrices are empty meshgrid fails")
     let z1 = reshape(`repeat`(y, N: x.n), shape: (x.n, y.n))
     let z2 = reshape(`repeat`(x, N: y.n, axis: 1), shape: (x.n, y.n))
@@ -55,9 +55,9 @@ func meshgrid(x: vector, y:vector) -> (matrix, matrix){
 
 
 /// array("1 2 3; 4 5 6; 7 8 9") works like matlab. note that string format has to be followed to the dot. String parsing has bugs; I'd use arange(9).reshape((3,3)) or something similar
-func array(matlab_like_string: String)->matrix{
+public func array(_ matlab_like_string: String)->Matrix{
     let mls = matlab_like_string
-    var rows = mls.componentsSeparatedByString(";")
+    var rows = mls.components(separatedBy: ";")
     let r = rows.count
     var c = 0
     for char in rows[0].characters{
@@ -68,7 +68,7 @@ func array(matlab_like_string: String)->matrix{
     var start:Int
     var i:Int=0, j:Int=0
     for row in rows{
-        var nums = row.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        var nums = row.components(separatedBy: CharacterSet.whitespaces)
         if nums[0] == ""{start=1}
         else {start=0}
         j = 0

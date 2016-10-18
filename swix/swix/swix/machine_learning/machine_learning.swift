@@ -8,14 +8,14 @@
 
 import Foundation
 
-class SVM {
+public class SVM {
     // swift --> objc --> objc++ --> c++
-    var cvsvm:cvSVM;
-    var svm_type:String
-    var kernel_type:String
-    var N:Int
-    var M:Int
-    init(){
+    public var cvsvm:cvSVM;
+    public var svm_type:String
+    public var kernel_type:String
+    public var N:Int
+    public var M:Int
+    public init(){
         self.cvsvm = cvSVM()
         
         
@@ -27,37 +27,37 @@ class SVM {
         self.kernel_type = "LINEAR"
         setParams(svm_type, kernel_type:kernel_type)
     }
-    func setParams(svm_type:String, kernel_type:String, nu:Float=0.5){
+    public func setParams(_ svm_type:String, kernel_type:String, nu:Float=0.5){
         // kernel: LINEAR, SIGMOID
         // svm_type: C_SVC, ONE_CLASS, NU_SVC, NU_SVR
         
         // careful: NU_SVR and SIGMOID throws an exception error
         self.cvsvm.setParams(svm_type.nsstring as String, kernel:kernel_type.nsstring as String, nu:nu.cfloat)
     }
-    func train(responses: matrix, _ targets: vector){
+    public func train(_ responses: Matrix, _ targets: Vector){
         // convert matrix2d to NSArray
         self.M = responses.shape.0
         self.N = responses.shape.1
         self.cvsvm.train(!responses, targets:!targets, m:self.M.cint, n:self.N.cint)
     }
-    func predict(response: vector) -> Double{
+    public func predict(_ response: Vector) -> Double{
         assert(self.N == response.count, "Sizes of input arguments do not match: predict.count != trained.count. The varianbles you're trying to predict a result from must match variables you trained off of.")
         let tp = self.cvsvm.predict(!response, n:self.N.cint)
         return tp.double
     }
-    func predict(responses: matrix) -> vector{
+    public func predict(_ responses: Matrix) -> Vector{
         let y = zeros(responses.shape.0)
         assert(self.N == responses.shape.1, "Sizes must match")
         self.cvsvm.predict(!responses, into:!y, m:responses.shape.0.cint, n:responses.shape.1.cint);
         return y
     }
 }
-class kNearestNeighbors{
+public class kNearestNeighbors{
     // finds the nearest neighbor over all points. if want to change, dive into knn.mm and change `int k = cvknn.get_max_k();` in `predict(...)`
-    var T:Double
-    var knn:kNN;
-    var N:Int; // variables
-    var M:Int; // responses
+    public var T:Double
+    public var knn:kNN;
+    public var N:Int; // variables
+    public var M:Int; // responses
     init(){
         assert(false, "Careful! My simple tests failed but it looks like it should work.")
         self.T = 1
@@ -65,14 +65,14 @@ class kNearestNeighbors{
         self.N = -1
         self.M = -1
     }
-    func train(responses: matrix, targets: vector){
+    public func train(_ responses: Matrix, targets: Vector){
         self.M = responses.shape.0
         self.N = responses.shape.1
         
         self.knn.train(!responses, targets: !targets, m:self.M.cint, n:self.N.cint)
         
     }
-    func predict(x: vector, k: Int) -> Double{
+    public func predict(_ x: Vector, k: Int) -> Double{
         assert(self.N == x.count, "Sizes of input arguments do not match: predict.count != trained.count. The varianbles you're trying to predict a result from must match variables you trained off of.")
         assert(k <= 32, "k <= 32 for performance reasons enforced by OpenCV.")
         let result = self.knn.predict(!x, n:x.n.cint, k:k.cint)

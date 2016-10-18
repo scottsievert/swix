@@ -10,7 +10,7 @@
 import Foundation
 import Accelerate
 
-func apply_function(function: Double->Double, x: vector) -> vector{
+public func apply_function(_ function: (Double)->Double, x: Vector) -> Vector{
     // apply a function to every element.
     
     // I've tried the below, but it doesn't apply the function to every element (at least in Xcode6b4)
@@ -27,7 +27,7 @@ func apply_function(function: Double->Double, x: vector) -> vector{
     }
     return y
 }
-func apply_function(function: String, x: vector)->vector{
+public func apply_function(_ function: String, x: Vector)->Vector{
     // apply select optimized functions
     let y = zeros_like(x)
     let n = x.n.length
@@ -90,20 +90,20 @@ func apply_function(function: String, x: vector)->vector{
 }
 
 // MIN/MAX
-func min(x: vector) -> Double{
+public func min(_ x: Vector) -> Double{
     // finds the min
     return x.min()}
-func max(x: vector) -> Double{
+public func max(_ x: Vector) -> Double{
     // finds the max
     return x.max()}
-func max(x: vector, y:vector)->vector{
+public func max(_ x: Vector, y:Vector)->Vector{
     // finds the max of two arrays element wise
     assert(x.n == y.n)
     let z = zeros_like(x)
     vDSP_vmaxD(!x, 1.stride, !y, 1.stride, !z, 1.stride, x.n.length)
     return z
 }
-func min(x: vector, y:vector)->vector{
+public func min(_ x: Vector, y:Vector)->Vector{
     // finds the min of two arrays element wise
     assert(x.n == y.n)
     let z = zeros_like(x)
@@ -112,47 +112,47 @@ func min(x: vector, y:vector)->vector{
 }
 
 // BASIC STATS
-func mean(x: vector) -> Double{
+public func mean(_ x: Vector) -> Double{
     // finds the mean
     return x.mean()
 }
-func std(x: vector) -> Double{
+public func std(_ x: Vector) -> Double{
     // standard deviation
     return sqrt(variance(x))}
-func variance(x: vector) -> Double{
+public func variance(_ x: Vector) -> Double{
     // the varianace
     return sum(pow(x - mean(x), power: 2) / x.count.double)}
 
 // BASIC INFO
-func sign(x: vector)->vector{
+public func sign(_ x: Vector)->Vector{
     // finds the sign
     return apply_function("sign", x: x)}
-func sum(x: vector) -> Double{
+public func sum(_ x: Vector) -> Double{
     // finds the sum of an array
     var ret:CDouble = 0
     vDSP_sveD(!x, 1.stride, &ret, x.n.length)
     return Double(ret)
 }
-func remainder(x1:vector, x2:vector)->vector{
+public func remainder(_ x1:Vector, x2:Vector)->Vector{
     // finds the remainder
     return (x1 - floor(x1 / x2) * x2)
 }
-func cumsum(x: vector) -> vector{
+public func cumsum(_ x: Vector) -> Vector{
     // the sum of each element before.
     return apply_function("cumsum", x: x)}
-func abs(x: vector) -> vector{
+public func abs(_ x: Vector) -> Vector{
     // absolute value
     return apply_function("abs", x: x)}
-func prod(x:vector)->Double{
+public func prod(_ x:Vector)->Double{
     var y = x.copy()
     var factor = 1.0
     if min(y) < 0{
         y[argwhere(y < 0.0)] *= -1.0
-        if sum(x < 0) % 2 == 1 {factor = -1}
+        if sum(x < 0).truncatingRemainder(dividingBy: 2) == 1 {factor = -1}
     }
     return factor * exp(sum(log(y)))
 }
-func cumprod(x:vector)->vector{
+public func cumprod(_ x:Vector)->Vector{
     var y = x.copy()
     if min(y) < 0.0{
         let i = y < 0
@@ -167,77 +167,77 @@ func cumprod(x:vector)->vector{
 
 
 // POWER FUNCTIONS
-func pow(x:vector, power:Double)->vector{
+public func pow(_ x:Vector, power:Double)->Vector{
     // take the power. also callable with ^
     let y = zeros_like(x)
     CVWrapper.pow(!x, n:x.n.cint, power:power, into:!y)
     return y
 }
-func pow(x:vector, y:vector)->vector{
+public func pow(_ x:Vector, y:Vector)->Vector{
     // take the power. also callable with ^
     let z = zeros_like(x)
     var num = CInt(x.n)
     vvpow(!z, !y, !x, &num)
     return z
 }
-func pow(x:Double, y:vector)->vector{
+public func pow(_ x:Double, y:Vector)->Vector{
     // take the power. also callable with ^
     let xx = ones(y.n) * x
     return pow(xx, y: y)
 }
-func sqrt(x: vector) -> vector{
+public func sqrt(_ x: Vector) -> Vector{
     return x^0.5
 }
-func exp(x:vector)->vector{
+public func exp(_ x:Vector)->Vector{
     return apply_function("exp", x: x)
 }
-func exp2(x:vector)->vector{
+public func exp2(_ x:Vector)->Vector{
     return apply_function("exp2", x: x)
 }
-func expm1(x:vector)->vector{
+public func expm1(_ x:Vector)->Vector{
     return apply_function("expm1", x: x)
 }
 
 // ROUND
-func round(x:vector)->vector{
+public func round(_ x:Vector)->Vector{
     return apply_function("round", x: x)
 }
-func round(x:vector, decimals:Double)->vector{
+public func round(_ x:Vector, decimals:Double)->Vector{
     let factor = pow(10, decimals)
     return round(x*factor) / factor
 }
-func floor(x: vector) -> vector{
+public func floor(_ x: Vector) -> Vector{
     return apply_function("floor", x: x)
 }
-func ceil(x: vector) -> vector{
+public func ceil(_ x: Vector) -> Vector{
     return apply_function("ceil", x: x)
 }
 
 // LOG
-func log10(x:vector)->vector{
+public func log10(_ x:Vector)->Vector{
     // log_10
     return apply_function("log10", x: x)
 }
-func log2(x:vector)->vector{
+public func log2(_ x:Vector)->Vector{
     // log_2
     return apply_function("log2", x: x)
 }
-func log(x:vector)->vector{
+public func log(_ x:Vector)->Vector{
     // log_e
     return apply_function("log", x: x)
 }
 
 // TRIG
-func sin(x: vector) -> vector{
+public func sin(_ x: Vector) -> Vector{
     return apply_function("sin", x: x)
 }
-func cos(x: vector) -> vector{
+public func cos(_ x: Vector) -> Vector{
     return apply_function("cos", x: x)
 }
-func tan(x: vector) -> vector{
+public func tan(_ x: Vector) -> Vector{
     return apply_function("tan", x: x)
 }
-func tanh(x: vector) -> vector {
+public func tanh(_ x: Vector) -> Vector {
     return apply_function("tanh", x: x)
 }
 

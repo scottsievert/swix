@@ -8,36 +8,41 @@
 
 import Foundation
 
-// vector binary
-func write_binary(x:vector, filename:String){
+// Vector binary
+public func write_binary(_ x:Vector, filename:String){
     let N = x.n
-    let data = NSData(bytes:!x, length:N*sizeof(Double))
-    data.writeToFile(filename, atomically: false)
+  var xVec = x
+  let data = withUnsafePointer(to: &xVec) {
+    Data(bytes: $0, count:N*MemoryLayout<Double>.size)
+  }
+
+  //  let data = Data(bytes: UnsafePointer<UInt8>(!x), count:N*MemoryLayout<Double>.size)
+    try? data.write(to: URL(fileURLWithPath: filename), options: [])
 }
-func read_binary(filename:String) -> vector{
-    let read = NSData(contentsOfFile: filename)
-    let l:Int! = read?.length
-    let sD:Int = sizeof(Double)
+public func read_binary(_ filename:String) -> Vector{
+    let read = try? Data(contentsOf: URL(fileURLWithPath: filename))
+    let l:Int! = read?.count
+    let sD:Int = MemoryLayout<Double>.size
     let count = (l.double / sD.double)
     
     let y = zeros(count.int)
-    read?.getBytes(!y, length: count.int*sizeof(Double))
+    (read as NSData?)?.getBytes(!y, length: count.int*MemoryLayout<Double>.size)
     return y
 }
 
 // matrix binary
-func write_binary(x:matrix, filename:String){
+public func write_binary(_ x:Matrix, filename:String){
     let y = concat(array(x.shape.0.double, x.shape.1.double), y: x.flat)
     write_binary(y, filename:filename)
 }
-func read_binary(filename:String)->matrix{
-    var a:vector = read_binary(filename)
+public func read_binary(_ filename:String)->Matrix{
+    var a:Vector = read_binary(filename)
     let (w, h) = (a[0], a[1])
     return reshape(a[2..<a.n], shape: (w.int,h.int))
 }
 
-// vector csv
-func write_csv(x:vector, filename:String){
+// Vector csv
+public func write_csv(_ x:Vector, filename:String){
     // write the array to CSV
     var seperator=","
     var str = ""
@@ -47,22 +52,22 @@ func write_csv(x:vector, filename:String){
     }
     str += "\n"
     do {
-        try str.writeToFile(filename, atomically: false, encoding: NSUTF8StringEncoding)
+        try str.write(toFile: filename, atomically: false, encoding: String.Encoding.utf8)
     } catch {
         Swift.print("File probably wasn't recognized")
     }
     
 }
-func read_csv(filename:String) -> vector{
+public func read_csv(_ filename:String) -> Vector{
     var x: String?
     do {
-        x = try String(contentsOfFile: filename, encoding: NSUTF8StringEncoding)
+        x = try String(contentsOfFile: filename, encoding: String.Encoding.utf8)
     } catch _ {
         x = nil
     }
     var array:[Double] = []
     var columns:Int = 0
-    var z = x!.componentsSeparatedByString(",")
+    var z = x!.components(separatedBy: ",")
     columns = 0
     for i in 0..<z.count{
         let num = z[i]
@@ -74,27 +79,27 @@ func read_csv(filename:String) -> vector{
     return done
 }
 
-class CSVFile{
-    var data: matrix
-    var header: [String]
-    init(data: matrix, header: [String]){
+public class CSVFile{
+    public var data: Matrix
+    public var header: [String]
+    public init(data: Matrix, header: [String]){
         self.data = data
         self.header = header
     }
 }
 
 // for matrix csv
-func read_csv(filename:String, header_present:Bool=true, _ rowWithoutMissingValues: Int=1) -> CSVFile{
+public func read_csv(_ filename:String, header_present:Bool=true, _ rowWithoutMissingValues: Int=1) -> CSVFile{
     var x: String?
     do {
-        x = try String(contentsOfFile: filename, encoding: NSUTF8StringEncoding)
+        x = try String(contentsOfFile: filename, encoding: String.Encoding.utf8)
     } catch _ {
         x = nil
     }
     //There are three types of line breaks: \r, \n and \r\n. All change to \n.
-    x=x!.stringByReplacingOccurrencesOfString("\r\n",withString: "\n")  //Remove \r if \r\n
-    x=x!.stringByReplacingOccurrencesOfString("\r",withString: "\n")  //Change \r if there is any
-    var y = x!.componentsSeparatedByString("\n")
+    x=x!.replacingOccurrences(of: "\r\n",with: "\n")  //Remove \r if \r\n
+    x=x!.replacingOccurrences(of: "\r",with: "\n")  //Change \r if there is any
+    var y = x!.components(separatedBy: "\n")
     let rows = y.count-1
     var array:[Double] = []
     var columns:Int = 0
@@ -103,8 +108,8 @@ func read_csv(filename:String, header_present:Bool=true, _ rowWithoutMissingValu
     
     var categorical_col:[Int]=[]    //Record the columns which are categorical variables
 
-    let test = y[rowWithoutMissingValues + startrow - 1].componentsSeparatedByString(",") //Use first row to detect which columns are categorical
-    categorical_col = Array(count:test.count, repeatedValue:-1)
+    let test = y[rowWithoutMissingValues + startrow - 1].components(separatedBy: ",") //Use first row to detect which columns are categorical
+    categorical_col = Array(repeating: -1, count: test.count)
     columns=0
     for testtext in test{
         if(Double(testtext) == nil){
@@ -115,7 +120,7 @@ func read_csv(filename:String, header_present:Bool=true, _ rowWithoutMissingValu
     var factor = [String:Int]() //Dictionary to map categorical levels -> integer
     var levels = Set<String>()  //Set to store all categorical levels
     for i in startrow..<rows{
-        let z = y[i].componentsSeparatedByString(",")
+        let z = y[i].components(separatedBy: ",")
         columns = 0
         for text in z{
             if(Double(text) != nil)
@@ -145,18 +150,18 @@ func read_csv(filename:String, header_present:Bool=true, _ rowWithoutMissingValu
     done.flat.grid = array
     
     if (header_present==true){
-        return CSVFile(data: done, header: y[0].componentsSeparatedByString(","))
+        return CSVFile(data: done, header: y[0].components(separatedBy: ","))
     }
     else{
          return CSVFile(data: done, header: [""])
     }
 }
 
-func write_csv(csv:CSVFile, filename:String){
+public func write_csv(_ csv:CSVFile, filename:String){
     write_csv(csv.data, filename:filename, header:csv.header)
 }
 
-func write_csv(x:matrix, filename:String, header:[String] = [""]){
+public func write_csv(_ x:Matrix, filename:String, header:[String] = [""]){
     var seperator=","
     var str = ""
     var i:Int=1
@@ -179,7 +184,7 @@ func write_csv(x:matrix, filename:String, header:[String] = [""]){
         str += "\n"
     }
     do {
-        try str.writeToFile(filename, atomically: false, encoding: NSUTF8StringEncoding)
+        try str.write(toFile: filename, atomically: false, encoding: String.Encoding.utf8)
     } catch {
         Swift.print("Error writing to CSV: filename probably wasn't recognized.")
     }
