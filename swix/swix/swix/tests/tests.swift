@@ -318,23 +318,23 @@ class swixTests {
     
     func readWriteTests(){
         let x1 = arange(9).reshape((3,3)) * 2
-        write_csv(x1, filename: "../../python_testing/csvs/image.csv")
-        let y1:matrix = read_csv("../../python_testing/csvs/image.csv").data
+        write_csv(x1, filename: "/tmp/image.csv")
+        let y1:matrix = read_csv("/tmp/image.csv", header_present:false).data
         assert(x1 ~== y1)
         
         let x2 = array(1, 2, 3, 4, 5, 2, 1)
-        write_csv(x2, filename:"../../python_testing/csvs/vector.csv")
-        let y2:vector = read_csv("../../python_testing/csvs/vector.csv")
+        write_csv(x2, filename:"/tmp/vector.csv")
+        let y2:vector = read_csv("/tmp/vector.csv")
         assert(x2 ~== y2)
         
         let x3 = array(1, 5, 3, 1, 0, -10) * pi
-        write_binary(x3, filename:"../../python_testing/csvs/x3.npy")
-        let y3:vector = read_binary("../../python_testing/csvs/x3.npy")
+        write_binary(x3, filename:"/tmp/x3.npy")
+        let y3:vector = read_binary("/tmp/x3.npy")
         assert(y3 ~== x3)
         
         let x4 = arange(9).reshape((3,3))
-        write_binary(x4, filename:"../../python_testing/csvs/x4.npy")
-        let y4:matrix = read_binary("../../python_testing/csvs/x4.npy")
+        write_binary(x4, filename:"/tmp/x4.npy")
+        let y4:matrix = read_binary("/tmp/x4.npy")
         assert(y4 ~== x4)
     }
     func twoDTests(){

@@ -11,16 +11,12 @@ import Foundation
 // vector binary
 func write_binary(_ x:vector, filename:String){
     let N = x.n
-  var xVec = x
-  let data = withUnsafePointer(to: &xVec) {
-    Data(bytes: $0, count:N*MemoryLayout<Double>.size)
-  }
-
-  //  let data = Data(bytes: UnsafePointer<UInt8>(!x), count:N*MemoryLayout<Double>.size)
+    let data = Data(bytes: x.grid, count:N*MemoryLayout<Double>.size)
     try? data.write(to: URL(fileURLWithPath: filename), options: [])
 }
 func read_binary(_ filename:String) -> vector{
     let read = try? Data(contentsOf: URL(fileURLWithPath: filename))
+    try? read?.write(to:URL(fileURLWithPath:filename+"x"), options:[])
     let l:Int! = read?.count
     let sD:Int = MemoryLayout<Double>.size
     let count = (l.double / sD.double)

@@ -10,7 +10,7 @@
 import Foundation
 import Swift
 
-_ = swixTests(run_io_tests: false)
+_ = swixTests(run_io_tests: true)
 
 _ = swixSpeedTests()
 
@@ -19,7 +19,7 @@ var header = ["1", "2", "3"]
 
 var csv = CSVFile(data:x, header:header)
 
-let filename = NSSearchPathForDirectoriesInDomains(.desktopDirectory, .userDomainMask, true)[0] + "/test_2016.csv"
+let filename = "/tmp/test_2016.csv"
 
 write_csv(csv, filename:filename)
 var y:CSVFile = read_csv(filename, header_present:true)
