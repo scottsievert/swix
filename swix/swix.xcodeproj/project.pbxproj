@@ -314,7 +314,7 @@
 					"$(PROJECT_DIR)/swix/swix/objc",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = swixTest/Info.plist;
+				INFOPLIST_FILE = swix/swixTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = biz.liquit.swixTest;
@@ -340,7 +340,7 @@
 					"$(PROJECT_DIR)/swix/swix/objc",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = swixTest/Info.plist;
+				INFOPLIST_FILE = swix/swixTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = biz.liquit.swixTest;
