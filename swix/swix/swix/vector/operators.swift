@@ -105,7 +105,7 @@ func <- (lhs:inout vector, rhs:Double){
 infix operator ~== : ComparisonPrecedence
 func ~== (lhs: vector, rhs: vector) -> Bool{
     assert(lhs.n == rhs.n, "`~==` only works on arrays of equal size")
-    return max(abs(lhs - rhs)) > 1e-6 ? false : true;
+    return max(abs(lhs - rhs)) <= 1e-6
 }
 func == (lhs: vector, rhs: vector) -> vector{
     return make_operator(lhs, operation: "==", rhs: rhs)}
