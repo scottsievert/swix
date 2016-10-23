@@ -9,11 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <Accelerate/Accelerate.h>
 
-#import <opencv2/opencv.hpp>
-#import <opencv2/core/core.hpp>
-#import <opencv2/highgui/highgui.hpp>
-#import <opencv2/ml/ml.hpp>
-
 @interface CVWrapper : NSObject
 + (void) pointerTest;
 + (void) repeat:(double *)x to:(double*)y n_x:(int)Nx n_repeat:(int)Nrepeat;
