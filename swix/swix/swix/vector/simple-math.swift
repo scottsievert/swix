@@ -82,7 +82,7 @@ extension Vector {
         return y
     }
 
-// BASIC INFO
+    // MARK: - BASIC INFO
     public func sign()->Vector{
         // finds the sign
         return apply_function(.sign)
@@ -126,7 +126,7 @@ extension Vector {
     }
     
     
-    // BASIC STATS
+    // MARK: - BASIC STATS
     public func std() -> Double{
         // standard deviation
         return Darwin.sqrt(self.variance()) }
@@ -147,7 +147,7 @@ extension Vector {
         return apply_function(.expm1)
     }
     
-    // ROUND
+    // MARK: - ROUND
     public func round()->Vector{
         return apply_function(.round)
     }
@@ -163,7 +163,7 @@ extension Vector {
         return apply_function(.ceil)
     }
     
-    // POWER FUNCTIONS
+    // MARK: - POWER FUNCTIONS
     public func pow(_ power:Double)->Vector{
         // take the power. also callable with ^
         let y = Vector(zerosLike:self)
@@ -177,7 +177,7 @@ extension Vector {
         vvpow(!z, !y, !self, &num)
         return z
     }
-    // LOG
+    // MARK: - LOG
     public func log10()->Vector{
         // log_10
         return apply_function(.log10)
@@ -191,7 +191,7 @@ extension Vector {
         return apply_function(.log)
     }
     
-    // TRIG
+    // MARK: - TRIG
     public func sin() -> Vector{
         return apply_function(.sin)
     }
@@ -206,6 +206,7 @@ extension Vector {
     }
 }
 
+// MARK: - 
 extension Double {
     public func pow(_ y:Vector)->Vector{
         // take the power. also callable with ^

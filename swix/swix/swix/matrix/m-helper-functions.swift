@@ -8,13 +8,14 @@
 
 import Foundation
 
-// NORMs
 extension Matrix {
     public func norm(ord:String="assumed to be 'fro' for Frobenius")->Double{
         if ord == "fro" {return flat.norm(ord: 2)}
         assert(false, "Norm type assumed to be \"fro\" for Forbenius norm!")
         return -1
     }
+
+    // MARK: - NORMs
     public func norm(ord:Double=2)->Double{
         if      ord ==  inf {return self.abs().sum(axis:1).max()}
         else if ord == -inf {return self.abs().sum(axis:1).min()}
@@ -103,8 +104,8 @@ extension Matrix {
         i[(1-j).argwhere()] <- 1
         return i.argwhere()
     }
-    public func triu(_ x: Matrix)->Vector{
-        let (m, n) = x.shape
+    public func triu()->Vector{
+        let (m, n) = shape
         let (mm, nn) = meshgrid(Vector(arange:m), y: Vector(arange:n))
         var i = mm - nn
         let j = (i > 0-S2_THRESHOLD)

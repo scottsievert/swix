@@ -289,7 +289,7 @@ class SwixTest: XCTestCase {
         XCTAssert(Vector(arange:4) ~== Vector(numbers:0, 1, 2, 3))
         let xO = Vector(numbers:1, 2, 3)
         let yO = Vector(numbers:1, 2, 3) + 3
-        XCTAssert(outer(xO, y: yO) ~== Vector(numbers:4, 5, 6, 8, 10, 12, 12, 15, 18).reshape((3,3)))
+        XCTAssert(xO.outer(yO) ~== Vector(numbers:4, 5, 6, 8, 10, 12, 12, 15, 18).reshape((3,3)))
         let xR1 = Vector(numbers:1.1, 1.2, 1.3)
         let xR2 = Vector(numbers:1, 1, 1)
         XCTAssert(xR1.remainder(xR2) ~== Vector(numbers:0.1, 0.2, 0.3))
@@ -402,8 +402,8 @@ class SwixTest: XCTestCase {
         }
         func fft_test(){
             let x = Vector(arange:8)
-            let (yr, yi) = fft(x)
-            let x2 = ifft(yr, yi: yi)
+            let (yr, yi) = x.fft()
+            let x2 = yr.ifft(yi)
             XCTAssert(x2 ~== x)
 //            print("fft/ifft works. fft(x) -> (yreal, yimag)")
         }

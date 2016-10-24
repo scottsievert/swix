@@ -9,19 +9,10 @@
 import Foundation
 import Accelerate
 
-func matrixToPointer(_ x: Vector)->UnsafeMutablePointer<Double>{
-    // sustains since objc rewrites raw memory!
-    return UnsafeMutablePointer<Double>(mutating: x.grid)
-}
-func matrixToPointer(_ x: [Int])->UnsafeMutablePointer<Int>{
-    return UnsafeMutablePointer<Int>(mutating: x)
-}
-
-/// use !x to get the address. I tried &x but that doesn't work in beta3.
 prefix func ! (x: Vector) -> UnsafeMutablePointer<Double> {
-    return matrixToPointer(x)
+    return x.unsafeMutablePointer()
 }
 prefix func ! (x: Matrix) -> UnsafeMutablePointer<Double> {
-    return matrixToPointer(x.flat)
+    return x.flat.unsafeMutablePointer()
 }
 

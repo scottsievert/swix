@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A71F5EEA1DBE28D000888228 /* m-initing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D216421B629E8E00489EB9 /* m-initing.swift */; };
 		A728DFFD1DBBAF66008624D4 /* SwixTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A728DFED1DBBACE3008624D4 /* SwixTest.swift */; };
 		A729654F1DBBB34A007C07F3 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D216541B629E8E00489EB9 /* opencv2.framework */; };
 		A72965501DBBB366007C07F3 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B481B1196F20EB00DAEDFF /* Accelerate.framework */; };
@@ -69,6 +70,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A71F5EF41DBE350700888228 /* SwixOTestsF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwixOTestsF.swift; sourceTree = "<group>"; };
+		A71F5EF61DBE350700888228 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A728DFEC1DBBACE3008624D4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = swix/swixTest/Info.plist; sourceTree = "<group>"; };
 		A728DFED1DBBACE3008624D4 /* SwixTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwixTest.swift; path = swix/swixTest/SwixTest.swift; sourceTree = "<group>"; };
 		A728DFF31DBBAD15008624D4 /* SwixTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwixTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,6 +147,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A71F5EF31DBE350700888228 /* SwixOTestsF */ = {
+			isa = PBXGroup;
+			children = (
+				A71F5EF41DBE350700888228 /* SwixOTestsF.swift */,
+				A71F5EF61DBE350700888228 /* Info.plist */,
+			);
+			path = SwixOTestsF;
+			sourceTree = "<group>";
+		};
 		A728DFC41DBBAB46008624D4 /* swixTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +199,7 @@
 				A728DFC41DBBAB46008624D4 /* swixTest */,
 				A729655B1DBCBA75007C07F3 /* SwixO */,
 				A72965981DBCDAE4007C07F3 /* SwixF */,
+				A71F5EF31DBE350700888228 /* SwixOTestsF */,
 				D24A8552196D7D73009C18AC /* Products */,
 				D2D216371B629E8E00489EB9 /* swix */,
 				A72965521DBBC72C007C07F3 /* Frameworks */,
@@ -491,6 +504,7 @@
 				A75377371DBD30FA00E25A40 /* math.m in Sources */,
 				A75377301DBD30B200E25A40 /* m-image.swift in Sources */,
 				A75377261DBD30A000E25A40 /* initing.swift in Sources */,
+				A71F5EEA1DBE28D000888228 /* m-initing.swift in Sources */,
 				A75377341DBD30B200E25A40 /* m-simple-math.swift in Sources */,
 				A75377281DBD30A000E25A40 /* simple-math.swift in Sources */,
 			);

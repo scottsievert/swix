@@ -9,105 +9,15 @@
 import Foundation
 import Accelerate
 
+// this module provides a convenience wrapper to create various vectors
 
-public func zeros(_ shape: (Int, Int)) -> Matrix{
-    return Matrix(columns: shape.1, rows: shape.0)
-}
-public func zeros_like(_ x: Matrix) -> Matrix{
-    let y:Matrix = zeros((x.shape.0, x.shape.1))
-    return y
-}
-public func ones_like(_ x: Matrix) -> Matrix{
-    return Vector(zerosLike:x) + 1
-}
-public func ones(_ shape: (Int, Int)) -> Matrix{
-    return zeros(shape)+1
-}
-public func eye(_ N: Int) -> Matrix{
-    return diag(ones(N))
-}
-public func diag(_ x:Vector)->Matrix{
-    var y = zeros((x.n, x.n))
-    y["diag"] = x
-    return y
-}
-public func randn(_ N: (Int, Int), mean: Double=0, sigma: Double=1) -> Matrix{
-    var x = Vector(zeros:N)
-    let y = randn(N.0 * N.1, mean:mean, sigma:sigma)
-    x.flat = y
-    return x
-}
-public func rand(_ N: (Int, Int)) -> Matrix{
-    var x = Vector(zeros:N)
-    let y = rand(N.0 * N.1)
-    x.flat = y
-    return x
-}
-public func reshape(_ x: Vector, shape:(Int, Int))->Matrix{
-    return x.reshape(shape)
-}
-public func meshgrid(_ x: Vector, y:Vector) -> (Matrix, Matrix){
-    assert(x.n > 0 && y.n > 0, "If these matrices are empty meshgrid fails")
-    let z1 = reshape(y.`repeat`(x.n), shape: (x.n, y.n))
-    let z2 = reshape(x.`repeat`(y.n, axis: 1), shape: (x.n, y.n))
-    return (z2, z1)
-}
-
-
-/// array("1 2 3; 4 5 6; 7 8 9") works like matlab. note that string format has to be followed to the dot. String parsing has bugs; I'd use arange(9).reshape((3,3)) or something similar
-public func array(_ matlab_like_string: String)->Matrix{
-    let mls = matlab_like_string
-    var rows = mls.components(separatedBy: ";")
-    let r = rows.count
-    var c = 0
-    for char in rows[0].characters{
-        if char == " " {}
-        else {c += 1}
-    }
-    var x = zeros((r, c))
-    var start:Int
-    var i:Int=0, j:Int=0
-    for row in rows{
-        var nums = row.components(separatedBy: CharacterSet.whitespaces)
-        if nums[0] == ""{start=1}
-        else {start=0}
-        j = 0
-        for n in start..<nums.count{
-            x[i, j] = nums[n].floatValue.double
-            j += 1
-        }
-        i += 1
-    }
-    return x
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+public func zeros(_ shape: (Int, Int)) -> Matrix{ return Matrix(zeros:shape) }
+public func zeros_like(_ x: Matrix) -> Matrix{ return Matrix(zerosLike:x) }
+public func ones_like(_ x: Matrix) -> Matrix{ return Matrix(onesLike:x) }
+public func ones(_ shape: (Int, Int)) -> Matrix{ return Matrix(ones:shape) }
+public func eye(_ N: Int) -> Matrix{ return Matrix(eye:N) }
+public func diag(_ x:Vector)->Matrix{ return Matrix(diag:x) }
+public func randn(_ N: (Int, Int), mean: Double=0, sigma: Double=1) -> Matrix{ return Matrix(randn:N, mean:mean, sigma:sigma) }
+public func rand(_ N: (Int, Int)) -> Matrix{ return Matrix(rand:N) }
+public func reshape(_ x: Vector, shape:(Int, Int))->Matrix{ return x.reshape(shape) }
+public func array(_ matlab_like_string: String)->Matrix{  return Matrix(matlab_like_string) }

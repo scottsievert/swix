@@ -9,6 +9,7 @@
 import Foundation
 import Accelerate
 
+
 func make_operator(_ lhs:Vector, operation:String, rhs:Vector) -> Vector{
     assert(lhs.n == rhs.n, "Sizes must match!")
     

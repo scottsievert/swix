@@ -18,7 +18,7 @@ public struct Vector:CustomStringConvertible {
     public var count: Int { return n } // ditto
     public var grid: [Double] // the raw values
 
-    // MARK: - init
+    // MARK: - basic init
     public init(zeros: Int) {
         self.n = zeros
         grid = Array(repeating: 0.0, count: n)
@@ -38,6 +38,7 @@ public struct Vector:CustomStringConvertible {
         grid = Array(repeating: 1.0, count: n)
     }
     
+    // MARK: ranges
     public init(min:Double, max:Double, step:Double){
         // min, min+step, min+2*step..., max-step, max
         self.init(min:min, max:max, num:1+((max-min)/step).int)
@@ -53,6 +54,57 @@ public struct Vector:CustomStringConvertible {
         vDSP_vrampD(&min, &step, !self, 1.stride, n.length)
     }
 
+    public init(min: Double, max: Double, x exclusive: Bool = true) {
+        // min...max
+        let pad = exclusive ? 0 : 1
+        self.init(zeros:max.int - min.int + pad)
+        var o = CDouble(min)
+        var l = CDouble(1)
+        vDSP_vrampD(&o, &l, !self, 1.stride, n.length)
+    }
+    
+    public init(arange:Int, exclusive:Bool = true) {
+        // 0..<max
+        self.init(min:0, max: arange.double, x:exclusive)
+    }
+    
+    public init(arange:Double, exclusive:Bool = true) {
+        // 0..<max
+        self.init(min:0, max: arange, x:exclusive)
+    }
+    
+    
+    // MARK: various
+    public init(asarray: [Double]) {
+        // convert a grid of double's to an array
+        self.init(zeros:asarray.count)
+        grid = asarray
+    }
+    
+    public init(asarray: Range<Int>) {
+        // make a range a grid of arrays
+        // improve with [1]
+        // [1]:https://gist.github.com/nubbel/d5a3639bea96ad568cf2
+        let start:Double = asarray.lowerBound.double * 1.0
+        let end:Double   = asarray.upperBound.double * 1.0
+        self.init(min:start, max: end, x:true)
+    }
+    
+    public init(numbers: Double...) {
+        // okay to leave unoptimized, only used for testing
+        self.init(zeros:numbers.count)
+        var i = 0
+        for number in numbers{
+            grid[i] = number
+            i += 1
+        }
+    }
+    
+    // MARK: Random
+    public static func seed(_ n:Int){
+        SWIX_SEED = __CLPK_integer(n)
+    }
+    
     public init(rand: Int, distro:String="uniform"){
         n = rand
         grid = Array(repeating: 0.0, count: n)
@@ -76,61 +128,7 @@ public struct Vector:CustomStringConvertible {
         shuffle()
     }
 
-    public init(numbers: Double...) {
-    // array(1, 2, 3, 4) -> arange(4)+1
-    // okay to leave unoptimized, only used for testing
-        self.init(zeros:numbers.count)
-        var i = 0
-        for number in numbers{
-            grid[i] = number
-            i += 1
-        }
-    }
-    
-    public init(min: Double, max: Double, x exclusive: Bool = true) {
-        // min...max
-        let pad = exclusive ? 0 : 1
-        self.init(zeros:max.int - min.int + pad)
-        var o = CDouble(min)
-        var l = CDouble(1)
-        vDSP_vrampD(&o, &l, !self, 1.stride, n.length)
-    }
-
-    public init(arange:Int, exclusive:Bool = true) {
-        // 0..<max
-        self.init(min:0, max: arange.double, x:exclusive)
-    }
-    
-    public init(arange:Double, exclusive:Bool = true) {
-        // 0..<max
-        self.init(min:0, max: arange, x:exclusive)
-    }
-    
-
-    public init(asarray: [Double]) {
-        // convert a grid of double's to an array
-        self.init(zeros:asarray.count)
-        grid = asarray
-    }
-
-    public init(asarray: Range<Int>) {
-        // make a range a grid of arrays
-        // improve with [1]
-        // [1]:https://gist.github.com/nubbel/d5a3639bea96ad568cf2
-        let start:Double = asarray.lowerBound.double * 1.0
-        let end:Double   = asarray.upperBound.double * 1.0
-        self.init(min:start, max: end, x:true)
-    }
-    
-    public func copy(_ x: Vector) -> Vector{
-        // copy the value
-        return x.copy()
-    }
-    
-    public static func seed(_ n:Int){
-        SWIX_SEED = __CLPK_integer(n)
-    }
-    
+    // MARK: - re-arranging
     public func copy() -> Vector{
         // return a new array just like this one
         let y = Vector(zeros:n)
@@ -146,15 +144,20 @@ public struct Vector:CustomStringConvertible {
         vDSP_vsortD(!res, n.length, 1.cint)
         return res
     }
-    public func indexIsValidForRow(_ index: Int) -> Bool {
-        // making sure this index is valid
-        return index >= 0 && index < n
-    }
+    
+    // MARK: - statistical
     public func min() -> Double{
         // return the minimum
         var m:CDouble=0
         vDSP_minvD(!self, 1.stride, &m, self.n.length)
         return Double(m)
+    }
+    public func min(_ y:Vector)->Vector{
+        // finds the min of two arrays element wise
+        assert(n == y.n)
+        let z = Vector(zerosLike:self)
+        vDSP_vminD(!self, 1.stride, !y, 1.stride, !z, 1.stride, n.length)
+        return z
     }
     public func max() -> Double{
         // return the maximum
@@ -162,9 +165,23 @@ public struct Vector:CustomStringConvertible {
         vDSP_maxvD(!self, 1.stride, &m, self.n.length)
         return m
     }
+    public func max(_ y:Vector)->Vector{
+        // finds the max of two arrays element wise
+        assert(n == y.n)
+        let z = Vector(zerosLike:self)
+        vDSP_vmaxD(!self, 1.stride, !y, 1.stride, !z, 1.stride, n.length)
+        return z
+    }
+    
     public func mean() -> Double{
         // return the mean
         return self.sum() / n
+    }
+    
+    // MARK: - subscript
+    public func indexIsValidForRow(_ index: Int) -> Bool {
+        // making sure this index is valid
+        return index >= 0 && index < n
     }
     public subscript(index:String)->Vector{
         // assumed to be x["all"]. returns every element
@@ -248,21 +265,14 @@ public struct Vector:CustomStringConvertible {
         }
     }
 
-    public func max(_ y:Vector)->Vector{
-        // finds the max of two arrays element wise
-        assert(n == y.n)
-        let z = Vector(zerosLike:self)
-        vDSP_vmaxD(!self, 1.stride, !y, 1.stride, !z, 1.stride, n.length)
-        return z
+    // MARK: - conversion
+    
+    func unsafeMutablePointer()->UnsafeMutablePointer<Double>{
+        // sustains since objc rewrites raw memory!
+        return UnsafeMutablePointer<Double>(mutating: grid)
     }
-    public func min(_ y:Vector)->Vector{
-        // finds the min of two arrays element wise
-        assert(n == y.n)
-        let z = Vector(zerosLike:self)
-        vDSP_vminD(!self, 1.stride, !y, 1.stride, !z, 1.stride, n.length)
-        return z
-    }
-
+    
+    // MARK: - debug print
     public var description:String {
         var res = "Vector(["
         var separator = ""

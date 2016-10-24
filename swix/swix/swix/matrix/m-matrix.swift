@@ -112,6 +112,11 @@ public struct Matrix:CustomStringConvertible {
         y.flat = self.flat.copy()
         return y
     }
+    
+    // MARK: - subscript
+    public func indexIsValidForRow(_ r: Int, c: Int) -> Bool {
+        return r >= 0 && r < rows && c>=0 && c < columns
+    }
     public subscript(i: MatrixSubscript) -> Vector {
         get {
             let size = rows < columns ? rows : columns
@@ -136,42 +141,7 @@ public struct Matrix:CustomStringConvertible {
             self[.diag] = newValue
         }
     }
-    public func indexIsValidForRow(_ r: Int, c: Int) -> Bool {
-        return r >= 0 && r < rows && c>=0 && c < columns
-    }
-    public func dot(_ y: Matrix) -> Matrix{
-        let (Mx, Nx) = self.shape
-        let (My, Ny) = y.shape
-        assert(Nx == My, "Matrix sizes not compatible for dot product")
-        let z = Matrix(zeros:(Mx, Ny))
-        cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
-            Mx.cint, Ny.cint, Nx.cint, 1.0,
-            !self, Nx.cint,
-            !y, Ny.cint, 1.0,
-            !z, Ny.cint)
-        return z
-    }
-    public func dot(_ x: Vector) -> Vector{
-        var y = Matrix(zeros:(x.n, 1))
-        y.flat = x
-        let z = self.dot(y)
-        return z.flat
-    }
-    public func min(_ axis:Int = -1) -> Double{
-        if axis == -1{
-            return self.flat.min()
-        }
-        assert(axis==0 || axis==1, "Axis must be 0 or 1 as matrix only has two dimensions")
-        assert(false, "max(x, axis:Int) for maximum of each row is not implemented yet. Use max(A.flat) or A.flat.max() to get the global maximum")
-
-    }
-    public func max(_ axis:Int = -1) -> Double{
-        if axis == -1 {
-            return self.flat.max()
-        }
-        assert(axis==0 || axis==1, "Axis must be 0 or 1 as matrix only has two dimensions")
-        assert(false, "max(x, axis:Int) for maximum of each row is not implemented yet. Use max(A.flat) or A.flat.max() to get the global maximum")
-    }
+    
     public subscript(i: Int, j: Int) -> Double {
         // x[0,0]
         get {
@@ -315,29 +285,69 @@ public struct Matrix:CustomStringConvertible {
             self.flat[i.double * self.columns.double + k] = newValue
         }
     }
+
+    // MARK: - dot
+    public func dot(_ y: Matrix) -> Matrix{
+        let (Mx, Nx) = self.shape
+        let (My, Ny) = y.shape
+        assert(Nx == My, "Matrix sizes not compatible for dot product")
+        let z = Matrix(zeros:(Mx, Ny))
+        cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
+            Mx.cint, Ny.cint, Nx.cint, 1.0,
+            !self, Nx.cint,
+            !y, Ny.cint, 1.0,
+            !z, Ny.cint)
+        return z
+    }
+    public func dot(_ x: Vector) -> Vector{
+        var y = Matrix(zeros:(x.n, 1))
+        y.flat = x
+        let z = self.dot(y)
+        return z.flat
+    }
     
+    // MARK: - statistics
+    public func min(_ axis:Int = -1) -> Double{
+        if axis == -1{
+            return self.flat.min()
+        }
+        assert(axis==0 || axis==1, "Axis must be 0 or 1 as matrix only has two dimensions")
+        assert(false, "max(x, axis:Int) for maximum of each row is not implemented yet. Use max(A.flat) or A.flat.max() to get the global maximum")
+
+    }
+    public func max(_ axis:Int = -1) -> Double{
+        if axis == -1 {
+            return self.flat.max()
+        }
+        assert(axis==0 || axis==1, "Axis must be 0 or 1 as matrix only has two dimensions")
+        assert(false, "max(x, axis:Int) for maximum of each row is not implemented yet. Use max(A.flat) or A.flat.max() to get the global maximum")
+    }
+    
+    
+    // MARK: - debug print
     public var description:String {
-        let res = ""
-//        var printedSpacer = false
-//        var prefix = ""
-//        for i in 0..<shape.0{
-//            // pre and post nice -- internal variables
-//            if i==shape.0-1 {post=postfix}
-//            else {post = "],"}
-//            
-//            if shape.0 < 16 || i<4-1 || i>shape.0-4{
-//                res += self[i, 0..<x.shape.1]
-//            }
-//            else if !printedSpacer {
-//                printedSpacer = true
-//                res += "\n        ...,"
-//            }
-//            prefix = "\n        "
-//        }
+        var res = "Matrix((\(shape.0),\(shape.1)), ["
+        var printedSpacer = false
+        let indent = "   "
+        for i in 0..<shape.0{
+            res += "\n" + indent
+
+            if shape.0 < 16 || i<4-1 || i>shape.0-4{
+                let v = self[i, 0..<shape.1]
+                res += v.description
+                if i < shape.0-1 { res += "," }
+            }
+            else if !printedSpacer {
+                printedSpacer = true
+                res += "\n" + indent + "...,"
+            }
+        }
+        res += "])"
         return res
     }
 }
 
+// MARK: -
 extension Vector {
     public func reshape(_ shape: (Int,Int)) -> Matrix{
         // reshape to a matrix of size.
