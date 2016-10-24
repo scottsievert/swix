@@ -3,10 +3,10 @@
 //
 
 // for speedy mathematical functions
-#import <Accelerate/Accelerate.h>
+//#import <Accelerate/Accelerate.h>
 
 // for the machine learning
-#import "OpenCV.h"
+//#import "OpenCV.h"
 
 // for various easier/faster-in-c operations
 void index_xa_b_objc(double * x, double*a, double*b, int N);

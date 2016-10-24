@@ -7,51 +7,12 @@ import Darwin
 import CoreGraphics
 
 
-protocol FloatingPointMathType {
-//  var acos:Self  {get}
-//  var asin:Self  {get}
-//  var atan:Self  {get}
-//  func atan2(x:Self) -> Self
-//  var cos:Self   {get}
-//  var sin:Self   {get}
-//  var tan:Self   {get}
-//  var exp:Self   {get}
-//  var exp2:Self  {get}
-//  var log:Self   {get}
-//  var log10:Self {get}
-//  var log2:Self  {get}
-//  func pow(exponent:Self) -> Self
-//  var sqrt:Self  {get}
-}
-
-
-extension Double :  FloatingPointMathType {
-//  var abs:Double  { return Double.abs(self)   }
-//  var acos:Double { return Darwin.acos(self)  }
-//  var asin:Double { return Darwin.asin(self)  }
-//  var atan:Double { return Darwin.atan(self)  }
-//  func atan2(x:Double) -> Double { return Darwin.atan2(self,x) }
-//  var cos:Double  { return Darwin.cos(self)   }
-//  var sin:Double  { return Darwin.sin(self)   }
-//  var tan:Double  { return Darwin.tan(self)   }
-//  var exp:Double  { return Darwin.exp(self)   }
-//  var exp2:Double { return Darwin.exp2(self)  }
-//  var log:Double  { return Darwin.log(self)   }
-//  var log10:Double{ return Darwin.log10(self) }
-//  var log2:Double { return Darwin.log2(self)  }
-//  func pow(exponent:Double)-> Double { return Darwin.pow(self, exponent) }
-//  var sqrt:Double { return Darwin.sqrt(self)  }
-  func __conversion() -> CGFloat { return CGFloat(self) }
-}
-
-
-
 protocol ScalarFloatingPointType {
   var toDouble:Double { get }
   init(_ value:Double)
 }
 
-extension CGFloat : ScalarFloatingPointType, FloatingPointMathType {
+extension CGFloat : ScalarFloatingPointType {
   var toDouble:Double  { return Double(self)      }
 //  var abs:CGFloat      { return self.abs  }
 //  var acos:CGFloat     { return Darwin.acos(self) }
@@ -68,7 +29,6 @@ extension CGFloat : ScalarFloatingPointType, FloatingPointMathType {
 //  var log2:CGFloat     { return Darwin.log2(self)}
 //  func pow(exponent:CGFloat)-> CGFloat { return Darwin.pow(self, exponent) }
 //  var sqrt:CGFloat     { return Darwin.sqrt(self) }
-  func __conversion() -> Double { return Double(self) }
 }
 
 extension Float : ScalarFloatingPointType { var toDouble:Double { return Double(self)      } }
@@ -79,46 +39,31 @@ protocol ScalarIntegerType : ScalarFloatingPointType {
 
 extension Int : ScalarIntegerType {
   var toDouble:Double { return Double(self) }
-  func __conversion() -> Double { return Double(self) }
   var toInt:Int { return Int(self) }
-
 }
 extension Int16 : ScalarIntegerType {
   var toDouble:Double { return Double(self) }
-  func __conversion() -> Double { return Double(self) }
   var toInt:Int { return Int(self) }
-
 }
 extension Int32 : ScalarIntegerType {
   var toDouble:Double { return Double(self) }
-  func __conversion() -> Double { return Double(self) }
   var toInt:Int { return Int(self) }
-
 }
 extension Int64 : ScalarIntegerType {
   var toDouble:Double { return Double(self) }
-  func __conversion() -> Double { return Double(self) }
   var toInt:Int { return Int(self) }
-
 }
 extension UInt : ScalarFloatingPointType {
   var toDouble:Double { return Double(self) }
-  func __conversion() -> Double { return Double(self) }
-
 }
 extension UInt16  : ScalarFloatingPointType {
   var toDouble:Double { return Double(self) }
-  func __conversion() -> Double { return Double(self) }
-
 }
 extension UInt32 : ScalarFloatingPointType {
   var toDouble:Double { return Double(self) }
-  func __conversion() -> Double { return Double(self) }
 }
 extension UInt64 : ScalarFloatingPointType {
   var toDouble:Double { return Double(self) }
-  func __conversion() -> Double { return Double(self) }
-
 }
 
 

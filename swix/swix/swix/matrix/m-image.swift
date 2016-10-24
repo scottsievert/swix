@@ -24,10 +24,10 @@ import Foundation
 //import UIKit // for iOS use
 //import CoreGraphics // possibly needed for iOS use
 
-func rgb2hsv_pixel(_ R:Double, G:Double, B:Double)->(Double, Double, Double){
+public func rgb2hsv_pixel(_ R:Double, G:Double, B:Double)->(Double, Double, Double){
     // tested against wikipedia/HSL_and_HSV. returns (H, S_hsv, V)
-    let M = max(array(R, G, B))
-    let m = min(array(R, G, B))
+    let M = Vector(numbers:R, G, B).max()
+    let m = Vector(numbers:R, G, B).min()
     let C = M - m
     var Hp:Double = 0
     if      M==R {Hp = ((G-B)/C).truncatingRemainder(dividingBy: 6)}
@@ -42,14 +42,14 @@ func rgb2hsv_pixel(_ R:Double, G:Double, B:Double)->(Double, Double, Double){
 }
 
 
-func rgb2hsv(_ r:matrix, g:matrix, b:matrix)->(matrix, matrix, matrix){
+public func rgb2hsv(_ r:Matrix, g:Matrix, b:Matrix)->(Matrix, Matrix, Matrix){
     assert(r.shape.0 == g.shape.0)
     assert(b.shape.0 == g.shape.0)
     assert(r.shape.1 == g.shape.1)
     assert(b.shape.1 == g.shape.1)
-    var h = zeros_like(r)
-    var s = zeros_like(g)
-    var v = zeros_like(b)
+    var h = Matrix(zerosLike:r)
+    var s = Matrix(zerosLike:g)
+    var v = Matrix(zerosLike:b)
     for i in 0..<r.shape.0{
         for j in 0..<r.shape.1{
             let (h_p, s_p, v_p) = rgb2hsv_pixel(r[i,j], G: g[i,j], B: b[i,j])
@@ -60,12 +60,12 @@ func rgb2hsv(_ r:matrix, g:matrix, b:matrix)->(matrix, matrix, matrix){
     }
     return (h, s, v)
 }
-func rgb2_hsv_vplane(_ r:matrix, g:matrix, b:matrix)->matrix{
-    return max(max(r, y: g), y: b)
+public func rgb2_hsv_vplane(_ r:Matrix, g:Matrix, b:Matrix)->Matrix{
+    return r.max(g).max(b)
 }
 
 
-func savefig(_ x:matrix, filename:String, save:Bool=true, show:Bool=false){
+public func savefig(_ x:Matrix, filename:String, save:Bool=true, show:Bool=false){
     // assumes Python is on your $PATH and pylab/etc are installed
     // prefix should point to the swix folder!
     // prefix is defined in numbers.swift
@@ -76,11 +76,11 @@ func savefig(_ x:matrix, filename:String, save:Bool=true, show:Bool=false){
     print("savefig: Removing CSV FILE " + S2_PREFIX + "temp.csv")
   Process.launchedProcess(launchPath: "rm", arguments: [S2_PREFIX+"temp.csv"])
 }
-func imshow(_ x: matrix){
+public func imshow(_ x: Matrix){
     savefig(x, filename: "junk", save:false, show:true)
 }
 
-//func UIImageToRGBA(image:UIImage)->(matrix, matrix, matrix, matrix){
+//func UIImageToRGBA(image:UIImage)->(Matrix, Matrix, Matrix, Matrix){
 //    // returns red, green, blue and alpha channels
 //    
 //    // init'ing
@@ -121,7 +121,7 @@ func imshow(_ x: matrix){
 //    a.flat = rawDataArray[4*i+3]
 //    return (r, g, b, a)
 //}
-//func RGBAToUIImage(r:matrix, g:matrix, b:matrix, a:matrix)->UIImage{
+//func RGBAToUIImage(r:Matrix, g:Matrix, b:Matrix, a:Matrix)->UIImage{
 //    // might be useful! [1]
 //    // [1]:http://stackoverflow.com/questions/30958427/pixel-array-to-uiimage-in-swift
 //    // setup

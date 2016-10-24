@@ -8,37 +8,38 @@
 
 import Foundation
 
-// vector binary
-func write_binary(_ x:vector, filename:String){
+// Vector binary
+public func write_binary(_ x:Vector, filename:String){
     let N = x.n
     let data = Data(bytes: x.grid, count:N*MemoryLayout<Double>.size)
     try? data.write(to: URL(fileURLWithPath: filename), options: [])
 }
-func read_binary(_ filename:String) -> vector{
+public func read_binary(_ filename:String) -> Vector{
     let read = try? Data(contentsOf: URL(fileURLWithPath: filename))
-    try? read?.write(to:URL(fileURLWithPath:filename+"x"), options:[])
     let l:Int! = read?.count
     let sD:Int = MemoryLayout<Double>.size
     let count = (l.double / sD.double)
     
-    let y = zeros(count.int)
+    let y = Vector(zeros:count.int)
     (read as NSData?)?.getBytes(!y, length: count.int*MemoryLayout<Double>.size)
     return y
 }
 
 // matrix binary
-func write_binary(_ x:matrix, filename:String){
-    let y = concat(array(x.shape.0.double, x.shape.1.double), y: x.flat)
+public func write_binary(_ x:Matrix, filename:String){
+//    let y = array(x.shape.0.double, x.shape.1.double).concat(x.flat)
+
+    let y = Vector(numbers:x.shape.0.double, x.shape.1.double).concat(x.flat)
     write_binary(y, filename:filename)
 }
-func read_binary(_ filename:String)->matrix{
-    var a:vector = read_binary(filename)
+public func read_binary(_ filename:String)->Matrix{
+    var a:Vector = read_binary(filename)
     let (w, h) = (a[0], a[1])
-    return reshape(a[2..<a.n], shape: (w.int,h.int))
+    return a[2..<a.n].reshape((w.int,h.int))
 }
 
-// vector csv
-func write_csv(_ x:vector, filename:String){
+// Vector csv
+public func write_csv(_ x:Vector, filename:String){
     // write the array to CSV
     var seperator=","
     var str = ""
@@ -54,7 +55,7 @@ func write_csv(_ x:vector, filename:String){
     }
     
 }
-func read_csv(_ filename:String) -> vector{
+public func read_csv(_ filename:String) -> Vector{
     var x: String?
     do {
         x = try String(contentsOfFile: filename, encoding: String.Encoding.utf8)
@@ -70,22 +71,22 @@ func read_csv(_ filename:String) -> vector{
         array.append(num.doubleValue)
         columns += 1
     }
-    var done = zeros(1 * columns)
+    var done = Vector(zeros:1 * columns)
     done.grid = array
     return done
 }
 
-class CSVFile{
-    var data: matrix
-    var header: [String]
-    init(data: matrix, header: [String]){
+public class CSVFile{
+    public var data: Matrix
+    public var header: [String]
+    public init(data: Matrix, header: [String]){
         self.data = data
         self.header = header
     }
 }
 
 // for matrix csv
-func read_csv(_ filename:String, header_present:Bool=true, _ rowWithoutMissingValues: Int=1) -> CSVFile{
+public func read_csv(_ filename:String, header_present:Bool=true, _ rowWithoutMissingValues: Int=1) -> CSVFile{
     var x: String?
     do {
         x = try String(contentsOfFile: filename, encoding: String.Encoding.utf8)
@@ -141,7 +142,7 @@ func read_csv(_ filename:String, header_present:Bool=true, _ rowWithoutMissingVa
         }
     }
     
-    var done = zeros((rows - startrow, columns))
+    var done = Matrix(zeros:(rows - startrow, columns))
     
     done.flat.grid = array
     
@@ -153,11 +154,11 @@ func read_csv(_ filename:String, header_present:Bool=true, _ rowWithoutMissingVa
     }
 }
 
-func write_csv(_ csv:CSVFile, filename:String){
+public func write_csv(_ csv:CSVFile, filename:String){
     write_csv(csv.data, filename:filename, header:csv.header)
 }
 
-func write_csv(_ x:matrix, filename:String, header:[String] = [""]){
+public func write_csv(_ x:Matrix, filename:String, header:[String] = [""]){
     var seperator=","
     var str = ""
     var i:Int=1

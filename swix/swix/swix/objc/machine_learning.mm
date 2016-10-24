@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "OpenCV.h"
-#import "swix-Bridging-Header.h"
+#import <opencv2/opencv.hpp>
+#import <opencv2/core/core.hpp>
+#import <opencv2/highgui/highgui.hpp>
+#import <opencv2/ml/ml.hpp>
 using namespace cv;
 
 void doubleToFloat(double * x, float * y, int N){
