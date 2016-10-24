@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		A71F5EEA1DBE28D000888228 /* m-initing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D216421B629E8E00489EB9 /* m-initing.swift */; };
+		A72244101DBE3BF700B41F61 /* SwixTestsF.swift in Sources */ = {isa = PBXBuildFile; fileRef = A722440F1DBE3BF700B41F61 /* SwixTestsF.swift */; };
+		A72244121DBE3BF700B41F61 /* SwixF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A72965971DBCDAE4007C07F3 /* SwixF.framework */; };
+		A72244181DBE3C0800B41F61 /* SwixTestF.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72244081DBE3BCF00B41F61 /* SwixTestF.swift */; };
 		A728DFFD1DBBAF66008624D4 /* SwixTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A728DFED1DBBACE3008624D4 /* SwixTest.swift */; };
 		A729654F1DBBB34A007C07F3 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D216541B629E8E00489EB9 /* opencv2.framework */; };
 		A72965501DBBB366007C07F3 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B481B1196F20EB00DAEDFF /* Accelerate.framework */; };
@@ -69,9 +72,23 @@
 		A75377411DBD31F800E25A40 /* swix-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D2D216561B629E8E00489EB9 /* swix-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A72244131DBE3BF700B41F61 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D24A8549196D7D73009C18AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A72965961DBCDAE4007C07F3;
+			remoteInfo = SwixF;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		A71F5EF41DBE350700888228 /* SwixOTestsF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwixOTestsF.swift; sourceTree = "<group>"; };
 		A71F5EF61DBE350700888228 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A72244081DBE3BCF00B41F61 /* SwixTestF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwixTestF.swift; path = swix/swixTest/SwixTestF.swift; sourceTree = "<group>"; };
+		A722440D1DBE3BF700B41F61 /* SwixTestsF.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwixTestsF.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A722440F1DBE3BF700B41F61 /* SwixTestsF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwixTestsF.swift; sourceTree = "<group>"; };
+		A72244111DBE3BF700B41F61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A728DFEC1DBBACE3008624D4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = swix/swixTest/Info.plist; sourceTree = "<group>"; };
 		A728DFED1DBBACE3008624D4 /* SwixTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwixTest.swift; path = swix/swixTest/SwixTest.swift; sourceTree = "<group>"; };
 		A728DFF31DBBAD15008624D4 /* SwixTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwixTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +130,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A722440A1DBE3BF700B41F61 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A72244121DBE3BF700B41F61 /* SwixF.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A728DFF01DBBAD15008624D4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -156,11 +181,21 @@
 			path = SwixOTestsF;
 			sourceTree = "<group>";
 		};
+		A722440E1DBE3BF700B41F61 /* SwixTestsF */ = {
+			isa = PBXGroup;
+			children = (
+				A722440F1DBE3BF700B41F61 /* SwixTestsF.swift */,
+				A72244111DBE3BF700B41F61 /* Info.plist */,
+			);
+			path = SwixTestsF;
+			sourceTree = "<group>";
+		};
 		A728DFC41DBBAB46008624D4 /* swixTest */ = {
 			isa = PBXGroup;
 			children = (
 				A728DFEC1DBBACE3008624D4 /* Info.plist */,
 				A728DFED1DBBACE3008624D4 /* SwixTest.swift */,
+				A72244081DBE3BCF00B41F61 /* SwixTestF.swift */,
 			);
 			name = swixTest;
 			sourceTree = "<group>";
@@ -200,6 +235,7 @@
 				A729655B1DBCBA75007C07F3 /* SwixO */,
 				A72965981DBCDAE4007C07F3 /* SwixF */,
 				A71F5EF31DBE350700888228 /* SwixOTestsF */,
+				A722440E1DBE3BF700B41F61 /* SwixTestsF */,
 				D24A8552196D7D73009C18AC /* Products */,
 				D2D216371B629E8E00489EB9 /* swix */,
 				A72965521DBBC72C007C07F3 /* Frameworks */,
@@ -212,6 +248,7 @@
 				A728DFF31DBBAD15008624D4 /* SwixTest.xctest */,
 				A729655A1DBCBA75007C07F3 /* SwixO.framework */,
 				A72965971DBCDAE4007C07F3 /* SwixF.framework */,
+				A722440D1DBE3BF700B41F61 /* SwixTestsF.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -320,6 +357,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		A722440C1DBE3BF700B41F61 /* SwixTestsF */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A72244151DBE3BF700B41F61 /* Build configuration list for PBXNativeTarget "SwixTestsF" */;
+			buildPhases = (
+				A72244091DBE3BF700B41F61 /* Sources */,
+				A722440A1DBE3BF700B41F61 /* Frameworks */,
+				A722440B1DBE3BF700B41F61 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A72244141DBE3BF700B41F61 /* PBXTargetDependency */,
+			);
+			name = SwixTestsF;
+			productName = SwixTestsF;
+			productReference = A722440D1DBE3BF700B41F61 /* SwixTestsF.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		A728DFF21DBBAD15008624D4 /* SwixTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A728DFF81DBBAD15008624D4 /* Build configuration list for PBXNativeTarget "SwixTest" */;
@@ -384,6 +439,11 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = com.scott;
 				TargetAttributes = {
+					A722440C1DBE3BF700B41F61 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = BBEN69ME29;
+						ProvisioningStyle = Automatic;
+					};
 					A728DFF21DBBAD15008624D4 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = BBEN69ME29;
@@ -416,11 +476,19 @@
 				A728DFF21DBBAD15008624D4 /* SwixTest */,
 				A72965591DBCBA75007C07F3 /* SwixO */,
 				A72965961DBCDAE4007C07F3 /* SwixF */,
+				A722440C1DBE3BF700B41F61 /* SwixTestsF */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A722440B1DBE3BF700B41F61 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A728DFF11DBBAD15008624D4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -445,6 +513,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A72244091DBE3BF700B41F61 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A72244101DBE3BF700B41F61 /* SwixTestsF.swift in Sources */,
+				A72244181DBE3C0800B41F61 /* SwixTestF.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A728DFEF1DBBAD15008624D4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -512,7 +589,59 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A72244141DBE3BF700B41F61 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A72965961DBCDAE4007C07F3 /* SwixF */;
+			targetProxy = A72244131DBE3BF700B41F61 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		A72244161DBE3BF700B41F61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = BBEN69ME29;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = SwixTestsF/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = biz.liquit.SwixTestsF;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		A72244171DBE3BF700B41F61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = BBEN69ME29;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = SwixTestsF/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = biz.liquit.SwixTestsF;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		A728DFF91DBBAD15008624D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -791,6 +920,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A72244151DBE3BF700B41F61 /* Build configuration list for PBXNativeTarget "SwixTestsF" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A72244161DBE3BF700B41F61 /* Debug */,
+				A72244171DBE3BF700B41F61 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		A728DFF81DBBAD15008624D4 /* Build configuration list for PBXNativeTarget "SwixTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
