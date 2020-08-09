@@ -1,0 +1,385 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		OBJ_33 /* numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* numbers.swift */; };
+		OBJ_34 /* vector-complex-math.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* vector-complex-math.swift */; };
+		OBJ_35 /* vector-conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* vector-conversion.swift */; };
+		OBJ_36 /* vector-helper-functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* vector-helper-functions.swift */; };
+		OBJ_37 /* vector-initing.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* vector-initing.swift */; };
+		OBJ_38 /* vector-operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* vector-operators.swift */; };
+		OBJ_39 /* vector-simple-math.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* vector-simple-math.swift */; };
+		OBJ_40 /* vector-vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* vector-vector.swift */; };
+		OBJ_47 /* numberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* numberTests.swift */; };
+		OBJ_48 /* vectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* vectorTests.swift */; };
+		OBJ_50 /* Swix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* Swix.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D2E1E3E91E46A98500D93E2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = OBJ_28;
+			remoteInfo = Swix;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		OBJ_10 /* vector-complex-math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "vector-complex-math.swift"; sourceTree = "<group>"; };
+		OBJ_11 /* vector-conversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "vector-conversion.swift"; sourceTree = "<group>"; };
+		OBJ_12 /* vector-helper-functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "vector-helper-functions.swift"; sourceTree = "<group>"; };
+		OBJ_13 /* vector-initing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "vector-initing.swift"; sourceTree = "<group>"; };
+		OBJ_14 /* vector-operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "vector-operators.swift"; sourceTree = "<group>"; };
+		OBJ_15 /* vector-simple-math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "vector-simple-math.swift"; sourceTree = "<group>"; };
+		OBJ_16 /* vector-vector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "vector-vector.swift"; sourceTree = "<group>"; };
+		OBJ_19 /* numberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = numberTests.swift; sourceTree = "<group>"; };
+		OBJ_20 /* vectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vectorTests.swift; sourceTree = "<group>"; };
+		OBJ_21 /* python_testing */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python_testing; sourceTree = SOURCE_ROOT; };
+		OBJ_22 /* Sources-future */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Sources-future"; sourceTree = SOURCE_ROOT; };
+		OBJ_23 /* swix */ = {isa = PBXFileReference; lastKnownFileType = folder; path = swix; sourceTree = SOURCE_ROOT; };
+		OBJ_24 /* Tests-future */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Tests-future"; sourceTree = SOURCE_ROOT; };
+		OBJ_26 /* Swix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Swix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_27 /* SwixTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = SwixTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		OBJ_9 /* numbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = numbers.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		OBJ_41 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_49 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_50 /* Swix.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		OBJ_17 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_18 /* SwixTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		OBJ_18 /* SwixTests */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_19 /* numberTests.swift */,
+				OBJ_20 /* vectorTests.swift */,
+			);
+			name = SwixTests;
+			path = Tests/SwixTests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_25 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_26 /* Swix.framework */,
+				OBJ_27 /* SwixTests.xctest */,
+			);
+			name = Products;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		OBJ_5 /*  */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_6 /* Package.swift */,
+				OBJ_7 /* Sources */,
+				OBJ_17 /* Tests */,
+				OBJ_21 /* python_testing */,
+				OBJ_22 /* Sources-future */,
+				OBJ_23 /* swix */,
+				OBJ_24 /* Tests-future */,
+				OBJ_25 /* Products */,
+			);
+			name = "";
+			sourceTree = "<group>";
+		};
+		OBJ_7 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_8 /* Swix */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		OBJ_8 /* Swix */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_9 /* numbers.swift */,
+				OBJ_10 /* vector-complex-math.swift */,
+				OBJ_11 /* vector-conversion.swift */,
+				OBJ_12 /* vector-helper-functions.swift */,
+				OBJ_13 /* vector-initing.swift */,
+				OBJ_14 /* vector-operators.swift */,
+				OBJ_15 /* vector-simple-math.swift */,
+				OBJ_16 /* vector-vector.swift */,
+			);
+			name = Swix;
+			path = Sources;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		OBJ_28 /* Swix */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_29 /* Build configuration list for PBXNativeTarget "Swix" */;
+			buildPhases = (
+				OBJ_32 /* Sources */,
+				OBJ_41 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Swix;
+			productName = Swix;
+			productReference = OBJ_26 /* Swix.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		OBJ_42 /* SwixTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_43 /* Build configuration list for PBXNativeTarget "SwixTests" */;
+			buildPhases = (
+				OBJ_46 /* Sources */,
+				OBJ_49 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_51 /* PBXTargetDependency */,
+			);
+			name = SwixTests;
+			productName = SwixTests;
+			productReference = OBJ_27 /* SwixTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		OBJ_1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 9999;
+			};
+			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "Swix" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = OBJ_5 /*  */;
+			productRefGroup = OBJ_25 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				OBJ_28 /* Swix */,
+				OBJ_42 /* SwixTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		OBJ_32 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_33 /* numbers.swift in Sources */,
+				OBJ_34 /* vector-complex-math.swift in Sources */,
+				OBJ_35 /* vector-conversion.swift in Sources */,
+				OBJ_36 /* vector-helper-functions.swift in Sources */,
+				OBJ_37 /* vector-initing.swift in Sources */,
+				OBJ_38 /* vector-operators.swift in Sources */,
+				OBJ_39 /* vector-simple-math.swift in Sources */,
+				OBJ_40 /* vector-vector.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_46 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_47 /* numberTests.swift in Sources */,
+				OBJ_48 /* vectorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		OBJ_51 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = OBJ_28 /* Swix */;
+			targetProxy = D2E1E3E91E46A98500D93E2C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		OBJ_3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				USE_HEADERMAP = NO;
+			};
+			name = Debug;
+		};
+		OBJ_30 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Swix.xcodeproj/Swix_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Swix;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				TARGET_NAME = Swix;
+			};
+			name = Debug;
+		};
+		OBJ_31 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Swix.xcodeproj/Swix_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Swix;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				TARGET_NAME = Swix;
+			};
+			name = Release;
+		};
+		OBJ_4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_OPTIMIZATION_LEVEL = s;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_SWIFT_FLAGS = "-DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 3.0;
+				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+		OBJ_44 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Swix.xcodeproj/SwixTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				TARGET_NAME = SwixTests;
+			};
+			name = Debug;
+		};
+		OBJ_45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Swix.xcodeproj/SwixTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				TARGET_NAME = SwixTests;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		OBJ_2 /* Build configuration list for PBXProject "Swix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_3 /* Debug */,
+				OBJ_4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_29 /* Build configuration list for PBXNativeTarget "Swix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_30 /* Debug */,
+				OBJ_31 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_43 /* Build configuration list for PBXNativeTarget "SwixTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_44 /* Debug */,
+				OBJ_45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = OBJ_1 /* Project object */;
+}
